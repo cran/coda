@@ -39,6 +39,7 @@ export(
   read.jags,
   spectrum0,
   spectrum0.ar,
+  thin,
   traceplot,
   varnames,
   "varnames<-")

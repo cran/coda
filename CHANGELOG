@@ -1,3 +1,6 @@
+0.8-2
+- Added generic function thin to list of exported functions
+
 0.8-1
 Continuing problems with namespace:
 - Addition of namespace requires new version number for coda,
