@@ -1,3 +1,10 @@
+0.5-10
+- Eliminated use of "=" for assignment operator.  This is a syntax error 
+  for R < 1.4.0 
+
+0.5-9
+- Further documentation bugs removed
+
 0.5-8
 - Removed further documentation bugs found by "R CMD check coda" using
   R-1.4 (pre-release)

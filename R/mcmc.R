@@ -124,7 +124,7 @@
 
 "window.mcmc" <- function (x, start, end, thin, ...) 
 {
-  ts.eps = getOption("ts.eps")
+  ts.eps <- getOption("ts.eps")
   xmcpar <- mcpar(x)
   xstart <- xmcpar[1]
   xend <- xmcpar[2]
