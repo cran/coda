@@ -1,3 +1,11 @@
+0.5-14
+- Fixed reporting of sample size in densplot(), for variables that are
+  in the range [0,1] or [0,Inf). Thanks to Roy Levy.
+
+0.5-13
+- mcmc() now works with data frames (provided that they contain only
+  numeric values).
+
 0.5-12
 - Documentation errors in coda.options.Rd and nchain.Rd fixed.
   Thanks to Kurt Hornik.

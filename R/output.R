@@ -130,6 +130,7 @@ function (x, show.obs = TRUE, bwf, main = "", ylim, ...)
       if(missing(ylim))
         ylim <- c(0, max(dens$y))
       plot(dens, ylab = "", main = main, type = "l", 
+           xlab = paste("N =", niter(x), "  Bandwidth =", formatC(dens$bw)),
            ylim = ylim, ...)
       if (show.obs) 
         lines(y[1:niter(x)], rep(max(dens$y)/100, niter(x)), 

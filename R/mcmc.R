@@ -60,6 +60,15 @@
     niter <- nrow(data)
     nvar <- ncol(data)
   }
+  else if (is.data.frame(data)) {
+      if (!all(sapply(data, mode) == "numeric") ||
+          any(sapply(data, is.factor))) {
+          stop ("Data frame contains non-numeric values or factors")
+      }
+      data <- as.matrix(data)
+      niter <- nrow(data)
+      nvar <- ncol(data)
+  }
   else {
     niter <- length(data)
     nvar <- 1
