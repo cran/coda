@@ -1,0 +1,24 @@
+\name{traceplot}
+\title{Trace plot of MCMC output}
+
+\usage{traceplot(x, smooth = TRUE, ...)}
+
+\arguments{
+\item{x}{An \code{mcmc} or \code{mcmc.list} object}
+\item{smooth}{draw smooth line through trace plot}
+\item{...}{Graphical parameters}
+}
+
+\description{
+Displays a plot of iterations vs sampled values for each variable
+in the chain, with a separate plot per variable.
+}
+
+\note{
+You can call this function directly, but it is more usually
+called by the \code{plot.mcmc} function.
+}
+
+\seealso{
+\code{\link{densplot}}, \code{\link{plot.mcmc}}
+}

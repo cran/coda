@@ -1,0 +1,19 @@
+codamenu	Main menu driver for the coda library
+mcmc		Create Markov Chain object
+mcmc.list	Create Markov Chain object with multiple replicates
+read.bugs	Read BUGS output into R
+
+autocorr	Autocorrelation function for Markov chains
+autocorr.plot	Plot autocorrelation 
+crosscorr	Cross-correlations 
+crosscorr.plot	Plot cross-correlations
+gelman.diag	Gelman and Rubin's diagnostic
+geweke.diag	Geweke's diagnostic
+heidel.diag	Heidelberger and Welch's diagnostic
+raftery.diag	Raftery and Lewis's diagnostic
+
+acf		Autocorrelation function for time series
+spec.pgram	Estimate spectral density by smoothed periodogram
+
+read.and.check	Read data from the command line and check 
+multi.menu	Choose multiple options from a menu

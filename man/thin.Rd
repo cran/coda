@@ -1,0 +1,23 @@
+\name{thin}
+\title{Thinning interval}
+
+\usage{thin(x)}
+
+\arguments{
+   \item{x}{a regular time series}
+}
+
+\description{
+   \code{thin} returns the interval between successive
+   values of a time series. \code{thin(x)} is equivalent
+   to \code{1/frequency(x)}.
+
+   This is a generic function. Methods have been implemented
+   for mcmc objects.
+}
+
+\author{Martyn Plummer}
+
+\seealso{
+	\code{\link{time}}
+}

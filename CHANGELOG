@@ -1,0 +1,81 @@
+0.4-5
+
+Bug fixes
+- densplot failed with show.obs=TRUE when scale was "positive" or
+  "proportion".
+- as.matrix.mcmc failed to preserve start, end and thin.
+- codamenu did not tidy up on exit.
+
+0.4-4
+
+Started S3 compatibility
+Fixed bug which caused options menus to crash
+Fixed legend bug in gelman.plot
+Confirmed that these bugs are fixed:
+* densplot "missing" and "scale" bugs (Thanks to Greg Warnes)
+* autocorr "improper time series parameters" bug ("acf"
+  function rewritten by Paul Gilbert)
+* integer overflow bug in raftery.diag (Thanks to Morten
+  Frydenberg)
+* read.bugs.interactive will search for the files it needs
+  and print their names.
+codamenu now assigns default variable and chain names to
+data when these are NULL.
+
+0.4-3
+
+Fixed help page errors pointed out by Brian Ripley.
+Fixed coda.credits
+
+0.4-2
+
+Whoops. 0.4-1 was a mistake.
+
+0.4-1
+
+updated manual pages
+new class mcmc.list added to deal with multiple chains. ugrade.mcmc
+   function introduced to deal with old mcmc objects.
+plot functions changed to use the "ask" parameter instead of
+  "pause" functions.
+spec.pgram now handles matrix time-series.
+acf function now calculates cross-correlations. Thanks to Paul Gilbert.
+codamenu functions now use title argument in "menu"
+corrected spelling mistakes in help pages
+changed instances of "T" and "F" to "TRUE" and "FALSE" (R coding standards)
+densplot now recognizes discrete distributions and prints histogram ...
+... also prints histogram if IQR=0 (large mass on one point)
+fixed bug in mcmc which allowed non-integer thinning intervals
+Fixed manual pages with bad use of "alias" command.
+
+0.3-4
+
+Fixed bug in "tspar<-" which breaks much of the code in R-0.62
+
+0.3-3
+
+Package was in obsolete format. Corrected by Fritz.
+
+** Pre-release changes for R version
+
+Created class "mcmc" with associated constructor and extractor
+functions as well as plot, print and summary methods.
+
+Modified diagnostics so they all work on objects of class "mcmc"
+and can be called directly by the user. All diagnostics return
+objects with associated print methods. Renamed some functions
+and arguments for ease of use.
+
+Changed the menu driven interface - now called by the function
+"codamenu" - to avoid recursive calling of menu functions.
+
+Put frequently used code inside utility functions.
+
+Got rid of functions written by Mathsoft
+
+Wrote drop-in replacements for some time series functions which
+are found in S-PLUS but not R.
+
+The logfile facility has been removed. Sorry.
+
+Changed license terms to GPL.

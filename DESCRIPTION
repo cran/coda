@@ -1,0 +1,8 @@
+Package: coda
+Version: 0.4-5
+Author: S original by Nicky Best, Kate Cowles and Karen Vines
+	R port by Martyn Plummer <plummer@iarc.fr>
+Description: Output analysis and diagnostics for Markov Chain
+	Monte Carlo simulations.
+Depends:
+License: GPL Version 2 or later.

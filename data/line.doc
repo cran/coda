@@ -1,0 +1,41 @@
+Line - Line example from BUGS manual
+
+DESCRIPTION
+
+A simple linear regression example used to illustrate the BUGS software
+for Gibbs Sampling.
+
+FORMAT
+
+An mcmc.list object with 200 iterations, 3 variables and 2 chains.
+The variables are
+
+alpha	Intercept parameter
+beta	Slope parameter
+sigma	Variance parameter
+
+The chains are
+
+line1
+line2
+
+The chains were generated using BUGS 0.6 with the following starting
+values, taken from the manual for CODA version 0.3.
+
+chain1: list(tau = 5, alpha = -5, beta=5, seed=1286608618)
+chain2: list(tau = 0.01, alpha = 0.01, beta=0.01, seed=1234567890)
+
+Note that in the CODA manual, for version 0.3, the seed for the
+first chain is given as 9876543210. In bugs 0.6 this causes a stack
+overflow error, because only 4 bytes of storage are set aside for
+the random seed. The value given for the seed here is 9876543210 %% 2^32.
+
+
+REFERENCES
+
+Spiegelhalter DJ, Thomas A, Best NG and Gilks W (1995) BUGS:
+Bayesian inference Using Gibbs Sampling, Version 0.50.
+MRC Biostatistics Unit, Cambridge.
+
+Best NG, Cowles MK, Vines SK (1995) CODA Manual  version 0.30.
+MRC Biostatistics Unit, Cambridge UK.

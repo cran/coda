@@ -1,0 +1,37 @@
+CODA is a set of tools for analyzing the output of Markov Chain
+Monte Carlo (MCMC) simulations and diagnosing lack of convergence.
+
+The S original can be downloaded from
+http://www.mrc-bsu.cam.ac.uk
+and is Copyright (C) MRC Biostatistics Unit 1995. 
+
+The CODA S manual contained these acknowledgements
+"The support of the Economic and Social Research Council (UK) is
+gratefully acknowledged. The work was funded in part by ESRC (UK)
+award number H519 25 5023.  We are also grateful to Brad Carlin
+for many helpful comments and ideas concerning the CODA software
+and manual, and to Steve Brooks for suggesting the graphical
+implementations of the Geweke and Gelman & Rubin convergence
+diagnostics."
+
+See "CHANGELOG" for information on the changes in the R version.
+
+Martyn Plummer <plummer@iarc.fr> 20/5/1998
+
+######################################################################
+Copying CODA for R
+
+`CODA' is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2, or (at your option) any later
+version.
+
+`CODA' is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+for more details.
+
+A copy of the GNU General Public License is available on the World Wide
+Web at http://www.gnu.org/copyleft/gpl.html.  You can also obtain it by
+writing to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge,
+MA 02139, USA.

@@ -1,0 +1,10 @@
+Line-old - Line example from BUGS manual
+
+DESCRIPTION
+
+A simple linear regression example used to illustrate the BUGS software
+for Gibbs Sampling.
+
+FORMAT
+
+An obsolete mcmc object. 
