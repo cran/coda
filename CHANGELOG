@@ -1,3 +1,6 @@
+0.8-3
+- Fixed documentation errors in coda.menu.Rd and linepost.Rd
+
 0.8-2
 - Added generic function thin to list of exported functions
 

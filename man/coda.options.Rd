@@ -4,14 +4,12 @@
 \alias{.Coda.Options}
 \alias{.Coda.Options.Default}
 \title{Options settings for the codamenu driver}
-
 \usage{
 coda.options(...)
 display.coda.options(data = FALSE, stats = FALSE, plots = FALSE, diags = FALSE)
 .Coda.Options
 .Coda.Options.Default
 }
-
 \arguments{
   \item{data}{logical flag: show data options?}
   \item{stats}{logical flag: show summary statistic options?}
@@ -19,7 +17,6 @@ display.coda.options(data = FALSE, stats = FALSE, plots = FALSE, diags = FALSE)
   \item{diags}{logical flag: show plotting options?}
   \item{...}{list of options}
 }
-
 \description{
   \code{coda.options} is a utility function that queries and sets
   options for the \code{codamenu()} function.  These settings affect
@@ -74,9 +71,7 @@ display.coda.options(data = FALSE, stats = FALSE, plots = FALSE, diags = FALSE)
       the optimal layout should be calculated (FALSE).}
   }
 }
-
-\seealso
-{
-  \link{\code{options}}.
+\seealso{
+  \code{\link{options}}
 }
 \keyword{utilities}
