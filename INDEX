@@ -2,7 +2,9 @@
 as.matrix.mcmc          Conversions of MCMC objects
 as.ts.mcmc              Coerce mcmc object to time series
 autocorr                Autocorrelation function for Markov chains
+autocorr.diag		Autocorrelations for diagonal elements only
 autocorr.plot           Plot autocorrelations for Markov Chains
+batchSE			Batch Standard Errors
 bugs2jags               Convert WinBUGS data file to JAGS data file
 coda.options            Options settings for the codamenu driver
 codamenu                Main menu driver for the coda package
@@ -33,6 +35,7 @@ read.and.check          Read data interactively and check that it
 read.coda               Read output files in CODA format
 read.coda.interactive   Read CODA output files interactively
 read.openbugs           Read CODA output files produced by OpenBUGS
+rejectionRate		Rejection Rate (for Metropolis--Hastings samples).
 spectrum0               Estimate spectral density at zero
 spectrum0.ar            Estimate spectral density at zero
 summary.mcmc            Summary statistics for Markov Chain Monte

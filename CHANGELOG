@@ -1,3 +1,21 @@
+0.9-2
+- [RGA] Added an autoburnin flag (default) true to gelman.diag to suppress 
+  automatic windowing for burn in (so I can do it manually).
+- [RGA] Fixed a problem where summary.mcmc.list would not give correct
+  pooled standard errors.
+- [RGA] Fixed propagation of standard par and titles to plot.mcmc and
+  plot.mcmc.list.  Also fixed so that ask will default to value in
+  par(). 
+- [RGA] Fixed a problem where autocorr would apply thinning twice to
+  mcmc.list objects.
+- [RGA] Changed effectiveSize for mcmc.list to sum across all chains.
+  Original behavior can be recovered by using lapply(x,effectiveSize)
+- [RGA] Added autocorr.diag function.
+- [RGA] Patched summary.mcmc and summary.mcmc.list so it would give
+  standard error of NA when spectrum0 blows ups.
+- [RGA] Added a rejectionRate method.
+- [RGA] Added a batch Standard Error Function
+
 0.9-1 
 - spectrum0 function now has default max.length argument of 200.
   This means that the output will be batched to a length between

@@ -5,7 +5,7 @@
 %\alias{print.gelman.diag}
 \title{Gelman and Rubin's convergence diagnostic}
 
-\usage{gelman.diag(x, confidence = 0.95, transform=FALSE)}
+\usage{gelman.diag(x, confidence = 0.95, transform=FALSE, autoburnin=TRUE)}
 
 \arguments{
 \item{x}{An \code{mcmc.list} object with more than one chain,
@@ -17,6 +17,10 @@ potential scale reduction factor}
 \code{x} should be transformed to improve the normality of the
 distribution. If set to TRUE, a log transform or logit transform, as
 appropriate, will be applied.}
+\item{autoburnin}{a logical flag indicating whether only the second half
+  of the series should be used in the computation.  If set to TRUE
+  (default) and \code{start(x)} is less than \code{end(x)/2} then start
+  of series will be adjusted so that only second half of series is used.}
 }
 
 \description{

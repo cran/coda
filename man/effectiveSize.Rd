@@ -18,6 +18,11 @@ size.  \code{n = N} only when there is no autocorrelation.
 Estimation of the effective sample size requires estimating the
 spectral density at frequency zero.  This is done by the function
 \code{spectrum0.ar}
+
+For a \code{mcmc.list} object, the effective sizes are summed across
+chains.  To get the size for each chain individually use
+\code{lapply(x,effectiveSize)}.  
+
 }
 \value{
 A vector giving the effective sample size for each column of \code{x}.

@@ -1,13 +1,15 @@
 "autocorr" <-
 function (x, lags = c(0, 1, 5, 10, 50), relative = TRUE) 
 {
+  ## RGA moved MCMC list processing first, else thinning gets
+  ## applied twice.  Thanks to Denise Chang for finding this.
+  if (is.mcmc.list(x)) 
+    return(lapply(x, autocorr, lags, relative))
   if (relative) 
     lags <- lags * thin(x)
   else if (any(lags%%thin(x) != 0)) 
     stop("Lags do not conform to thinning interval")
   lags <- lags[lags < niter(x) * thin(x)]
-  if (is.mcmc.list(x)) 
-    return(lapply(x, autocorr, lags, relative))
   x <- as.mcmc(x)
   y <- array(dim = c(length(lags), nvar(x), nvar(x)))
   dimnames(y) <- list(paste("Lag", lags), varnames(x), varnames(x))
@@ -19,9 +21,10 @@ function (x, lags = c(0, 1, 5, 10, 50), relative = TRUE)
 }
 
 "autocorr.plot" <-
-function (x, lag.max, auto.layout = TRUE, ask = TRUE, ...) 
+function (x, lag.max, auto.layout = TRUE, ask = par("ask"), ...) 
 {
-    oldpar <- NULL
+## RGA fixed to use default ask value.
+  oldpar <- NULL
     on.exit(par(oldpar))
     if (auto.layout) 
         oldpar <- par(mfrow = set.mfrow(Nchains = nchain(x), 
@@ -304,8 +307,9 @@ function (x, smooth = TRUE, col = 1:6, type = "l", ylab = "",
 }
 
 "plot.mcmc" <- function (x, trace = TRUE, density = TRUE, smooth = TRUE, bwf, 
-                         auto.layout = TRUE, ask = TRUE, ...) 
+                         auto.layout = TRUE, ask = par("ask"), ...) 
 {
+## RGA fixed to use default ask value.
   oldpar <- NULL
   on.exit(par(oldpar))
   if (auto.layout) {
@@ -316,16 +320,32 @@ function (x, smooth = TRUE, col = 1:6, type = "l", ylab = "",
   for (i in 1:nvar(x)) {
     y <- mcmc(as.matrix(x)[, i, drop=FALSE], start(x), end(x), thin(x)) 
     if (trace) 
-      traceplot(y, smooth = smooth)
+      ## RGA fixed to propagate ... argument.
+      traceplot(y, smooth = smooth, ...)
     if (density) {
       if (missing(bwf)) 
-        densplot(y)
+        ## RGA fixed to propagate ... argument.
+        densplot(y, ...)
       else 
-        densplot(y, bwf = bwf)
+        densplot(y, bwf = bwf, ...)
     }
     if (i==1)
        oldpar <- c(oldpar, par(ask=ask))
   }
+}
+
+
+### RGA This is a wrapper for spectrum0 which returns NA if
+### spectrum0 crashes.  This has happened to me several times when
+### there was bug in my MCMC algorithm.
+"safespec0" <-
+  function (x) {
+  result <- try(spectrum0(x)$spec)
+  ## R
+  if (class(result) == "try-error") result <- NA
+  ## S-Plus
+  if (class(result) == "try") result <- NA
+  result
 }
 
 "summary.mcmc" <-
@@ -335,17 +355,18 @@ function (x, smooth = TRUE, col = 1:6, type = "l", ylab = "",
   statnames <- c("Mean", "SD", "Naive SE", "Time-series SE")
   varstats <- matrix(nrow = nvar(x), ncol = length(statnames), 
                      dimnames = list(varnames(x), statnames))
-  sp0 <- function(x) spectrum0(x)$spec
+  ## RGA replaced with safespec0
+  #sp0 <- function(x) spectrum0(x)$spec
   if (is.matrix(x)) {
     xmean <- apply(x, 2, mean)
     xvar <- apply(x, 2, var)
-    xtsvar <- apply(x, 2, sp0)
+    xtsvar <- apply(x, 2, safespec0)
     varquant <- t(apply(x, 2, quantile, quantiles))
   }
   else {
     xmean <- mean(x, na.rm = TRUE)
     xvar <- var(x, na.rm = TRUE)
-    xtsvar <- sp0(x)
+    xtsvar <- safespec(x)
     varquant <- quantile(x, quantiles)
   }
   varstats[, 1] <- xmean

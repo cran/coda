@@ -94,9 +94,9 @@ effectiveSize <- function(x)
 {
   if (is.mcmc.list(x))
     {
-      ans <- vector("list", nchain(x))
-      for (i in 1:nchain(x))
-        ans[[i]] <- effectiveSize(x[[i]])
+      ##RGA changed to sum across all chains
+      ess <- do.call("rbind",lapply(x,effectiveSize))
+      ans <- apply(ess,2,sum)
     }
   else
     {

@@ -4,7 +4,11 @@ export(
   as.mcmc,
   as.ts.mcmc,
   autocorr,
+  ##RGA
+  autocorr.diag,
   autocorr.plot,
+  ##RGA
+  batchSE,
   bugs2jags,
   chanames,
   coda.options,
@@ -37,6 +41,8 @@ export(
   read.coda,
   read.jags,
   read.openbugs,
+  ##RGA
+  rejectionRate,
   spectrum0,
   spectrum0.ar,
   thin,
@@ -71,6 +77,11 @@ S3method(summary, mcmc)
 S3method(thin, mcmc) 
 S3method(time, mcmc)
 S3method(window, mcmc)
+##RGA
+S3method(autocorr.diag, mcmc)
+S3method(rejectionRate, mcmc)
+S3method(batchSE,mcmc)
+S3method(as.data.frame,mcmc)
 
 ## mcmc.list
 S3method("[", mcmc.list)
@@ -83,6 +94,10 @@ S3method(summary, mcmc.list)
 S3method(thin, mcmc.list)
 S3method(time, mcmc.list)
 S3method(window, mcmc.list)
+##RGA
+S3method(autocorr.diag, mcmc.list)
+S3method(rejectionRate, mcmc.list)
+S3method(batchSE,mcmc.list)
 
 ## misc
 S3method(print, gelman.diag)

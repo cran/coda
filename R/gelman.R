@@ -1,4 +1,5 @@
-"gelman.diag" <- function (x, confidence = 0.95, transform = FALSE) 
+"gelman.diag" <- function (x, confidence = 0.95, transform = FALSE,
+                           autoburnin=TRUE) 
   ## Gelman and Rubin's diagnostic
   ## Gelman, A. and Rubin, D (1992). Inference from iterative simulation
   ## using multiple sequences.  Statistical Science, 7, 457-551.
@@ -12,7 +13,9 @@
   x <- as.mcmc.list(x)
   if (nchain(x) < 2) 
     stop("You need at least two chains")
-  if (start(x) < end(x)/2) 
+  ## RGA added an autoburnin parameter here, because if I have already
+  ## trimmed burn in, I don't want to do it again.
+  if (autoburnin && start(x) < end(x)/2 ) 
     x <- window(x, start = end(x)/2 + 1)
   Niter <- niter(x)
   Nchain <- nchain(x)

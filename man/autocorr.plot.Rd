@@ -2,7 +2,7 @@
 \alias{autocorr.plot}
 \title{Plot autocorrelations for Markov Chains}
 
-\usage{autocorr.plot(x, lag.max, auto.layout = TRUE, ask=TRUE, ...)}
+\usage{autocorr.plot(x, lag.max, auto.layout = TRUE, ask=par("ask"), ...)}
 
 \arguments{
 \item{x}{A Markov Chain}

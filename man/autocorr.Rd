@@ -2,7 +2,15 @@
 \alias{autocorr}
 \title{Autocorrelation function for Markov chains}
 
-\usage{autocorr(mcmc.obj, lags = c(0, 1, 5, 10, 50), relative=TRUE }
+\usage{autocorr(x, lags = c(0, 1, 5, 10, 50), relative=TRUE)}
+
+\arguments{
+\item{x}{an mcmc object}
+\item{lags}{a vector of lags at which to calculate the autocorrelation}
+\item{relative}{a logical flag. TRUE if lags are relative to the thinning
+interval of the chain, or FALSE if they are absolute difference in iteration
+numbers}
+}
 
 \description{
 \code{autocorr} calculates the autocorrelation function for the

@@ -72,8 +72,9 @@
 
 "plot.mcmc.list" <-
   function (x, trace = TRUE, density = TRUE, smooth = TRUE, bwf, 
-            auto.layout = TRUE, ask = TRUE, ...) 
+            auto.layout = TRUE, ask = par("ask"), ...) 
 {
+## RGA fixed to use default ask value.
   oldpar <- NULL
   on.exit(par(oldpar))
   if (auto.layout) {
@@ -83,16 +84,19 @@
   }
   for (i in 1:nvar(x)) {
     if (trace) 
-      traceplot(x[, i, drop = FALSE], smooth = smooth)
+      ## RGA fixed to propagate ... argument.
+      traceplot(x[, i, drop = FALSE], smooth = smooth, ...)
     if (density) {
       if (missing(bwf)) 
-        densplot(x[, i, drop = FALSE])
-      else densplot(x[, i, drop = FALSE], bwf = bwf)
+        ## RGA fixed to propagate ... argument.
+        densplot(x[, i, drop = FALSE], ...)
+      else densplot(x[, i, drop = FALSE], bwf = bwf, ...)
     }
     if (i==1)
        oldpar <- c(oldpar, par(ask = ask))
   }
 }
+
 
 "summary.mcmc.list" <-
   function (object, quantiles = c(0.025, 0.25, 0.5, 0.75, 0.975), ...) 
@@ -105,12 +109,12 @@
   if (is.matrix(x[[1]])) {
     for (i in 1:nchain(x))
       for(j in 1:nvar(x))
-        xtsvar[i, j] <- spectrum0(x[[i]][,j])$spec
+        xtsvar[i, j] <- safespec0(x[[i]][,j])
     xlong <- do.call("rbind", x)
   }
   else {
     for (i in 1:nchain(x))
-      xtsvar[i, ] <- spectrum0(x[[i]])$spec
+      xtsvar[i, ] <- safespec0(x[[i]])
     xlong <- as.matrix(x)
   }
 
@@ -120,8 +124,9 @@
   varquant <- t(apply(xlong, 2, quantile, quantiles))
   varstats[, 1] <- xmean
   varstats[, 2] <- sqrt(xvar)
-  varstats[, 3] <- sqrt(xvar/niter(x))
-  varstats[, 4] <- sqrt(xtsvar/niter(x))
+  ##RGA fixed so now give correct std error for pooled (across chains). 
+  varstats[, 3] <- sqrt(xvar/(niter(x)*nchain(x)))
+  varstats[, 4] <- sqrt(xtsvar/(niter(x)*nchain(x)))
   varquant <- drop(varquant)
   varstats <- drop(varstats)
   out <- list(statistics = varstats, quantiles = varquant, 

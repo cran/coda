@@ -35,3 +35,5 @@ contributed to the Statlib archive by Steven Lewis
 Andrew Martin <admartin@wustl.edu> added namespace facilities and
 fixed a large number of bugs that this change uncovered (see CHANGELOG)
 
+Russell Almond <almond@acm.org>, <ralmond@ets.org> provided a number
+of cleanups and additions (see CHANGELOG).
