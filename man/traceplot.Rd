@@ -5,9 +5,12 @@
 \usage{traceplot(x, smooth = TRUE, col, type, ylab, ...)}
 
 \arguments{
-\item{x}{An \code{mcmc} or \code{mcmc.list} object}
-\item{smooth}{draw smooth line through trace plot}
-\item{...}{Graphical parameters}
+  \item{x}{An \code{mcmc} or \code{mcmc.list} object}
+  \item{smooth}{draw smooth line through trace plot}
+  \item{col}{graphical parameter (see \code{par})}
+  \item{type}{graphical parameter (see \code{par})}
+  \item{ylab}{graphical parameter (see \code{par})}
+  \item{...}{further graphical parameters}
 }
 
 \description{

@@ -8,20 +8,20 @@
 \usage{gelman.diag(x, confidence = 0.95, transform=FALSE)}
 
 \arguments{
-\item{data}{An \code{mcmc.list} object with more than one chain,
+\item{x}{An \code{mcmc.list} object with more than one chain,
 and with starting values that are overdispersed with respect to the
 posterior distribution.}
 \item{confidence}{the coverage probability of the confidence interval for the
 potential scale reduction factor}
 \item{transform}{a logical flag indicating whether variables in
-\code{data} should be transformed to improve the normality of the
+\code{x} should be transformed to improve the normality of the
 distribution. If set to TRUE, a log transform or logit transform, as
 appropriate, will be applied.}
 }
 
 \description{
 The `potential scale reduction factor' is calculated for each variable in
-\code{data}, together with upper and lower confidence limits. Approximate
+\code{x}, together with upper and lower confidence limits. Approximate
 convergence is diagnosed when the upper limit is close to 1. For
 multivariate chains, a multivariate value is calculated that bounds
 above the potential scale reduction factor for any linear combination

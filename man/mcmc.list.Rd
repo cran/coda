@@ -13,8 +13,10 @@ is.mcmc.list(x)
 }
 
 \arguments{
-\item{data}{a list of mcmc objects}
+  \item{...}{a list of mcmc objects}
+  \item{x}{an object that may be coerced to mcmc.list}
 }
+
 
 \description{
 

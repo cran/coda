@@ -48,7 +48,7 @@ raftery.diag(data, q=0.025, r=0.0125, s=0.95, converge.eps=0.001)
       \item{resmatrix}{A 3-d array containing the results: \eqn{M} the
       length of "burn in", \eqn{N} the required sample size, \eqn{Nmin}
       the minimum sample size based on zero autocorrelation and 
-      \eqn{I = (M+N)/Nmin} the "dependence factor".
+      \eqn{I = (M+N)/Nmin} the "dependence factor"}
 }
 
 \section{Theory}{

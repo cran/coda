@@ -52,17 +52,17 @@
   return(x)
 }
 
-"start.mcmc.list" <- function (x) 
+"start.mcmc.list" <- function (x, ...) 
 {
   start(x[[1]])
 }
 
-"end.mcmc.list" <- function (x) 
+"end.mcmc.list" <- function (x, ...) 
 {
   end(x[[1]])
 }
 
-"thin.mcmc.list" <- function (x) 
+"thin.mcmc.list" <- function (x, ...) 
 {
   thin(x[[1]])
 }
@@ -93,9 +93,9 @@
 }
 
 "summary.mcmc.list" <-
-  function (x, quantiles = c(0.025, 0.25, 0.5, 0.75, 0.975), ...) 
+  function (object, quantiles = c(0.025, 0.25, 0.5, 0.75, 0.975), ...) 
 {
-  x <- mcmc.list(x)
+  x <- mcmc.list(object)
   statnames <- c("Mean", "SD", "Naive SE", "Time-series SE")
   varstats <- matrix(nrow = nvar(x), ncol = length(statnames), 
                      dimnames = list(varnames(x), statnames))
@@ -161,7 +161,7 @@
   else stop("Can't coerce mcmc.list to mcmc object:\n more than 1 chain")
 }
 
-"time.mcmc.list" <- function (x) 
+"time.mcmc.list" <- function (x, ...) 
   time(x[[1]])
 
 "window.mcmc.list" <- function (x, ...) 

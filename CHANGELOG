@@ -1,3 +1,7 @@
+0.5-8
+- Removed further documentation bugs found by "R CMD check coda" using
+  R-1.4 (pre-release)
+
 0.5-7
 - Removed obsolete line.doc and line.old.doc files from data directory.
 - New spectrum0.ar provides model-based estimate of spectral density

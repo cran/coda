@@ -1,8 +1,12 @@
 \name{as.ts.mcmc}
-\alias{as.ts.msms}
+\alias{as.ts.mcmc}
 \title{Coerce mcmc object to time series}
 
 \usage{as.ts.mcmc(x)}
+
+\arguments{
+   \item{x}{an mcmc object}
+}
 
 \description{
 \code{as.ts.mcmc} will coerce an mcmc object to a time series.}

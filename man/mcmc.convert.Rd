@@ -8,12 +8,17 @@
 \usage{
 as.matrix.mcmc(x, iters = FALSE)
 as.matrix.mcmc.list(x, iters = FALSE, chains = FALSE)
-as.array(x)
+as.array.mcmc.list(x, drop, ...)
 as.mcmc(x)
 }
 
 \arguments{
-\item{x}{An \code{mcmc} or \code{mcmc.list} object}
+  \item{x}{An \code{mcmc} or \code{mcmc.list} object}
+  \item{iters}{logical flag: add column for iteration number?}
+  \item{chains}{logical flag: add column for chain number?}
+  \item{drop}{logical flag: if \code{TRUE} the result is coerced to the
+    lowest possible dimension}
+  \item{...}{further arguments for future methods}
 }
 
 \description{

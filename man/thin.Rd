@@ -8,7 +8,8 @@ thin(x, ...)
 
 \arguments{
    \item{x}{a regular time series}
-}
+   \item{...}{a list of arguments}
+ }
 
 \description{
    \code{thin} returns the interval between successive

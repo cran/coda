@@ -10,15 +10,21 @@ col, lty, xlab, ylab, type, ...)
 } 
 
 \arguments{
-\item{bin.width}{Number of observations per segment, excluding the
-first segment which always has at least 50 iterations.}
-\item{max.bins}{Maximum number of bins, excluding the last one.}
-\item{confidence}{Coverage probability of confidence interval.}
-\item{transform}{Automatic variable transformation (see \code{gelman.diag})
-\item{auto.layout}{If \code{TRUE} then, set up own layout for
-plots, otherwise use existing one.}
-\item{ask}{Prompt user before displaying each page of plots.}
-\item{...}{Graphical parameters.}
+  \item{x}{an mcmc object}
+  \item{bin.width}{Number of observations per segment, excluding the
+    first segment which always has at least 50 iterations.}
+  \item{max.bins}{Maximum number of bins, excluding the last one.}
+  \item{confidence}{Coverage probability of confidence interval.}
+  \item{transform}{Automatic variable transformation (see \code{gelman.diag})}
+  \item{auto.layout}{If \code{TRUE} then, set up own layout for
+    plots, otherwise use existing one.}
+  \item{ask}{Prompt user before displaying each page of plots.}
+  \item{col}{graphical parameter (see \code{par})}
+  \item{lty}{graphical parameter (see \code{par})}
+  \item{xlab}{graphical parameter (see \code{par})}
+  \item{ylab}{graphical parameter (see \code{par})}
+  \item{type}{graphical parameter (see \code{par})}
+  \item{...}{further graphical parameters.}
 }
 
 \description{

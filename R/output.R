@@ -298,9 +298,9 @@ function (x, smooth = TRUE, col = 1:6, type = "l", ylab = "",
 }
 
 "summary.mcmc" <-
-  function (x, quantiles = c(0.025, 0.25, 0.5, 0.75, 0.975), ...) 
+  function (object, quantiles = c(0.025, 0.25, 0.5, 0.75, 0.975), ...) 
 {
-  x <- as.mcmc(x)
+  x <- as.mcmc(object)
   statnames <- c("Mean", "SD", "Naive SE", "Time-series SE")
   varstats <- matrix(nrow = nvar(x), ncol = length(statnames), 
                      dimnames = list(varnames(x), statnames))

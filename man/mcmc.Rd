@@ -13,10 +13,11 @@ is.mcmc(x)
 }
 
 \arguments{
-\item{data}{a vector or  matrix of MCMC output}
-\item{start}{the iteration number of the first observation}
-\item{end}{the iteration number of the last observation}
-\item{thin}{the thinning interval between consecutive observations}
+  \item{data}{a vector or  matrix of MCMC output}
+  \item{start}{the iteration number of the first observation}
+  \item{end}{the iteration number of the last observation}
+  \item{thin}{the thinning interval between consecutive observations}
+  \item{x}{An object that may be coerced to an mcmc object}
 }
 
 \description{
@@ -39,13 +40,13 @@ is.mcmc(x)
    The format of the mcmc class has changed between coda version 0.3
    and 0.4.  Older mcmc objects will now cause \code{is.mcmc} to
    fail with an appropriate warning message.  Obsolete mcmc objects can
-   be upgraded with the \code{upgrade.mcmc} function.
+   be upgraded with the \code{mcmcUpgrade} function.
 }
 
 
 \seealso{
    \code{\link{mcmc.list}},
-   \code{\link{upgrade.mcmc}},
+   \code{\link{mcmcUpgrade}},
    \code{\link{thin}},
    \code{\link{window.mcmc}},
    \code{\link{summary.mcmc}},

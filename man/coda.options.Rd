@@ -1,16 +1,25 @@
 \name{coda.options}
 \alias{coda.options}
-\alias{print.coda.options}
+\alias{display.coda.options}
+\alias{.Coda.Options}
 \alias{.Coda.Options.Default}
 \title{Options settings for the codamenu driver}
 
 \usage{
    coda.options(...)
-   print.coda.options(data = FALSE, stats = FALSE, plots = FALSE, diags = FALSE)
+   display.coda.options(data = FALSE, stats = FALSE, plots = FALSE, diags = FALSE)
    .Coda.Options
    .Coda.Options.Default
 }
 
+\arguments{
+  \item{data}{logical flag: show data options?}
+  \item{stats}{logical flag: show summary statistic options?}
+  \item{plots}{logical flag: show plotting options?}
+  \item{diags}{logical flag: show plotting options?}
+  \item{...}{list of options}
+  }
+  
 \description{
    \code{coda.options} is a utility function that queries and sets
    options for the \code{codamenu()} function.  These settings affect
@@ -22,7 +31,7 @@
    feature that \code{coda.options(default=TRUE)} will reset all options
    to the default values.
 
-   Options can be pretty-printed using the \code{print.coda.options()}
+   Options can be pretty-printed using the \code{display.coda.options()}
    function, which groups the options into sections.
 
    Available options are

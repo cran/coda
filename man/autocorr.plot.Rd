@@ -2,7 +2,7 @@
 \alias{autocorr.plot}
 \title{Plot autocorrelations for Markov Chains}
 
-\usage{autocorr.plot{x, lag.max, auto.layout = TRUE, ask=TRUE}
+\usage{autocorr.plot(x, lag.max, auto.layout = TRUE, ask=TRUE, ...)}
 
 \arguments{
 \item{x}{A Markov Chain}
@@ -10,7 +10,8 @@
 \item{auto.layout}{If \code{TRUE} then, set up own layout for
 plots, otherwise use existing one.}
 \item{ask}{If \code{TRUE} then prompt user before displaying
-each page of plots.}
+  each page of plots.}
+\item{...}{graphical parameters}
 }
 
 \description{

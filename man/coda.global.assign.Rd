@@ -3,11 +3,11 @@
 \title{Cross-platform assignment to global environment}
 
 \usage{
-coda(x, value, alias = FALSE) 
+coda.global.assign(name, value, alias = FALSE) 
 }
 
 \arguments{
-\item{x}{A variable name (given as a quoted string)}
+\item{name}{A variable name (given as a quoted string)}
 \item{value}{Value to be assigned to \code{x}}
 \item{alias}{Logical value that determines whether a copy is made or an alias is assigned}
 }

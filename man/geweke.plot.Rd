@@ -8,14 +8,15 @@ geweke.plot(x, frac1 = 0.1, frac2 = 0.5, nbins = 20,
 } 
 
 \arguments{
-\item{frac1}{fraction to use from beginning of chain.}
-\item{frac2}{fraction to use from end of chain.}
-\item{nbins}{Number of segments.}
-\item{pvalue}{p-value used to plot confidence limits for the null hypothesis.}
-\item{auto.layout}{If \code{TRUE} then, set up own layout for
-plots, otherwise use existing one.}
-\item{ask}{Prompt user before displaying each page of plots.}
-\item{...}{Graphical parameters.}
+  \item{x}{an mcmc object}
+  \item{frac1}{fraction to use from beginning of chain.}
+  \item{frac2}{fraction to use from end of chain.}
+  \item{nbins}{Number of segments.}
+  \item{pvalue}{p-value used to plot confidence limits for the null hypothesis.}
+  \item{auto.layout}{If \code{TRUE} then, set up own layout for
+    plots, otherwise use existing one.}
+  \item{ask}{Prompt user before displaying each page of plots.}
+  \item{...}{Graphical parameters.}
 }
 
 \description{

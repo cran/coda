@@ -3,14 +3,17 @@
 \alias{window.mcmc.list}
 \title{Time windows for mcmc objects}
 
-\usage{window(x,start,end,thin)}
+\usage{
+\method{window}{mcmc}(x, start, end, thin, ...)
+}
 
 \arguments{
    \item{x}{an mcmc object}
    \item{start}{the first iteration of interest}
    \item{end}{the last iteration of interest}
    \item{thin}{the required interval between successive samples}
-}
+   \item{...}{futher arguments for future methods}
+ }
 
 \description{
    \code{window.mcmc} is a method for \code{mcmc} objects which is

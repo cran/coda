@@ -410,7 +410,7 @@
   if (pick == 0) 
     return("quit")
   if (action.list[pick] == "ListOptions") {
-    print.coda.options(data = TRUE, stats = TRUE, plots = TRUE, 
+    display.coda.options(data = TRUE, stats = TRUE, plots = TRUE, 
                        diags = TRUE)
     next.menu <- "codamenu.options"
   }
@@ -437,7 +437,7 @@
   if (pick == 0) 
     return("quit")
   switch(action.list[pick], ListDataOptions = {
-    print.coda.options(data = TRUE)
+    display.coda.options(data = TRUE)
   }, SelectVars = {
     work.vars <- multi.menu(varnames(coda.dat, allow.null = FALSE), 
                             "Select variables for analysis",
@@ -491,7 +491,7 @@
   pick <- menu(choices, title = "CODA diagnostics options menu")
   if (pick == 0) 
     return("quit")
-  switch(pick, print.coda.options(diags = TRUE),
+  switch(pick, display.coda.options(diags = TRUE),
          next.menu <- codamenu.options.geweke.win(this.menu), 
          next.menu <- codamenu.options.geweke.bin(this.menu), 
          next.menu <- codamenu.options.gelman(this.menu),
@@ -586,7 +586,7 @@ function ()
   if (pick == 0) 
     return("quit")
   switch(pick,
-         print.coda.options(plots = TRUE),
+         display.coda.options(plots = TRUE),
          change.tfoption(choices[2], "trace"),
          change.tfoption(choices[3], "densplot"),
          change.tfoption(choices[4], "lowess"),
@@ -704,7 +704,7 @@ function ()
   pick <- menu(choices, title = "CODA options for summary statistics")
   if (pick == 0) 
     return("quit")
-  switch(pick, print.coda.options(stats = TRUE), {
+  switch(pick, display.coda.options(stats = TRUE), {
     mssg <- "Do you want to combine all chains when calculating summary statistics"
     change.tfoption(mssg, "combine.stats")
   }, {
@@ -737,7 +737,7 @@ function ()
   return(next.menu)
 }
 
-"print.coda.options" <-
+"display.coda.options" <-
   function (data = FALSE, stats = FALSE, plots = FALSE, diags = FALSE) 
 {
   cat("\nCurrent option settings:")

@@ -1,9 +1,9 @@
-\name{upgrade.mcmc}
-\alias{upgrade.mcmc}
+\name{mcmcUpgrade}
+\alias{mcmcUpgrade}
 \title{Upgrade mcmc objects in obsolete format}
 
 \usage{
-   upgrade.mcmc(x)
+   mcmcUpgrade(x)
 }
 
 \arguments{

@@ -7,7 +7,7 @@
   if(is.R()) {
     ## R - assign to global environment
     if(alias)
-      assign(name, .Alias(value), pos=1)  
+      assign(name, value, pos=1)  
     else
       assign(name, value, pos=1)          
   }

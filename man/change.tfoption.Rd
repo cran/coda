@@ -3,7 +3,7 @@
 \title{Interactively modify logical codamenu options.}
 
 \usage{
-densplot(string, option)
+change.tfoption(string, option)
 }
 
 \arguments{

@@ -22,6 +22,7 @@ mcmc                     Markov Chain Monte Carlo Objects
 mcmc.convert             Conversions of MCMC objects
 mcmc.list                Replicated Markov Chain Monte Carlo Objects
 mcmc.subset              Extract or replace parts of MCMC objects
+mcmcUpgrade              Upgrade mcmc objects in obsolete format
 mcpar                    Mcpar attribute of MCMC objects
 multi.menu               Choose multiple options from a menu
 nchain                   Dimensions of MCMC objects
@@ -40,6 +41,5 @@ summary.mcmc             Summary statistics for Markov Chain Monte Carlo
 thin                     Thinning interval
 time.mcmc                Time attributes for mcmc objects
 traceplot                Trace plot of MCMC output
-upgrade.mcmc             Upgrade mcmc objects in obsolete format
 varnames                 Named dimensions of MCMC objects
 window.mcmc              Time windows for mcmc objects

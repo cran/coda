@@ -11,11 +11,17 @@
 \title{Time attributes for mcmc objects}
 
 \usage{
-time(x)
-start(x)
-end(x)
-thin.mcmc(x)
+\method{time}{mcmc}(x, ...)
+\method{start}{mcmc}(x, ...)
+\method{end}{mcmc}(x, ...)
+\method{thin}{mcmc}(x, ...)
 }
+
+\arguments{
+  \item{x}{an \code{mcmc} or \code{mcmc.list} object}
+  \item{...}{extra arguments for future methods}
+}
+
 \description{
    These are methods for mcmc objects for the generic time
    series functions.

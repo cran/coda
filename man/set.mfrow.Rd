@@ -9,7 +9,7 @@
 \arguments{
    \item{Nchains}{Number of chains to plot}
    \item{Nparms}{Number of variables in each chain}
-   \item{Number of plots to produce}
+   \item{nplots}{Number of plots to produce}
    \item{sepplot}{Logical value controlling whether separate plots are created for each chain}
 }
 

@@ -6,8 +6,9 @@
 \usage{geweke.diag(x, frac1=0.1, frac2=0.5)}
 
 \arguments{
-\item{frac1}{fraction to use from beginning of chain}
-\item{frac2}{fraction to use from end of chain}
+  \item{x}{an mcmc object}
+  \item{frac1}{fraction to use from beginning of chain}
+  \item{frac2}{fraction to use from end of chain}
 }
 
 \value{

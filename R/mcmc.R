@@ -25,22 +25,22 @@
   return(y)
 }
 
-"start.mcmc" <- function (x) 
+"start.mcmc" <- function (x, ...) 
 {
   mcpar(as.mcmc(x))[1]
 }
 
-"end.mcmc" <- function (x) 
+"end.mcmc" <- function (x, ...) 
 {
   mcpar(as.mcmc(x))[2]
 }
 
-"frequency.mcmc" <- function (x) 
+"frequency.mcmc" <- function (x, ...) 
 {
   1/thin.mcmc(x)
 }
 
-"thin.mcmc" <- function (x) 
+"thin.mcmc" <- function (x, ...) 
 {
   mcpar(as.mcmc(x))[3]
 }
@@ -49,7 +49,7 @@
 {
   if (inherits(x, "mcmc")) 
     if (length(dim(x)) == 3) 
-      stop("Obsolete mcmc object\nUpdate with a command like\nx <- upgrade.mcmc(x)")
+      stop("Obsolete mcmc object\nUpdate with a command like\nx <- mcmcUpgrade(x)")
     else TRUE
   else FALSE
 }
@@ -115,15 +115,16 @@
   mcmc(y, start = start(x), end = end(x), thin = thin(x))
 }
 
-"time.mcmc" <- function (x) 
+"time.mcmc" <- function (x, ...) 
 {
   x <- as.mcmc(x)
   ts(seq(from = start(x), to = end(x), by = thin(x)), start = start(x), 
      end = end(x), deltat = thin(x))
 }
 
-"window.mcmc" <- function (x, start, end, thin, ts.eps = .Options$ts.eps) 
+"window.mcmc" <- function (x, start, end, thin, ...) 
 {
+  ts.eps = getOption("ts.eps")
   xmcpar <- mcpar(x)
   xstart <- xmcpar[1]
   xend <- xmcpar[2]
@@ -174,7 +175,7 @@
   attr(x, "mcpar")
 }
 
-"upgrade.mcmc" <- function (x) 
+"mcmcUpgrade" <- function (x) 
 {
   if (inherits(x, "mcmc")) {
     if (length(dim(x)) == 3) {
