@@ -40,13 +40,13 @@
                               frac1 = frac1, frac2 = frac2)
     for (k in 1:nchain(x)) gcd[n, , k] <- geweke.out[[k]]$z
   }
+  climit <- qnorm(1 - pvalue/2)
   for (k in 1:nchain(x)) for (j in 1:nvar(x)) {
-    climit <- qnorm(1 - pvalue/2)
     ylimit <- max(c(climit, abs(gcd[, j, k])))
     plot(ystart, gcd[, j, k], type = "p", xlab = "First iteration in segment", 
          ylab = "Z-score", pch = 4, ylim = c(-ylimit, ylimit), 
          ...)
-    abline(h = c(ylimit, -ylimit), lty = 2)
+    abline(h = c(climit, -climit), lty = 2)
     if (nchain(x) > 1) {
       title(main = paste(varnames(x, allow.null = FALSE)[j], 
               " (", chanames(x, allow.null = FALSE)[k], ")", 

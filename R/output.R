@@ -90,7 +90,7 @@ function (x, col = topo.colors(10), ...)
 }
 
 "densplot" <-
-function (x, show.obs = TRUE, bwf, main = "", ...) 
+function (x, show.obs = TRUE, bwf, main = "", ylim, ...) 
 {
   xx <- as.matrix(x)
   for (i in 1:nvar(x)) {
@@ -127,8 +127,10 @@ function (x, show.obs = TRUE, bwf, main = "", ...)
         dens$y <- 2 * dens$y[dens$x >= 0]
         dens$x <- dens$x[dens$x >= 0]
       }
-      plot(dens, ylab = "", main = main, type = "l", , 
-           ylim = c(0, max(dens$y)), ...)
+      if(missing(ylim))
+        ylim <- c(0, max(dens$y))
+      plot(dens, ylab = "", main = main, type = "l", 
+           ylim = ylim, ...)
       if (show.obs) 
         lines(y[1:niter(x)], rep(max(dens$y)/100, niter(x)), 
               type = "h")

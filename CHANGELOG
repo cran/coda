@@ -1,3 +1,16 @@
+0.5-3
+
+- Fixed bug in example for mcmc.list. Row subsetting no longer preserves
+  mcmc objects (Thanks to Kurt Hornik).
+
+0.5-2
+
+- Fixed bug in gelman.transform which did not work for univariate chains
+  (Thanks to Mark A. Beaumont)
+- Fixed confidence limits in geweke.plot
+  (Thanks to Mark A. Beaumont)
+- Allow user to set ylim in densplot (Thanks to Niels Peter Baadsgaard)
+
 0.5-1
 
 - Replaced time series functions with functions from "ts" library

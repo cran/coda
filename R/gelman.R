@@ -94,21 +94,29 @@
   ## improve the normal approximation, variables on [0, Inf) are log
   ## transformed, and variables on [0,1] are logit-transformed.
 {
-  for (i in 1:nvar(x)) {
-    z <- data.frame(lapply(x[,i], unclass))
-    if (min(z) > 0) { 
+  if (nvar(x) == 1) {
+    z <- data.frame(lapply(x, unclass))
+    if (min(z) > 0) {
+      y <- if(max(z) < 1)
+        log(z/(1-z))
+      else log(z)
+      for (j in 1:nchain(x)) x[[j]] <- y[,j]
+    }
+  }
+  else for (i in 1:nvar(x)) {
+    z <- data.frame(lapply(x[, i], unclass))
+    if (min(z) > 0) {
       y <- if (max(z) < 1) 
         log(z/(1 - z))
       else log(z)
-      for (j in 1:nchain(x))
-        x[[j]][,i] <- y[,j]
+      for (j in 1:nchain(x)) x[[j]][, i] <- y[, j]
     }
   }
   return(x)
 }
 
-"gelman.mv.diag" <- function (x, confidence = 0.95, transform = FALSE) 
-  {
+"gelman.mv.diag" <- function (x, confidence = 0.95, transform = FALSE)
+{
   s2 <- sapply(x, var, simplify=TRUE)
   W <- matrix(apply(s2, 1, mean), nvar(x), nvar(x))
   xbar <- sapply(x, apply, 2, mean, simplify=TRUE)
