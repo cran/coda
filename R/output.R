@@ -142,8 +142,14 @@ function (x, show.obs = TRUE, bwf, main = "", ylim, ...)
   return(invisible(x))
 }
 
-"read.bugs" <-
-function (file = "bugs.out", start, end, thin, quiet=FALSE) 
+"read.bugs" <- function (file = "bugs.out", start, end, thin, quiet=FALSE) 
+{
+    read.coda(file, start, end, thin, quiet)
+}
+
+
+
+"read.coda" <- function (file, start, end, thin, quiet=FALSE) 
 {
   nc <- nchar(file)
   if (nc > 3 && substring(file, nc - 3, nc) == ".out") 

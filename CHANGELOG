@@ -1,3 +1,13 @@
+0.6
+- spectrum0.ar no longer crashes when the chain is a linear function
+  of the iteration number
+- codamenu automatically drops variables that are linear functions
+  of the iteration number
+- read.bugs renamed to read.coda. read.bugs exists as an alias.
+- initial support for JAGS: bugs2jags function converts WinBUGS
+  data to R dump format used by JAGS.
+- added cumuplot function (not yet in codamenu system)
+
 0.5-14
 - Fixed reporting of sample size in densplot(), for variables that are
   in the range [0,1] or [0,Inf). Thanks to Roy Levy.

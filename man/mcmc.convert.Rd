@@ -9,7 +9,6 @@
 as.matrix.mcmc(x, iters = FALSE)
 as.matrix.mcmc.list(x, iters = FALSE, chains = FALSE)
 as.array.mcmc.list(x, drop, ...)
-as.mcmc(x)
 }
 
 \arguments{

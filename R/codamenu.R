@@ -50,6 +50,26 @@
   rm(coda.dat, inherits=FALSE)       #Destroy local copy
   coda.global.assign("work.dat", coda.dat, alias=TRUE)
 
+  ## Check for variables that are linear functions of the
+  ## iteration number
+  is.linear <- rep(FALSE, nvar(coda.dat))
+  for (i in 1:nchain(coda.dat)) {
+      for (j in 1:nvar(coda.dat)) {
+          lm.out <- lm(coda.dat[[i]][,j] ~ time(coda.dat))
+          if (identical(all.equal(var(residuals(lm.out)), 0), TRUE)) {
+              is.linear[j] <- TRUE
+          }
+      }
+  }
+  if (any(is.linear)) {
+      cat("Dropping the following variables, which are linear\n")
+      cat("functions of the iteration number\n")
+      print(varnames(coda.dat)[is.linear])
+      inset <- varnames(coda.dat)[!is.linear]
+      coda.global.assign("coda.dat", coda.dat[,inset, drop=FALSE])
+      coda.global.assign("work.dat", coda.dat[,inset, drop=FALSE], alias=TRUE)
+  }
+
   ## Sample size test
   cat("Checking effective sample size ...")
   ess <- effectiveSize(gelman.transform(coda.dat))

@@ -1,0 +1,41 @@
+cumuplot <- function(x, probs=c(0.025,0.5,0.975), ylab="", lty=c(2,1),
+                     lwd=c(1,2), type="l", ask=TRUE, auto.layout=TRUE,
+                     ...)
+{
+    cquantile <- function(z, probs)
+    {
+        ## Calculates cumulative quantile of a vector
+        cquant <- matrix(0, nrow=length(z), length(probs))
+        for(i in seq(along=z))  # for loop proved faster than apply here
+            cquant[i,] <- quantile(z[1:i], probs=probs, names=FALSE)
+        cquant <- as.data.frame(cquant)
+        names(cquant) <- paste(formatC(100*probs,format="fg",wid=1,digits=7),
+                               "%", sep="")  # just like quantile.default
+        return(cquant)
+    }
+
+    oldpar <- par(ask = ask)
+    on.exit(par(oldpar))
+    if (auto.layout) {
+        oldpar <- par(mfrow = set.mfrow(Nchains = nchain(x), 
+                      Nparms = nvar(x)))
+        oldpar <- c(oldpar, par(ask = ask))
+    }
+    
+    if (!is.mcmc.list(x)) 
+        x <- mcmc.list(as.mcmc(x))
+
+    Iterations <- time(x)
+    for (i in 1:nchain(x)) {
+        x[[i]] <- as.matrix(x[[i]])
+        for (j in 1:nvar(x)) {
+            Y <- cquantile(x[[i]][,j], probs=probs)
+            matplot(Iterations, Y, ylab=ylab, lty=lty, lwd=lwd, type=type,
+                    ...)
+            title(paste(varnames(x)[j], ifelse(is.null(chanames(x)), 
+                  "", ":"), chanames(x)[i], sep = ""))
+        }
+    }
+}
+
+

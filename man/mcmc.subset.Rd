@@ -5,8 +5,12 @@
 
 \usage{
 x[i,j]
-x[i,]
-x[,j]
+}
+
+\arguments{
+   \item{x}{An \code{mcmc} object}
+   \item{i}{Row to extract}
+   \item{j}{Column to extract}
 }
 
 \description{

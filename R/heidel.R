@@ -72,13 +72,22 @@
 {
   x <- as.matrix(x)
   v0 <- order <- numeric(ncol(x))
+  names(v0) <- names(order) <- colnames(x)
+  z <- 1:nrow(x)
   for (i in 1:ncol(x))
-    {
-      ar.out <- ar(x[,i], aic=TRUE)
-      v0[i] <- ar.out$var.pred/(1 - sum(ar.out$ar))^2
-      order[i] <- ar.out$order
-    }
-  return(spec=v0, order=order)
+  {
+      lm.out <- lm(x[,i] ~ z)
+      if (identical(all.equal(var(residuals(lm.out)), 0), TRUE)) {
+          v0[i] <- 0
+          order[i] <- 0
+      }
+      else {
+          ar.out <- ar(x[,i], aic=TRUE)
+          v0[i] <- ar.out$var.pred/(1 - sum(ar.out$ar))^2
+          order[i] <- ar.out$order
+      }
+  }
+  return(list(spec=v0, order=order))
 }
 
 effectiveSize <- function(x)
@@ -93,7 +102,8 @@ effectiveSize <- function(x)
     {
       x <- as.mcmc(x)
       x <- as.matrix(x)
-      ans <- niter(x) * apply(x,2,var) / spectrum0.ar(x)$spec 
+      spec <- spectrum0.ar(x)$spec
+      ans <- ifelse(spec==0, 0, niter(x) * apply(x, 2, var)/spec)
     }
   return(ans)
 }

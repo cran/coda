@@ -54,6 +54,8 @@ to using the `batched means' method.
 The definition of the spectral density used here differs from that used by
 \code{spec.pgram}. We consider the frequency range to be between 0 and 0.5,
 not between 0 and \code{frequency(x)/2}.
+
+The model fitting may fail on chains with very high autocorrelation.
 }
 \seealso{
    \code{\link{spectrum}}, \code{\link{spectrum0.ar}}, \code{\link{glm}}.

@@ -11,7 +11,7 @@ nchain(x)
 }
 
 \arguments{
-  \item{x}{An \code{mcmcm} or \code{mcmc.list} object}
+  \item{x}{An \code{mcmc} or \code{mcmc.list} object}
 }
 
 \value{

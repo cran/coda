@@ -1,9 +1,13 @@
-\name{read.bugs}
+\name{read.coda}
+\alias{read.coda}
 \alias{read.bugs}
+\alias{read.jags}
 \title{Read BUGS output files}
 
 \usage{
+read.coda(file, start, end, thin, quiet=FALSE)
 read.bugs(file = "bugs.out", start, end, thin, quiet=FALSE)
+read.jags(file = "jags.out", start, end, thin, quiet=FALSE)
 }
 
 \arguments{
@@ -18,8 +22,8 @@ read.bugs(file = "bugs.out", start, end, thin, quiet=FALSE)
 }
 
 \description{
-   \code{read.bugs} reads Markov Chain Monte Carlo output in
-   the format produced by the BUGS program. By default, all
+   \code{read.coda} reads Markov Chain Monte Carlo output in
+   the CODA format produced by WinBUGS and JAGS. By default, all
    of the data in the file is read, but the arguments \code{start},
    \code{end} and \code{thin} may be used to read a subset of the
    data.  If the arguments given to \code{start}, \code{end} or
