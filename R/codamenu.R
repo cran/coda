@@ -9,7 +9,7 @@
   if (pick == 0 || pick == 3) 
     return(invisible())
   else if (pick == 1) {
-    assign("coda.dat", read.bugs.interactive(), pos=1)
+    assign("coda.dat", read.coda.interactive(), pos=1)
     if (is.null(coda.dat)) {
       return(invisible())
     }
@@ -832,43 +832,31 @@ function ()
   invisible()
 }
 
-"read.bugs.interactive" <- function () 
+"read.coda.interactive" <- function () 
 {
   repeat {
-    cat("Enter BUGS output filenames, separated by return key\n")
-    cat("(leave blank to exit)\n")
-    filenames <- scan(what = character(), sep = "\n", strip.white = TRUE, 
-                      quiet = TRUE)
-    if (length(filenames) == 0) 
+    cat("Enter CODA index file name\n")
+    cat("(or a blank line to exit)\n")
+    index.file <- scan(what = character(), sep = "\n", strip.white = TRUE, 
+                       quiet = TRUE, nlines=1)
+    if (length(index.file) == 0)
       return()
-    else {
-      root <- character(length(filenames))
-      for (i in 1:length(filenames)) {
-        nc <- nchar(filenames[i])
-        if (nc > 3) {
-          file.ext <- substring(filenames[i], nc - 3, 
-                                nc)
-          root[i] <- if (any(file.ext == c(".ind", ".out"))) 
-            substring(filenames[i], 0, nc - 4)
-          else filenames[i]
-        }
-        else root[i] <- filenames[i]
-      }
-      root <- unique(root)
-      all.files <- c(paste(root, ".ind", sep = ""), paste(root, 
-                                                          ".out", sep = ""))
-      if (any(!file.exists(all.files))) {
-        cat("The following files were not found:\n")
-        cat(paste(all.files[!file.exists(all.files)], 
-                  collapse = "\n"), "\n\n")
-      }
-      else break
+    cat("Enter CODA output file names, separated by return key\n")
+    cat("(leave a blank line when you have finished)\n")
+    output.files <- scan(what = character(), sep = "\n", strip.white = TRUE, 
+                         quiet = TRUE)
+    all.files <- c(index.file, output.files)
+    if (any(!file.exists(all.files))) {
+      cat("The following files were not found:\n")
+      cat(paste(all.files[!file.exists(all.files)], 
+                collapse = "\n"), "\n\n")
     }
+    else break
   }
-  nfiles <- length(root)
+  nfiles <- length(output.files)
   chains <- vector("list", nfiles)
-  names(chains) <- root
-  for (i in 1:nfiles) chains[[i]] <- read.bugs(file = root[i])
+  names(chains) <- output.files
+  for (i in 1:nfiles) chains[[i]] <- read.coda(output.files[i], index.file)
   return(mcmc.list(chains))
 }
 

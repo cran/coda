@@ -1,13 +1,13 @@
-\name{read.bugs.interactive}
-\alias{read.bugs.interactive}
-\title{Read BUGS output files interactively}
+\name{read.coda.interactive}
+\alias{read.coda.interactive}
+\title{Read CODA output files interactively}
 
 \usage{
-read.bugs.interactive()
+read.coda.interactive()
 }
 
 \description{
-   \code{read.bugs.interactive} reads Markov Chain Monte Carlo output
+   \code{read.coda.interactive} reads Markov Chain Monte Carlo output
    in the format produced by the classic BUGS program. No arguments are
    required. Instead, the user is prompted for the required information.
 }
@@ -33,7 +33,7 @@ read.bugs.interactive()
 \seealso{
    \code{\link{mcmc}}, 
    \code{\link{mcmc.list}}, 
-   \code{\link{read.bugs}}, 
+   \code{\link{read.coda}}, 
    \code{\link{codamenu}}. 
 }
 \keyword{file}

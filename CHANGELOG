@@ -1,3 +1,15 @@
+0.9-1 
+- spectrum0 function now has default max.length argument of 200.
+  This means that the output will be batched to a length between
+  100 and 200 before fitting the glm to the spectrogram. This
+  should improve robustness for chains with high autocorrelation,
+  or markedly non-gaussian distributions.
+- The read.bugs() function has been removed; read.coda() has been
+  modified to allow specification of both output and index files;
+  read.bugs.interactive() has been modified in the same way;
+  read.openbugs() is a new wrapper function around read.coda() for
+  OpenBUGS output.
+
 0.8-3
 - Fixed documentation errors in coda.menu.Rd and linepost.Rd
 

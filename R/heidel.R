@@ -108,22 +108,9 @@ effectiveSize <- function(x)
   return(ans)
 }
 
-"spectrum0" <- function(x, max.freq=0.5, order=1, max.length=NULL)
+"spectrum0" <- function(x, max.freq=0.5, order=1, max.length=200)
 {
-  ## Estimate spectral density of time series x at frequency 0.
-  ## spectrum0(x)/length(x) estimates the variance of mean(x)
-  ##
-  ## NB We do NOT use the same definition of spectral density
-  ## as in spec.pgram.
-  ##
   x <- as.matrix(x)
-  fmla <- switch(order+1,
-                 spec ~ one,
-                 spec ~ f1,
-                 spec ~ f1 + f2)
-  if(is.null(fmla))
-    stop("invalid order")
-
   if (!is.null(max.length) && nrow(x) > max.length) {
     batch.size <- ceiling(nrow(x)/max.length)
     x <- aggregate(ts(x, frequency=batch.size), nfreq = 1, FUN=mean)
@@ -131,6 +118,27 @@ effectiveSize <- function(x)
   else {
     batch.size <- 1
   }
+  
+  out <- do.spectrum0(x, max.freq=max.freq, order=order)
+  out$spec <- out$spec * batch.size
+  return(out)
+}
+
+"do.spectrum0" <- function(x, max.freq=0.5, order=1)
+{
+  ## Estimate spectral density of time series x at frequency 0.
+  ## spectrum0(x)/length(x) estimates the variance of mean(x)
+  ##
+  ## NB We do NOT use the same definition of spectral density
+  ## as in spec.pgram.
+  ##
+  fmla <- switch(order+1,
+                 spec ~ one,
+                 spec ~ f1,
+                 spec ~ f1 + f2)
+  if(is.null(fmla))
+    stop("invalid order")
+
   N <- nrow(x)
   Nfreq <- floor(N/2)
   freq <- seq(from = 1/N, by = 1/N, length = Nfreq)
@@ -155,7 +163,7 @@ effectiveSize <- function(x)
                        newdata=data.frame(spec=0,one=1,f1=-sqrt(3),f2=sqrt(5)))
     }
   }
-  return(list(spec=v0 * batch.size))
+  return(list(spec=v0))
 }
 
 "pcramer" <- function (q, eps=1.0e-5)

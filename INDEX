@@ -30,8 +30,9 @@ plot.mcmc               Summary plots of mcmc objects
 raftery.diag            Raftery and Lewis's diagnostic
 read.and.check          Read data interactively and check that it
                         satisfies conditions
-read.bugs.interactive   Read BUGS output files interactively
-read.coda               Read BUGS output files
+read.coda               Read output files in CODA format
+read.coda.interactive   Read CODA output files interactively
+read.openbugs           Read CODA output files produced by OpenBUGS
 spectrum0               Estimate spectral density at zero
 spectrum0.ar            Estimate spectral density at zero
 summary.mcmc            Summary statistics for Markov Chain Monte

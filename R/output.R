@@ -143,25 +143,45 @@ function (x, show.obs = TRUE, bwf, main = "", ylim, ...)
   return(invisible(x))
 }
 
-"read.bugs" <- function (file = "bugs.out", start, end, thin, quiet=FALSE) 
-{
-    read.coda(file, start, end, thin, quiet)
-}
-
-
-
-"read.coda" <- function (file, start, end, thin, quiet=FALSE) 
+"read.jags" <- function (file = "jags.out", start, end, thin, quiet=FALSE) 
 {
   nc <- nchar(file)
   if (nc > 3 && substring(file, nc - 3, nc) == ".out") 
     root <- substring(file, 1, nc - 4)
   else root <- file
-  index <- read.table(file = paste(root, ".ind", sep = ""), 
+  index.file = paste(root, ".ind", sep="")
+  
+  read.coda(file, index.file, start, end, thin, quiet)
+}
+
+"read.openbugs" <- function(stem="", start, end, thin, quiet=FALSE)
+{
+  nchain <- 0
+  while (TRUE) {
+    output.file <- paste(stem,"CODAchain",nchain+1,".txt",sep="")
+    if (file.exists(output.file))
+      nchain <- nchain + 1
+    else
+      break
+  }
+
+  if (nchain==0)
+    stop("No output files found")
+
+  index.file <- paste(stem,"CODAindex.txt",sep="")
+  ans <- vector("list",nchain)
+  for (i in 1:nchain) {
+    output.file <- paste(stem,"CODAchain",i,".txt",sep="")
+    ans[[i]] <- read.coda(output.file, index.file, start, end, thin, quiet)
+  }
+  return(mcmc.list(ans))
+}
+
+"read.coda" <- function (output.file, index.file, start, end, thin,quiet=FALSE) {
+  index <- read.table(index.file,
                       row.names = 1, col.names = c("", "begin", "end"))
   vnames <- row.names(index)
-
-  temp <- scan(file = paste(root, ".out", sep = ""), what = list(iter = 0, 
-                                                       val = 0), quiet = TRUE)
+  temp <- scan(output.file, what = list(iter = 0, val = 0), quiet = TRUE)
   ## Do one pass through the data to see if we can construct 
   ## a regular time series easily 
   ## 

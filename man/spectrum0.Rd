@@ -8,7 +8,7 @@ estimates the variance of \code{mean(x)}.
 
 }
 \usage{
-spectrum0(x, max.freq = 0.5, order = 1, max.length = NULL) 
+spectrum0(x, max.freq = 0.5, order = 1, max.length = 200) 
 }
 \arguments{
 \item{x}{A time series.}
