@@ -8,13 +8,14 @@
 \usage{
 varnames(x, allow.null=TRUE)
 chanames(x, allow.null=TRUE)
-varnames(x) <- namevector
-chanames(x) <- namevector
+varnames(x) <- value
+chanames(x) <- value
 }
 
 \arguments{
 \item{x}{an \code{mcmc} or \code{mcmc.list} object}
 \item{allow.null}{Logical argument that determines whether the function may return NULL}
+\item{value}{A character vector, or NULL}
 }
 
 \value{
