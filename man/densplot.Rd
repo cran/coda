@@ -1,4 +1,5 @@
 \name{densplot}
+\alias{densplot}
 \title{Probability density function estimate from MCMC output}
 
 \usage{densplot(x, show.obs=TRUE, bwf, ...)}
@@ -24,5 +25,6 @@ called by the \code{plot.mcmc} function.
 }
 
 \seealso{
-\code{\link{density}}, \code{\link{plot.mcmc}}
+   \code{\link{density}}, \code{\link{plot.mcmc}}.
 }
+\keyword{hplot}

@@ -1,4 +1,5 @@
 \name{autocorr}
+\alias{autocorr}
 \title{Autocorrelation function for Markov chains}
 
 \usage{autocorr(mcmc.obj, lags = c(0, 1, 5, 10, 50), relative=TRUE }
@@ -24,5 +25,6 @@ A vector or array containing the autocorrelations.
 \author{Martyn Plummer}
 
 \seealso{
-\code{\link{acf}}, \code{\link{autocorr.plot}}}
+\code{\link{acf}}, \code{\link{autocorr.plot}}.}
 }
+\keyword{ts}

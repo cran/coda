@@ -1,4 +1,5 @@
 \name{crosscorr.plot}
+\alias{crosscorr.plot}
 \title{Plot image of correlation matrix}
 
 \usage{function (x, col = topo.colors(10), ...)}
@@ -23,3 +24,4 @@ distinguish positive and negative correlations.
 \seealso{
 \code{\link{crosscorr}}, \code{\link{image}}, \code{\link{topo.colors}}.
 }
+\keyword{hplot}

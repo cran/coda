@@ -1,4 +1,5 @@
 \name{as.ts.mcmc}
+\alias{as.ts.msms}
 \title{Coerce mcmc object to time series}
 
 \usage{as.ts.mcmc(mcmc.obj)}
@@ -6,7 +7,7 @@
 \description{
 \code{as.ts.mcmc} will coerce an mcmc object to a time series.}
 
-\notes{
+\note{
 This is pretending to be an \code{as.ts} method for mcmc objects. But
 \code{as.ts} is not generic.}
 
@@ -15,3 +16,5 @@ This is pretending to be an \code{as.ts} method for mcmc objects. But
 \seealso{
 \code{\link{as.ts}}
 }
+\keyword{ts}
+\keyword{utilities}

@@ -1,4 +1,5 @@
 \name{multi.menu}
+\alias{multi.menu}
 \title{Choose multiple options from a menu}
 
 \usage{
@@ -31,5 +32,6 @@ Numeric vector giving the numbers of the options selected, or
 \author{Martyn Plummer}
 
 \seealso{
-\code{\link{menu}}
+   \code{\link{menu}}.
 }
+\keyword{utilities}

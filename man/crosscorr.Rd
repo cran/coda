@@ -1,4 +1,5 @@
 \name{crosscorr}
+\alias{crosscorr}
 \title{Cross correlations for MCMC output}
 
 \usage{crosscorr(x)}
@@ -18,5 +19,7 @@ A matrix or 3-d array containing the correlations.
 }
 
 \seealso{
-\code{\link{crosscorr.plot}}, \code{\link{autocorr}}
+   \code{\link{crosscorr.plot}}, \code{\link{autocorr}}.
 }
+\keyword{multivariate}
+\keyword{array}

@@ -1,4 +1,5 @@
 \name{thin}
+\alias{thin}
 \title{Thinning interval}
 
 \usage{thin(x)}
@@ -13,11 +14,12 @@
    to \code{1/frequency(x)}.
 
    This is a generic function. Methods have been implemented
-   for mcmc objects.
+   for \code{mcmc} objects.
 }
 
 \author{Martyn Plummer}
 
 \seealso{
-	\code{\link{time}}
+   \code{\link{time}}.
 }
+\keyword{ts}

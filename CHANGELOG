@@ -1,3 +1,33 @@
+0.5-1
+
+- Replaced time series functions with functions from "ts" library
+  (R-base >= 0.65.0)
+- Removed calls to Version() (deprecated). Use is.R() instead.
+- Added new function read.yesno
+- Source files maintained using ESS
+- Allowed restart() in codamenu.options.plot.kernel
+- Simplified print.coda.options
+- Removed "onepage" option in coda.options() (Subsumed in user.layout)
+- Removed "mrows" and "mcols" options in coda.options (use par instead)
+
+Changes to Geweke's diagnostic
+- Uses new function spectrum0() to estimate spectral density at zero
+- Gelman-Rubin-Brooks plot never discards more than half the chain
+  to preserve necessary asymptotic conditions.
+
+Changes to Gelman and Rubin's diagnostic
+- Multivariate psrf added.
+- Documentation for Gelman-Rubin-Brooks plot update to give
+  clearer motivation.
+
+Changes to Heidelberger and Welch's diagnostic
+- Simplified formula for Cramer-von Mises statistic
+- Using new function spectrum0() to estimate spectral density at zero
+- Can set p-value threshold for passing convergence test.
+- p-value is printed in output, using new function pcramer().
+- Prints starting iteration of truncated chain instead of number
+  of iterations to discard.
+
 0.4-7
 
 Fixed bug in read.bugs.interactive() leading to failure when

@@ -1,4 +1,7 @@
 \name{mcmc.list}
+\alias{mcmc.list}
+\alias{as.mcmc.list}
+\alias{is.mcmc.list}
 \title{Replicated Markov Chain Monte Carlo Objects}
 
 \usage{
@@ -6,8 +9,6 @@ mcmc.list(data)
 as.mcmc.list(x)
 is.mcmc.list(x)
 }
-\alias{as.mcmc.list}
-\alias{is.mcmc.list}
 
 \arguments{
 \item{data}{a list of mcmc objects}
@@ -39,7 +40,7 @@ selects a single \code{mcmc} object from the list.
 \author{Martyn Plummer}
 
 \seealso{
-\code{\link{mcmc}}
+   \code{\link{mcmc}}.
 }
 
 \examples{

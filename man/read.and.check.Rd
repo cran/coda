@@ -1,4 +1,5 @@
 \name{read.and.check}
+\alias{read.and.check}
 \title{Read data interactively and check that it satisfies conditions}
 
 \usage{

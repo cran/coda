@@ -1,4 +1,5 @@
 \name{autocorr.plot}
+\alias{autocorr.plot}
 \title{Plot autocorrelations for Markov Chains}
 
 \usage{autocorr.plot{x, lag.max, auto.layout = TRUE, ask=TRUE}
@@ -17,5 +18,6 @@ Plots the autocorrelation function for each variable in each chain in x.
 }
 
 \seealso{
-\code{\link{autocorr}}
+   \code{\link{autocorr}}.
 }
+\keyword{hplot}

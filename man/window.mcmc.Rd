@@ -1,4 +1,5 @@
 \name{window.mcmc}
+\alias{window.mcmc}
 \title{Time windows for mcmc objects}
 
 \usage{window(x,start,end,thin)}
@@ -28,3 +29,4 @@
 \seealso{
    \code{\link{window}}, \code{\link{thin}}.
 }
+\keyword{ts}

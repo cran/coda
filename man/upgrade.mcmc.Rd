@@ -1,4 +1,5 @@
 \name{upgrade.mcmc}
+\alias{upgrade.mcmc}
 \title{Upgrade mcmc objects in obsolete format}
 
 \usage{
@@ -6,11 +7,11 @@
 }
 
 \arguments{
-   \item{data}{an obsolete \code{mcmc} object}.
+   \item{data}{an obsolete \code{mcmc} object.}
 }
 
 \description{
-   In previous releases of CODA, an mcmc  object could
+   In previous releases of CODA, an \code{mcmc}  object could
    be a single or multiple chains.  A new class \code{mcmc.list}
    has now been introduced to deal with multiple chains and
    \code{mcmc} objects can only have data from a single chain.
@@ -22,7 +23,7 @@
 \author{Martyn Plummer}
 
 \seealso{
-   \code{\link{mcmc}}
+   \code{\link{mcmc}}.
 }
 
 \keyword{ts}

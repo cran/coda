@@ -1,4 +1,7 @@
 \name{mcmc}
+\alias{mcmc}
+\alias{as.mcmc}
+\alias{is.mcmc}
 \title{Markov Chain Monte Carlo Objects}
 
 \usage{
@@ -6,8 +9,6 @@ mcmc(data= NA, start = 1, end = numeric(0), thin = 1)
 as.mcmc(x)
 is.mcmc(x)
 }
-\alias{as.mcmc}
-\alias{is.mcmc}
 
 \arguments{
 \item{data}{a vector or  matrix of MCMC output}
@@ -32,7 +33,7 @@ is.mcmc(x)
 
 \author{Martyn Plummer}
 
-\notes{
+\note{
    The format of the mcmc class has changed between coda version 0.3
    and 0.4.  Older mcmc objects will now cause \code{is.mcmc} to
    fail with an appropriate warning message.  Obsolete mcmc objects can
@@ -41,12 +42,12 @@ is.mcmc(x)
 
 
 \seealso{
-\code{\link{mcmc.list}},
-\code{\link{upgrade.mcmc}},
-\code{\link{thin}},
-\code{\link{window.mcmc}},
-\code{\link{summary.mcmc}},
-\code{\link{plot.mcmc}}.
+   \code{\link{mcmc.list}},
+   \code{\link{upgrade.mcmc}},
+   \code{\link{thin}},
+   \code{\link{window.mcmc}},
+   \code{\link{summary.mcmc}},
+   \code{\link{plot.mcmc}}.
 }
 
 \keyword{ts}

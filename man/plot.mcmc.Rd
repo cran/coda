@@ -1,4 +1,5 @@
 \name{plot.mcmc}
+\alias{plot.mcmc}
 \title{Summary plots of mcmc objects}
 
 \usage{
@@ -25,5 +26,6 @@ summary(data, trace = TRUE, density = TRUE, smooth = TRUE, bwf,
 \author{Martyn Plummer}
 
 \seealso{
-\code{\link{densplot}}, \code{\link{traceplot}}
+   \code{\link{densplot}}, \code{\link{traceplot}}.
 }
+\keyword{hplot}

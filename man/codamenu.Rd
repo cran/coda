@@ -1,4 +1,5 @@
 \name{codamenu}
+\alias{codamenu}
 \title{Main menu driver for the coda package}
 
 \usage{
@@ -11,3 +12,4 @@ in the coda package.  It is designed for users who know nothing about
 the R language.}
 
 \author{Kate Cowles, Nicky Best, Karen Vines, Martyn Plummer}
+\keyword{util}

@@ -7,8 +7,6 @@ if (is.array(x) || is.data.frame(x)) ncol(x) else as.integer(1)
 "NROW" <-
 function (x) 
 if (is.array(x) || is.data.frame(x)) nrow(x) else length(x)
-"Nchains" <-
-2
 "colnames" <-
 function (x, do.NULL = TRUE, prefix = "row") 
 {
@@ -104,9 +102,8 @@ function (corr.list, this.chain, this.parm, scale, title.scale,
 }
 "is.R" <-
 function () 
-{
-    !is.null(version$language) && version$language == "R"
-}
+exists("version") && !is.null(vl <- version$language) && vl == 
+    "R"
 "rownames" <-
 function (x, do.NULL = TRUE, prefix = "row") 
 {

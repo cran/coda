@@ -1,22 +1,23 @@
 "autocorr" <-
 function (x, lags = c(0, 1, 5, 10, 50), relative = TRUE) 
 {
-    if (relative) 
-        lags <- lags * thin(x)
-    else if (any(lags%%thin(x) != 0)) 
-        stop("Lags do not conform to thinning interval")
-    lags <- lags[lags < niter(x) * thin(x)]
-    if (is.mcmc.list(x)) 
-        return(lapply(x, autocorr, lags, relative))
-    x <- as.mcmc(x)
-    y <- array(dim = c(length(lags), nvar(x), nvar(x)))
-    dimnames(y) <- list(paste("Lag", lags), varnames(x), varnames(x))
-    acf.out <- acf(as.ts.mcmc(x), lag.max = max(lags), plot = FALSE)$acf
-    y[, , ] <- if (is.array(acf.out)) 
-        acf.out[lags%/%thin(x) + 1, , ]
-    else acf.out[lags%/%thin(x) + 1]
-    return(y)
+  if (relative) 
+    lags <- lags * thin(x)
+  else if (any(lags%%thin(x) != 0)) 
+    stop("Lags do not conform to thinning interval")
+  lags <- lags[lags < niter(x) * thin(x)]
+  if (is.mcmc.list(x)) 
+    return(lapply(x, autocorr, lags, relative))
+  x <- as.mcmc(x)
+  y <- array(dim = c(length(lags), nvar(x), nvar(x)))
+  dimnames(y) <- list(paste("Lag", lags), varnames(x), varnames(x))
+  acf.out <- acf(as.ts.mcmc(x), lag.max = max(lags), plot = FALSE)$acf
+  y[, , ] <- if (is.array(acf.out)) 
+    acf.out[lags%/%thin(x) + 1, , ]
+  else acf.out[lags%/%thin(x) + 1]
+  return(y)
 }
+
 "autocorr.plot" <-
 function (x, lag.max, auto.layout = TRUE, ask = TRUE, ...) 
 {
@@ -42,11 +43,13 @@ function (x, lag.max, auto.layout = TRUE, ask = TRUE, ...)
     }
     invisible(x)
 }
+
 "crosscorr" <-
 function (x) 
 {
     cor(as.matrix(x))
 }
+
 "crosscorr.plot" <-
 function (x, col = topo.colors(10), ...) 
 {
@@ -85,188 +88,264 @@ function (x, col = topo.colors(10), ...)
     text(Nvar - ydelta, 0.75 * Nvar, "0", adj = c(1, 0.5))
     return()
 }
+
 "densplot" <-
 function (x, show.obs = TRUE, bwf, main = "", ...) 
 {
-    xx <- as.matrix(x)
-    for (i in 1:nvar(x)) {
-        y <- xx[, i, drop = TRUE]
-        if (missing(bwf)) 
-            bwf <- function(x) {
-                x <- x[!is.na(as.vector(x))]
-                return(1.06 * min(sd(x), IQR(x)/1.34) * length(x)^-0.2)
-            }
-        bw <- bwf(y)
-        width <- 4 * bw
-        if (max(abs(y - floor(y))) == 0 || bw == 0) 
-            hist(y, prob = TRUE, main = main, ...)
-        else {
-            scale <- "open"
-            if (max(y) <= 1 && 1 - max(y) < 2 * bw) {
-                if (min(y) >= 0 && min(y) < 2 * bw) {
-                  scale <- "proportion"
-                  y <- c(y, -y, 2 - y)
-                }
-            }
-            else if (min(y) >= 0 && min(y) < 2 * bw) {
-                scale <- "positive"
-                y <- c(y, -y)
-            }
-            else scale <- "open"
-            dens <- density(y, width = width)
-            if (scale == "proportion") {
-                dens$y <- 3 * dens$y[dens$x >= 0 & dens$x <= 
-                  1]
-                dens$x <- dens$x[dens$x >= 0 & dens$x <= 1]
-            }
-            else if (scale == "positive") {
-                dens$y <- 2 * dens$y[dens$x >= 0]
-                dens$x <- dens$x[dens$x >= 0]
-            }
-            plot(dens, ylab = "", main = main, type = "l", , 
-                ylim = c(0, max(dens$y)), ...)
-            if (show.obs) 
-                lines(y[1:niter(x)], rep(max(dens$y)/100, niter(x)), 
-                  type = "h")
+  xx <- as.matrix(x)
+  for (i in 1:nvar(x)) {
+    y <- xx[, i, drop = TRUE]
+    if (missing(bwf)) 
+      bwf <- function(x) {
+        x <- x[!is.na(as.vector(x))]
+        return(1.06 * min(sd(x), IQR(x)/1.34) * length(x)^-0.2)
+      }
+    bw <- bwf(y)
+    width <- 4 * bw
+    if (max(abs(y - floor(y))) == 0 || bw == 0) 
+      hist(y, prob = TRUE, main = main, ...)
+    else {
+      scale <- "open"
+      if (max(y) <= 1 && 1 - max(y) < 2 * bw) {
+        if (min(y) >= 0 && min(y) < 2 * bw) {
+          scale <- "proportion"
+          y <- c(y, -y, 2 - y)
         }
-        if (!is.null(varnames(x)) && is.null(list(...)$main)) 
-            title(paste("Density of", varnames(x)[i]))
+      }
+      else if (min(y) >= 0 && min(y) < 2 * bw) {
+        scale <- "positive"
+        y <- c(y, -y)
+      }
+      else scale <- "open"
+      dens <- density(y, width = width)
+      if (scale == "proportion") {
+        dens$y <- 3 * dens$y[dens$x >= 0 & dens$x <= 
+                             1]
+        dens$x <- dens$x[dens$x >= 0 & dens$x <= 1]
+      }
+      else if (scale == "positive") {
+        dens$y <- 2 * dens$y[dens$x >= 0]
+        dens$x <- dens$x[dens$x >= 0]
+      }
+      plot(dens, ylab = "", main = main, type = "l", , 
+           ylim = c(0, max(dens$y)), ...)
+      if (show.obs) 
+        lines(y[1:niter(x)], rep(max(dens$y)/100, niter(x)), 
+              type = "h")
     }
-    return(invisible(x))
+    if (!is.null(varnames(x)) && is.null(list(...)$main)) 
+      title(paste("Density of", varnames(x)[i]))
+  }
+  return(invisible(x))
 }
+
 "read.bugs" <-
 function (file = "bugs.out", start, end, thin) 
 {
-    #Based on readdat by Karen Vines 
-    #Index object not required  
-    #We don't remove missing values - each row of the output should 
-    #contain at least one non-missing value. 
-    #We return an mcmc object, if possible 
-    # 
-    nc <- nchar(file)
-    if (nc > 3 && substring(file, nc - 3, nc) == ".out") 
-        root <- substring(file, 1, nc - 4)
-    else root <- file
-    index <- read.table(file = paste(root, ".ind", sep = ""), 
-        row.names = 1, col.names = c("", "begin", "end"))
-    vnames <- row.names(index)
-    # 
-    temp <- scan(file = paste(root, ".out", sep = ""), what = list(iter = 0, 
-        val = 0), quiet = TRUE)
-    # Do one pass through the data to see if we can construct 
-    # a regular time series easily 
-    # 
-    start.vec <- end.vec <- thin.vec <- numeric(nrow(index))
-    for (i in 1:length(vnames)) {
-        iter.i <- temp$iter[index[i, "begin"]:index[i, "end"]]
-        thin.i <- unique(diff(iter.i))
-        thin.vec[i] <- if (length(thin.i) == 1) 
-            thin.i
-        else NA
-        start.vec[i] <- iter.i[1]
-        end.vec[i] <- iter.i[length(iter.i)]
+  nc <- nchar(file)
+  if (nc > 3 && substring(file, nc - 3, nc) == ".out") 
+    root <- substring(file, 1, nc - 4)
+  else root <- file
+  index <- read.table(file = paste(root, ".ind", sep = ""), 
+                      row.names = 1, col.names = c("", "begin", "end"))
+  vnames <- row.names(index)
+
+  temp <- scan(file = paste(root, ".out", sep = ""), what = list(iter = 0, 
+                                                       val = 0), quiet = TRUE)
+  ## Do one pass through the data to see if we can construct 
+  ## a regular time series easily 
+  ## 
+  start.vec <- end.vec <- thin.vec <- numeric(nrow(index))
+  for (i in 1:length(vnames)) {
+    iter.i <- temp$iter[index[i, "begin"]:index[i, "end"]]
+    thin.i <- unique(diff(iter.i))
+    thin.vec[i] <- if (length(thin.i) == 1) 
+      thin.i
+    else NA
+    start.vec[i] <- iter.i[1]
+    end.vec[i] <- iter.i[length(iter.i)]
+  }
+  if (any(is.na(start.vec)) || any(thin.vec != thin.vec[1]) || 
+      any((start.vec - start.vec[1])%%thin.vec[1] != 0)) {
+    ## 
+    ## Do it the brute force way 
+    ## 
+    iter <- sort(unique(temp$iter))
+    old.thin <- unique(diff(iter))
+    if (length(old.thin) == 1) 
+      is.regular <- TRUE
+    else {
+      if (all(old.thin%%min(old.thin) == 0)) 
+        old.thin <- min(old.thin)
+      else old.thin <- 1
+      is.regular <- FALSE
     }
-    if (any(is.na(start.vec)) || any(thin.vec != thin.vec[1]) || 
-        any((start.vec - start.vec[1])%%thin.vec[1] != 0)) {
-        # 
-        # Do it the brute force way 
-        # 
-        iter <- sort(unique(temp$iter))
-        old.thin <- unique(diff(iter))
-        if (length(old.thin) == 1) 
-            is.regular <- TRUE
-        else {
-            if (all(old.thin%%min(old.thin) == 0)) 
-                old.thin <- min(old.thin)
-            else old.thin <- 1
-            is.regular <- FALSE
-        }
+  }
+  else {
+    iter <- seq(from = min(start.vec), to = max(end.vec), 
+                by = thin.vec[1])
+    old.thin <- thin.vec[1]
+    is.regular <- TRUE
+  }
+  if (missing(start)) 
+    start <- min(start.vec)
+  else if (start < min(start.vec)) {
+    warning("start not changed")
+    start <- min(start.vec)
+  }
+  else if (start > max(end.vec)) 
+    stop("Start after end of data")
+  else iter <- iter[iter >= start]
+  if (missing(end)) 
+    end <- max(end.vec)
+  else if (end > max(end.vec)) {
+    warning("end not changed")
+    end <- max(end.vec)
+  }
+  else if (end < min(start.vec)) 
+    stop("End before start of data")
+  else iter <- iter[iter <= end]
+  if (missing(thin)) 
+    thin <- old.thin
+  else if (thin%%old.thin != 0) {
+    thin <- old.thin
+    warning("thin not changed")
+  }
+  else {
+    new.iter <- iter[(iter - start)%%thin == 0]
+    new.thin <- unique(diff(new.iter))
+    if (length(new.thin) != 1 || new.thin != thin) 
+      warning("thin not changed")
+    else {
+      iter <- new.iter
+      end <- max(iter)
+      is.regular <- TRUE
+    }
+  }
+  out <- matrix(NA, nrow = length(iter), ncol = nrow(index))
+  dimnames(out) <- list(iter, vnames)
+  for (v in vnames) {
+    cat("Abstracting", v, "... ")
+    inset <- index[v, "begin"]:index[v, "end"]
+    iter.v <- temp$iter[inset]
+    if (!is.regular) {
+      use.v <- duplicated(c(iter, iter.v))[-(1:length(iter))]
+      use <- duplicated(c(iter.v, iter))[-(1:length(iter.v))]
     }
     else {
-        iter <- seq(from = min(start.vec), to = max(end.vec), 
-            by = thin.vec[1])
-        old.thin <- thin.vec[1]
-        is.regular <- TRUE
+      use.v <- (iter.v - start)%%thin == 0 & iter.v >= 
+        start & iter.v <= end
+      use <- (iter.v[use.v] - start)%/%thin + 1
     }
-    if (missing(start)) 
-        start <- min(start.vec)
-    else if (start < min(start.vec)) {
-        warning("start not changed")
-        start <- min(start.vec)
-    }
-    else if (start > max(end.vec)) 
-        stop("Start after end of data")
-    else iter <- iter[iter >= start]
-    if (missing(end)) 
-        end <- max(end.vec)
-    else if (end > max(end.vec)) {
-        warning("end not changed")
-        end <- max(end.vec)
-    }
-    else if (end < min(start.vec)) 
-        stop("End before start of data")
-    else iter <- iter[iter <= end]
-    if (missing(thin)) 
-        thin <- old.thin
-    else if (thin%%old.thin != 0) {
-        thin <- old.thin
-        warning("thin not changed")
-    }
-    else {
-        new.iter <- iter[(iter - start)%%thin == 0]
-        new.thin <- unique(diff(new.iter))
-        if (length(new.thin) != 1 || new.thin != thin) 
-            warning("thin not changed")
-        else {
-            iter <- new.iter
-            end <- max(iter)
-            is.regular <- TRUE
-        }
-    }
-    out <- matrix(NA, nrow = length(iter), ncol = nrow(index))
-    dimnames(out) <- list(iter, vnames)
-    for (v in vnames) {
-        cat("Abstracting", v, "... ")
-        inset <- index[v, "begin"]:index[v, "end"]
-        iter.v <- temp$iter[inset]
-        if (!is.regular) {
-            use.v <- duplicated(c(iter, iter.v))[-(1:length(iter))]
-            use <- duplicated(c(iter.v, iter))[-(1:length(iter.v))]
-        }
-        else {
-            use.v <- (iter.v - start)%%thin == 0 & iter.v >= 
-                start & iter.v <= end
-            use <- (iter.v[use.v] - start)%/%thin + 1
-        }
-        if (any(use) & any(use.v)) 
-            out[use, v] <- temp$val[inset[use.v]]
-        cat(length(use), "valid values\n")
-    }
-    if (is.regular) 
-        out <- mcmc(out, start = start, end = end, thin = thin)
-    else warning("not returning an mcmc object")
-    return(out)
+    if (any(use) & any(use.v)) 
+      out[use, v] <- temp$val[inset[use.v]]
+    cat(length(use), "valid values\n")
+  }
+  if (is.regular) 
+    out <- mcmc(out, start = start, end = end, thin = thin)
+  else warning("not returning an mcmc object")
+  return(out)
 }
+
 "traceplot" <-
 function (x, smooth = TRUE, col = 1:6, type = "l", ylab = "", 
     ...) 
 {
-    x <- mcmc.list(x)
-    args <- list(...)
-    for (j in 1:nvar(x)) {
-        xp <- as.vector(time(x))
-        yp <- if (nvar(x) > 1) 
-            x[, j, drop = TRUE]
-        else x
-        yp <- do.call("cbind", yp)
-        matplot(xp, yp, xlab = "Iterations", ylab = ylab, type = type, 
+  x <- mcmc.list(x)
+  args <- list(...)
+  for (j in 1:nvar(x)) {
+    xp <- as.vector(time(x))
+    yp <- if (nvar(x) > 1) 
+      x[, j, drop = TRUE]
+    else x
+    yp <- do.call("cbind", yp)
+    matplot(xp, yp, xlab = "Iterations", ylab = ylab, type = type, 
             col = col, ...)
-        if (!is.null(varnames(x)) && is.null(list(...)$main)) 
-            title(paste("Trace of", varnames(x)[j]))
-        if (smooth) {
-            scol <- rep(col, length = nchain(x))
-            for (k in 1:nchain(x)) lines(lowess(xp, yp[, k]), 
-                col = scol[k])
-        }
+    if (!is.null(varnames(x)) && is.null(list(...)$main)) 
+      title(paste("Trace of", varnames(x)[j]))
+    if (smooth) {
+      scol <- rep(col, length = nchain(x))
+      for (k in 1:nchain(x)) lines(lowess(xp, yp[, k]), 
+                                   col = scol[k])
     }
+  }
 }
+
+"plot.mcmc" <- function (x, trace = TRUE, density = TRUE, smooth = TRUE, bwf, 
+                         auto.layout = TRUE, ask = TRUE, ...) 
+{
+  oldpar <- NULL
+  on.exit(par(oldpar))
+  if (auto.layout) {
+    mfrow <- set.mfrow(Nchains = nchain(x), Nparms = nvar(x), 
+                       nplots = trace + density)
+    oldpar <- par(mfrow = mfrow)
+  }
+  oldpar <- c(oldpar, par(ask = ask))
+  for (i in 1:nvar(x)) {
+    y <- as.matrix(x)[, i, drop = FALSE]
+    if (trace) 
+      traceplot(y, smooth = smooth)
+    if (density) 
+      if (missing(bwf)) 
+        densplot(y)
+      else densplot(y, bwf = bwf)
+  }
+}
+
+"summary.mcmc" <-
+  function (x, quantiles = c(0.025, 0.25, 0.5, 0.75, 0.975), ...) 
+{
+  x <- as.mcmc(x)
+  statnames <- c("Mean", "SD", "Naive SE", "Time-series SE")
+  varstats <- matrix(nrow = nvar(x), ncol = length(statnames), 
+                     dimnames = list(varnames(x), statnames))
+  sp0 <- function(x) spectrum0(x)$spec
+  if (is.matrix(x)) {
+    xmean <- apply(x, 2, mean)
+    xvar <- apply(x, 2, var)
+    xtsvar <- apply(x, 2, sp0)
+    varquant <- t(apply(x, 2, quantile, quantiles))
+  }
+  else {
+    xmean <- mean(x, na.rm = TRUE)
+    xvar <- var(x, na.rm = TRUE)
+    xtsvar <- sp0(x)
+    varquant <- quantile(x, quantiles)
+  }
+  varstats[, 1] <- xmean
+  varstats[, 2] <- sqrt(xvar)
+  varstats[, 3] <- sqrt(xvar/niter(x))
+  varstats[, 4] <- sqrt(xtsvar/niter(x))
+  varstats <- drop(varstats)
+  varquant <- drop(varquant)
+  out <- list(statistics = varstats, quantiles = varquant, 
+              start = start(x), end = end(x), thin = thin(x), nchain = 1)
+  class(out) <- "summary.mcmc"
+  return(out)
+}
+
+"print.summary.mcmc" <-
+  function (x, digits = max(3, .Options$digits - 3), ...) 
+{
+  cat("\n", "Iterations = ", x$start, ":", x$end, "\n", sep = "")
+  cat("Thinning interval =", x$thin, "\n")
+  cat("Number of chains =", x$nchain, "\n")
+  cat("Sample size per chain =", (x$end - x$start)/x$thin + 
+      1, "\n")
+  cat("\n1. Empirical mean and standard deviation for each variable,")
+  cat("\n   plus standard error of the mean:\n\n")
+  print(x$statistics, digits = digits, ...)
+  cat("\n2. Quantiles for each variable:\n\n")
+  print(x$quantiles, digits = digits, ...)
+  cat("\n")
+  invisible(x)
+}
+
+
+
+
+
+
+
+

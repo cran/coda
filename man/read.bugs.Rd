@@ -1,4 +1,5 @@
 \name{read.bugs}
+\alias{read.bugs}
 \title{Read BUGS output files}
 
 \usage{
@@ -38,6 +39,7 @@ read.bugs(file = "bugs.out", start, end, thin)
 \author{Karen Vines, Martyn Plummer}
 
 \seealso{
-   \code{\link{mcmc}}
-   \code{\link{read.bugs.interactive}}
+   \code{\link{mcmc}}, 
+   \code{\link{read.bugs.interactive}}.
 }
+\keyword{file}

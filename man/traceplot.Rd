@@ -1,4 +1,5 @@
 \name{traceplot}
+\alias{traceplot}
 \title{Trace plot of MCMC output}
 
 \usage{traceplot(x, smooth = TRUE, ...)}
@@ -10,7 +11,7 @@
 }
 
 \description{
-Displays a plot of iterations vs sampled values for each variable
+Displays a plot of iterations \emph{vs.} sampled values for each variable
 in the chain, with a separate plot per variable.
 }
 
@@ -20,5 +21,6 @@ called by the \code{plot.mcmc} function.
 }
 
 \seealso{
-\code{\link{densplot}}, \code{\link{plot.mcmc}}
+   \code{\link{densplot}}, \code{\link{plot.mcmc}}.
 }
+\keyword{hplot}
