@@ -1,10 +1,11 @@
 Package: coda
-Version: 0.6-2
-Date: 2003/12/03
+Version: 0.7-1
+Date: 2004/03/30
 Title: Output analysis and diagnostics for MCMC
 Author: Martyn Plummer, Nicky Best, Kate Cowles, Karen Vines
 Maintainer: Martyn Plummer <plummer@iarc.fr>
-Depends: R (>= 1.8)
+Depends: R (>= 1.9)
 Description: Output analysis and diagnostics for Markov Chain Monte Carlo simulations.
 License: GPL Version 2 or later.
 URL: http://www-fis.iarc.fr/coda/
+Packaged: Mon Apr  5 10:32:00 2004; martyn

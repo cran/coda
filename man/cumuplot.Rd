@@ -4,14 +4,15 @@
 
 \usage{
   cumuplot(x, probs=c(0.025,0.5,0.975), ylab="",
-           lty=c(2,1), lwd=c(1,2), type="l", ask=TRUE, auto.layout=TRUE, ...)
+           lty=c(2,1), lwd=c(1,2), type="l", ask=TRUE, auto.layout=TRUE, 
+	   col=1, ...)
 }
 
 \arguments{
   \item{x}{an \code{mcmc} object}
   \item{probs}{vector of desired quantiles}
-  \item{ylab, lty, lwd, type}{graphical parameters}
-  \item{auto.layout}{If \code{TRUE} then, set up own layout for
+  \item{ylab, lty, lwd, type, col}{graphical parameters}
+  \item{auto.layout}{If \code{TRUE}, then set up own layout for
    plots, otherwise use existing one.}
   \item{ask}{If \code{TRUE} then prompt user before displaying
    each page of plots.}

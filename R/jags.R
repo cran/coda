@@ -8,14 +8,15 @@ bugs2jags <- function(infile, outfile)
     ## Convert S-style data for WinBUGS into the R dump format
     ## used by JAGS.
     bugs.dat <- dget(infile)
-    for (n in names(bugs.dat)) {
-        if(!is.null(dim(bugs.dat[[n]]))) {
+    for (bugs.variable.name in names(bugs.dat)) {
+        if(!is.null(dim(bugs.dat[[bugs.variable.name]]))) {
             ## Manually reverse order of dimensions of arrays
-            dim(bugs.dat[[n]]) <- rev(dim(bugs.dat[[n]]))
+            dim(bugs.dat[[bugs.variable.name]]) <-
+              rev(dim(bugs.dat[[bugs.variable.name]]))
             ## Then transpose
-            bugs.dat[[n]] <- aperm(bugs.dat[[n]])
+            bugs.dat[[bugs.variable.name]] <- aperm(bugs.dat[[bugs.variable.name]])
         }
-        assign(n, bugs.dat[[n]])
+        assign(bugs.variable.name, bugs.dat[[bugs.variable.name]])
     }
     dump(names(bugs.dat), file=outfile)
 }

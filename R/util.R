@@ -17,11 +17,6 @@
   }
 }
 
-  ".First.lib" <- function(lib,pkg)
-{
-  require(ts)
-}
-
 "read.yesno" <-
 function (string, default=TRUE)
 {

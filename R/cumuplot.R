@@ -1,6 +1,6 @@
 cumuplot <- function(x, probs=c(0.025,0.5,0.975), ylab="", lty=c(2,1),
                      lwd=c(1,2), type="l", ask=TRUE, auto.layout=TRUE,
-                     ...)
+                     col=1, ...)
 {
     cquantile <- function(z, probs)
     {
@@ -31,7 +31,7 @@ cumuplot <- function(x, probs=c(0.025,0.5,0.975), ylab="", lty=c(2,1),
         for (j in 1:nvar(x)) {
             Y <- cquantile(x[[i]][,j], probs=probs)
             matplot(Iterations, Y, ylab=ylab, lty=lty, lwd=lwd, type=type,
-                    ...)
+                    col=col, ...)
             title(paste(varnames(x)[j], ifelse(is.null(chanames(x)), 
                   "", ":"), chanames(x)[i], sep = ""))
         }

@@ -1,3 +1,6 @@
+0.7
+- Modified to run on R 1.9.0 with new organization of base library
+
 0.6-2
 - Fixed documentation bug in raftery.diag
 
