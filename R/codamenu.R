@@ -913,6 +913,7 @@ function ()
                     substring(filenames[i], 0, nc - 4)
                   else filenames[i]
                 }
+                else root[i] <- filenames[i]
             }
             root <- unique(root)
             all.files <- c(paste(root, ".ind", sep = ""), paste(root, 
@@ -927,7 +928,7 @@ function ()
     }
     nfiles <- length(root)
     chains <- vector("list", nfiles)
-    names(chains) <- filenames
+    names(chains) <- root
     for (i in 1:nfiles) chains[[i]] <- read.bugs(file = root[i])
     return(mcmc.list(chains))
 }

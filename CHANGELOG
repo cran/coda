@@ -1,3 +1,13 @@
+0.4-7
+
+Fixed bug in read.bugs.interactive() leading to failure when
+user enters both ".ind" and ".out" names (Thanks to John Logsdon).
+
+0.4-6
+
+Archive 0.4-5 was incorrectly compressed with "compress" instead
+of "gzip". Corrected by Friedrich Leisch.
+
 0.4-5
 
 Bug fixes
