@@ -1,3 +1,7 @@
+0.7-2
+- The spectrum0() function now returns zero when it is given a constant
+  vector. summary.mcmc() (which calls spectrum0) now works correctly.
+
 0.7
 - Modified to run on R 1.9.0 with new organization of base library
 

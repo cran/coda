@@ -139,16 +139,21 @@ effectiveSize <- function(x)
   v0 <- numeric(ncol(x))
   for(i in 1:ncol(x)) {
     y <- x[,i]
-    yfft <- fft(y)
-    spec <- Re(yfft * Conj(yfft))/ N
-    spec.data <- data.frame(one = rep(1, Nfreq), f1=f1, f2=f2,
-                            spec = spec[1 + (1:Nfreq)],
-                            inset = I(freq<=max.freq))
-
-    glm.out <- glm(fmla, family=Gamma(link="log"), data=spec.data,
-                   subset=inset)
-    v0[i] <- predict(glm.out, type="response",
-                     newdata=data.frame(spec=0,one=1,f1=-sqrt(3),f2=sqrt(5)))
+    if (var(y) == 0) {
+      v0[i] <- 0
+    }
+    else {
+      yfft <- fft(y)
+      spec <- Re(yfft * Conj(yfft))/ N
+      spec.data <- data.frame(one = rep(1, Nfreq), f1=f1, f2=f2,
+                              spec = spec[1 + (1:Nfreq)],
+                              inset = I(freq<=max.freq))
+      
+      glm.out <- glm(fmla, family=Gamma(link="log"), data=spec.data,
+                     subset=inset)
+      v0[i] <- predict(glm.out, type="response",
+                       newdata=data.frame(spec=0,one=1,f1=-sqrt(3),f2=sqrt(5)))
+    }
   }
   return(list(spec=v0 * batch.size))
 }
