@@ -115,15 +115,15 @@
 
 }
 
-"pcramer" <- function (x, eps=1.0e-5)
+"pcramer" <- function (q, eps=1.0e-5)
 {
   ## Distribution function of the Cramer-von Mises statistic
   ##
   log.eps <- log(eps)
-  y <- matrix(0, nrow=4, ncol=length(x))
+  y <- matrix(0, nrow=4, ncol=length(q))
   for(k in 0:3) {
-    z <- gamma(k + 0.5) * sqrt(4*k + 1)/(gamma(k+1) * pi^(3/2) * sqrt(x))
-    u <- (4*k + 1)^2/(16*x)
+    z <- gamma(k + 0.5) * sqrt(4*k + 1)/(gamma(k+1) * pi^(3/2) * sqrt(q))
+    u <- (4*k + 1)^2/(16*q)
     y[k+1,] <- ifelse(u > -log.eps, 0, z * exp(-u) * besselK(x = u, nu=1/4))
   }
   return(apply(y,2,sum))

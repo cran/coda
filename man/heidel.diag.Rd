@@ -3,11 +3,12 @@
 \alias{print.heidel.diag}
 \title{Heidelberger and Welch's convergence diagnostic}
 
-\usage{heidel.diag(mcmc.obj, eps=0.1)}
+\usage{heidel.diag(x, eps=0.1, pvalue=0.05)}
 
 \arguments{
-\item{mcmc.obj} {An \code{mcmc} object}
+\item{x} {An \code{mcmc} object}
 \item{eps}{Target value for ratio of halfwidth to sample mean}
+\item{pvalue}{significance level to use}
 }
 
 \description{

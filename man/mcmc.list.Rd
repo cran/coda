@@ -7,8 +7,8 @@
 \title{Replicated Markov Chain Monte Carlo Objects}
 
 \usage{
-mcmc.list(data)
-as.mcmc.list(x)
+mcmc.list(...)
+as.mcmc.list(x, ...)
 is.mcmc.list(x)
 }
 

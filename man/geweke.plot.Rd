@@ -3,7 +3,7 @@
 \title{Geweke-Brooks plot}
 
 \usage{
-geweke.plot(mcmc.obj, frac1 = 0.1, frac2 = 0.5, nbins = 20,
+geweke.plot(x, frac1 = 0.1, frac2 = 0.5, nbins = 20,
             pvalue = 0.05, auto.layout = TRUE, ask = TRUE, ...)
 } 
 

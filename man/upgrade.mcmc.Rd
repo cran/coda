@@ -3,11 +3,11 @@
 \title{Upgrade mcmc objects in obsolete format}
 
 \usage{
-   upgrade.mcmc(data)
+   upgrade.mcmc(x)
 }
 
 \arguments{
-   \item{data}{an obsolete \code{mcmc} object.}
+   \item{x}{an obsolete \code{mcmc} object.}
 }
 
 \description{

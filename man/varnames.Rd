@@ -6,7 +6,7 @@
 \title{Named dimensions of MCMC objects}
 
 \usage{
-varnames(x. allow.null=TRUE)
+varnames(x, allow.null=TRUE)
 chanames(x, allow.null=TRUE)
 varnames(x) <- namevector
 chanames(x) <- namevector

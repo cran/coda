@@ -2,7 +2,7 @@
 \alias{densplot}
 \title{Probability density function estimate from MCMC output}
 
-\usage{densplot(x, show.obs=TRUE, bwf, ...)}
+\usage{densplot(x, show.obs=TRUE, bwf, main, ylim, ...)}
 
 \arguments{
 \item{x}{An \code{mcmc} or \code{mcmc.list} object}
@@ -11,7 +11,9 @@
 the bandwidth is calculate by 1.06 times the minimum of the standard
 deviation and the interquartile range divided by 1.34 times the sample
 size to the negative one fifth power}
-\item{...}{Graphical parameters}
+\item{main}{Title. See \code{par()}}
+\item{ylim}{Limits on y axis.  See \code{par()}}
+\item{...}{Further graphical parameters}
 }
 
 \description{

@@ -5,7 +5,7 @@
 \alias{print.gelman.diag}
 \title{Gelman and Rubin's convergence diagnostic}
 
-\usage{gelman.diag(data, confidence = 0.95, transform=FALSE)}
+\usage{gelman.diag(x, confidence = 0.95, transform=FALSE)}
 
 \arguments{
 \item{data}{An \code{mcmc.list} object with more than one chain,

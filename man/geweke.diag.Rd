@@ -3,7 +3,7 @@
 \alias{print.geweke.diag}
 \title{Geweke's convergence diagnostic}
 
-\usage{geweke.diag(mcmc.obj, frac1=0.1, frac2=0.5)}
+\usage{geweke.diag(x, frac1=0.1, frac2=0.5)}
 
 \arguments{
 \item{frac1}{fraction to use from beginning of chain}

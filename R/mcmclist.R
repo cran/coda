@@ -130,7 +130,7 @@
 }
 
 "as.matrix.mcmc.list" <-
-  function (x, chains = FALSE, iters = FALSE) 
+  function (x, iters = FALSE, chains = FALSE) 
 {
   x <- mcmc.list(x)
   y <- matrix(nrow = niter(x) * nchain(x), ncol = nvar(x) + 

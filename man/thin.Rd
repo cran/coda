@@ -2,7 +2,9 @@
 \alias{thin}
 \title{Thinning interval}
 
-\usage{thin(x)}
+\usage{
+thin(x, ...)
+}
 
 \arguments{
    \item{x}{a regular time series}

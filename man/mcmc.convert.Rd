@@ -6,15 +6,14 @@
 \title{Conversions of MCMC objects}
 
 \usage{
-as.matrix(x, iters = FALSE)
-as.matrix(x.list, iters = FALSE, chains = FALSE)
-as.array(x.list)
-as.mcmc(x.list)
+as.matrix.mcmc(x, iters = FALSE)
+as.matrix.mcmc.list(x, iters = FALSE, chains = FALSE)
+as.array(x)
+as.mcmc(x)
 }
 
 \arguments{
-\item{x}{An \code{mcmc} object}
-\item{x.list}{An \code{mcmc.list} object}
+\item{x}{An \code{mcmc} or \code{mcmc.list} object}
 }
 
 \description{

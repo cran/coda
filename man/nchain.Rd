@@ -1,11 +1,11 @@
-\name{niter}
+\name{nchain}
 \alias{niter}
 \alias{nvar}
 \alias{nchain}
 \title{Dimensions of MCMC objects}
 
 \usage{
-nchain(x)
+niter(x)
 nvar(x)
 nchain(x)
 }

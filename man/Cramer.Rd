@@ -5,10 +5,11 @@
   Distribution function of the Cramer-von Mises distribution.
 }
 \usage{
-  pcramer(q)
+  pcramer(q, eps)
 }
 \arguments{
   \item{q}{vector of quantiles.}
+  \item{eps}{accuracy required}
 }
 \value{
   \code{pcramer} gives the distribution function,

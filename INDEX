@@ -23,7 +23,7 @@ mcmc.list                Replicated Markov Chain Monte Carlo Objects
 mcmc.subset              Extract or replace parts of MCMC objects
 mcpar                    Mcpar attribute of MCMC objects
 multi.menu               Choose multiple options from a menu
-niter                    Dimensions of MCMC objects
+nchain                   Dimensions of MCMC objects
 plot.mcmc                Summary plots of mcmc objects
 raftery.diag             Raftery and Lewis's diagnostic
 read.and.check           Read data interactively and check that it

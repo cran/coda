@@ -2,7 +2,7 @@
 \alias{crosscorr.plot}
 \title{Plot image of correlation matrix}
 
-\usage{function (x, col = topo.colors(10), ...)}
+\usage{crosscorr.plot (x, col = topo.colors(10), ...)}
 
 \arguments{
 \item{x}{an \code{mcmc} or \code{mcmc.list} object}

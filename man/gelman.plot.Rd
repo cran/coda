@@ -4,9 +4,9 @@
 \title{Gelman-Rubin-Brooks plot}
 
 \usage{
-gelman.plot(mcmc.list.obj, bin.width = 10, max.bins = 50,
+gelman.plot(x, bin.width = 10, max.bins = 50,
 confidence = 0.95, transform = FALSE, auto.layout = TRUE, ask = TRUE,
-...)
+col, lty, xlab, ylab, type, ...)
 } 
 
 \arguments{

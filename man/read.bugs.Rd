@@ -3,7 +3,7 @@
 \title{Read BUGS output files}
 
 \usage{
-read.bugs(file = "bugs.out", start, end, thin)
+read.bugs(file = "bugs.out", start, end, thin, quiet=FALSE)
 }
 
 \arguments{
@@ -14,6 +14,7 @@ read.bugs(file = "bugs.out", start, end, thin)
    \item{start}{First iteration of chain}
    \item{end}{Last iteration of chain}
    \item{thin}{Thinning interval for chain}
+   \item{quiet}{Logical flag. If true, a progress summary will be printed}
 }
 
 \description{

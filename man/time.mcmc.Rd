@@ -14,7 +14,7 @@
 time(x)
 start(x)
 end(x)
-thin(x)
+thin.mcmc(x)
 }
 \description{
    These are methods for mcmc objects for the generic time

@@ -2,7 +2,7 @@
 \alias{as.ts.msms}
 \title{Coerce mcmc object to time series}
 
-\usage{as.ts.mcmc(mcmc.obj)}
+\usage{as.ts.mcmc(x)}
 
 \description{
 \code{as.ts.mcmc} will coerce an mcmc object to a time series.}

@@ -6,8 +6,7 @@
 
 \usage{
    coda.options(...)
-   coda.options(default=TRUE)
-   print.coda.options()
+   print.coda.options(data = FALSE, stats = FALSE, plots = FALSE, diags = FALSE)
    .Coda.Options
    .Coda.Options.Default
 }
@@ -22,6 +21,9 @@
    \code{options()} function in the base library, with the additional
    feature that \code{coda.options(default=TRUE)} will reset all options
    to the default values.
+
+   Options can be pretty-printed using the \code{print.coda.options()}
+   function, which groups the options into sections.
 
    Available options are
    \item{bandwidth} Bandwidth function used when smoothing samples to
