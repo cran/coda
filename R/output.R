@@ -142,7 +142,7 @@ function (x, show.obs = TRUE, bwf, main = "", ylim, ...)
 }
 
 "read.bugs" <-
-function (file = "bugs.out", start, end, thin) 
+function (file = "bugs.out", start, end, thin, quiet=FALSE) 
 {
   nc <- nchar(file)
   if (nc > 3 && substring(file, nc - 3, nc) == ".out") 
@@ -227,7 +227,8 @@ function (file = "bugs.out", start, end, thin)
   out <- matrix(NA, nrow = length(iter), ncol = nrow(index))
   dimnames(out) <- list(iter, vnames)
   for (v in vnames) {
-    cat("Abstracting", v, "... ")
+    if(!quiet)
+      cat("Abstracting", v, "... ")
     inset <- index[v, "begin"]:index[v, "end"]
     iter.v <- temp$iter[inset]
     if (!is.regular) {
@@ -241,7 +242,8 @@ function (file = "bugs.out", start, end, thin)
     }
     if (any(use) & any(use.v)) 
       out[use, v] <- temp$val[inset[use.v]]
-    cat(length(use), "valid values\n")
+    if(!quiet)
+      cat(length(use), "valid values\n")
   }
   if (is.regular) 
     out <- mcmc(out, start = start, end = end, thin = thin)

@@ -1,7 +1,9 @@
 \name{mcmc.list}
 \alias{mcmc.list}
 \alias{as.mcmc.list}
+\alias{as.mcmc.list.default}
 \alias{is.mcmc.list}
+\alias{plot.mcmc.list}
 \title{Replicated Markov Chain Monte Carlo Objects}
 
 \usage{
@@ -34,7 +36,6 @@ and \code{thin} for \code{mcmc.list} objects.
 An \code{mcmc.list} can be indexed as if it were a single mcmc object
 using the \code{[} operator (see examples below). The \code{[[} operator
 selects a single \code{mcmc} object from the list.
-
 }
 
 \author{Martyn Plummer}

@@ -1,5 +1,6 @@
 \name{heidel.diag}
 \alias{heidel.diag}
+\alias{print.heidel.diag}
 \title{Heidelberger and Welch's convergence diagnostic}
 
 \usage{heidel.diag(mcmc.obj, eps=0.1)}

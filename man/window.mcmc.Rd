@@ -1,5 +1,6 @@
 \name{window.mcmc}
 \alias{window.mcmc}
+\alias{window.mcmc.list}
 \title{Time windows for mcmc objects}
 
 \usage{window(x,start,end,thin)}

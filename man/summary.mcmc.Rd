@@ -1,6 +1,8 @@
 \name{summary.mcmc}
 \alias{summary.mcmc}
 \alias{summary.mcmc.list}
+\alias{print.summary.mcmc}
+\alias{print.summary.mcmc.list}
 \title{Summary statistics for  Markov Chain Monte Carlo chains}
 
 \usage{
@@ -27,6 +29,7 @@ summary(data, quantiles = c(0.025, 0.25, 0.5, 0.75, 0.975), ...)
 \author{Martyn Plummer}
 
 \seealso{
-   \code{\link{mcmc}}.
+   \code{\link{mcmc}},
+   \code{\link{mcmc.list}}.
 }
 \keyword{univar}

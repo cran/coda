@@ -1,5 +1,6 @@
 \name{geweke.diag}
 \alias{geweke.diag}
+\alias{print.geweke.diag}
 \title{Geweke's convergence diagnostic}
 
 \usage{geweke.diag(mcmc.obj, frac1=0.1, frac2=0.5)}

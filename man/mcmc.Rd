@@ -1,7 +1,9 @@
 \name{mcmc}
 \alias{mcmc}
 \alias{as.mcmc}
+\alias{as.mcmc.default}
 \alias{is.mcmc}
+\alias{print.mcmc}
 \title{Markov Chain Monte Carlo Objects}
 
 \usage{

@@ -1,5 +1,6 @@
 \name{gelman.plot}
 \alias{gelman.plot}
+\alias{gelman.preplot}
 \title{Gelman-Rubin-Brooks plot}
 
 \usage{

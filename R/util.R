@@ -259,7 +259,6 @@ function (...)
        s = 0.95,
        combine.stats = FALSE,
        combine.corr = FALSE,
-       ps.plot = 1, 
        halfwidth = 0.1,
        user.layout = FALSE,
        gr.bin = 10,

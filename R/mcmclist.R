@@ -72,7 +72,7 @@
 
 "plot.mcmc.list" <-
   function (x, trace = TRUE, density = TRUE, smooth = TRUE, bwf, 
-            auto.layout = TRUE, ...) 
+            auto.layout = TRUE, ask = TRUE, ...) 
 {
   oldpar <- NULL
   on.exit(par(oldpar))
@@ -81,7 +81,7 @@
                        nplots = trace + density)
     oldpar <- par(mfrow = mfrow)
   }
-  oldpar <- c(oldpar, par(ask = TRUE))
+  oldpar <- c(oldpar, par(ask = ask))
   for (i in 1:nvar(x)) {
     if (trace) 
       traceplot(x[, i, drop = FALSE], smooth = smooth)

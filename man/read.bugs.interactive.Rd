@@ -36,4 +36,4 @@ read.bugs.interactive()
    \code{\link{read.bugs}}, 
    \code{\link{codamenu}}. 
 }
-\keyword{files}
+\keyword{file}

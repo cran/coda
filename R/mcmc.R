@@ -27,22 +27,22 @@
 
 "start.mcmc" <- function (x) 
 {
-  attr(as.mcmc(x), "mcpar")[1]
+  mcpar(as.mcmc(x))[1]
 }
 
 "end.mcmc" <- function (x) 
 {
-  attr(as.mcmc(x), "mcpar")[2]
+  mcpar(as.mcmc(x))[2]
 }
 
 "frequency.mcmc" <- function (x) 
 {
-  1/attr(as.mcmc(x), "mcpar")[3]
+  1/thin(x)
 }
 
 "thin.mcmc" <- function (x) 
 {
-  attr(as.mcmc(x), "mcpar")[3]
+  mcpar(as.mcmc(x))[3]
 }
 
 "is.mcmc" <- function (x) 
