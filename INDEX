@@ -11,6 +11,7 @@ crosscorr                Cross correlations for MCMC output
 crosscorr.plot           Plot image of correlation matrix
 densplot                 Probability density function estimate from MCMC
                          output
+effectiveSize            Effective sample size for estimating the mean
 gelman.diag              Gelman and Rubin's convergence diagnostic
 gelman.plot              Gelman-Rubin-Brooks plot
 geweke.diag              Geweke's convergence diagnostic
@@ -33,6 +34,7 @@ read.bugs.interactive    Read BUGS output files interactively
 read.yesno               Read logical values from the command line
 set.mfrow                Set layout for graphical plots
 spectrum0                Estimate spectral density at zero
+spectrum0.ar             Estimate spectral density at zero
 summary.mcmc             Summary statistics for Markov Chain Monte Carlo
                          chains
 thin                     Thinning interval

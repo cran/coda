@@ -68,6 +68,36 @@
   invisible(x)
 }
 
+"spectrum0.ar" <- function(x)
+{
+  x <- as.matrix(x)
+  v0 <- order <- numeric(ncol(x))
+  for (i in 1:ncol(x))
+    {
+      ar.out <- ar(x[,i], aic=TRUE)
+      v0[i] <- ar.out$var.pred/(1 - sum(ar.out$ar))^2
+      order[i] <- ar.out$order
+    }
+  return(spec=v0, order=order)
+}
+
+effectiveSize <- function(x)
+{
+  if (is.mcmc.list(x))
+    {
+      ans <- vector("list", nchain(x))
+      for (i in 1:nchain(x))
+        ans[[i]] <- effectiveSize(x[[i]])
+    }
+  else
+    {
+      x <- as.mcmc(x)
+      x <- as.matrix(x)
+      ans <- niter(x) * apply(x,2,var) / spectrum0.ar(x)$spec 
+    }
+  return(ans)
+}
+
 "spectrum0" <- function(x, max.freq=0.5, order=1, max.length=NULL)
 {
   ## Estimate spectral density of time series x at frequency 0.
@@ -85,7 +115,6 @@
     stop("invalid order")
 
   if (!is.null(max.length) && nrow(x) > max.length) {
-    ## batch.size <- 2^floor(log(nrow(x)/max.length, base=2))
     batch.size <- ceiling(nrow(x)/max.length)
     x <- aggregate(ts(x, frequency=batch.size), nfreq = 1, FUN=mean)
   }
@@ -112,7 +141,6 @@
                      newdata=data.frame(spec=0,one=1,f1=-sqrt(3),f2=sqrt(5)))
   }
   return(list(spec=v0 * batch.size))
-
 }
 
 "pcramer" <- function (q, eps=1.0e-5)

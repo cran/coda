@@ -49,14 +49,68 @@
   coda.global.assign("coda.dat", coda.dat)
   rm(coda.dat, inherits=FALSE)       #Destroy local copy
   coda.global.assign("work.dat", coda.dat, alias=TRUE)
-  current.menu <- "codamenu.main"
-  repeat {
-    next.menu <- do.call(current.menu, vector("list", 0))
-    if (next.menu == "quit") {
-      if(read.yesno("Are you sure you want to quit", FALSE))
-        break
+
+  ## Sample size test
+  cat("Checking effective sample size ...")
+  ess <- effectiveSize(gelman.transform(coda.dat))
+  warn.small <- FALSE
+  for (i in 1:nchain(coda.dat))
+    {
+      if (any(ess[[i]] < 200))
+        warn.small <- TRUE
     }
-    else current.menu <- next.menu
+  if (warn.small)
+    {
+      cat("\n")
+      cat("*******************************************\n")
+      cat("WARNING !!!                              \n")
+      cat("Some variables in your chain have an     \n")
+      cat("effective sample size of less than 200   \n")
+      cat("This is too small, and may cause errors  \n")
+      cat("in the diagnostic tests                  \n")
+      cat("HINT:                                    \n")
+      cat("Look at plots first to identify variables\n")
+      cat("with slow mixing.  (Choose menu Output   \n")
+      cat("Analysis then Plots)                     \n")
+      cat("Re-run your chain with a larger sample   \n")
+      cat("size and thinning interval. If possible, \n")
+      cat("reparameterize your model to improve mixing\n")
+      cat("*******************************************\n")
+    }
+  else
+    {
+      cat("OK\n")
+    }
+  current.menu <- "codamenu.main"
+  old.opt <- options(warn=-1, show.error.messages=FALSE)
+  on.exit(options(old.opt))
+  repeat {
+    next.menu <- try(do.call(current.menu, vector("list", 0)))
+    if (!is.null(class(next.menu)) && class(next.menu) == "try-error")
+      {
+        if (current.menu == "codamenu.main")
+          {
+            cat("A crash has occurred in the main menu\nBailing out\n")
+            return();
+          }
+        else
+          {
+            cat("\n\n")
+            cat("**********************\n")
+            cat("An error has occurred\n")
+            cat("Returning to main menu\n")
+            cat("**********************\n")
+            current.menu <- "codamenu.main"
+          }
+      }
+    else
+      {
+        if (next.menu == "quit") {
+          if(read.yesno("Are you sure you want to quit", FALSE))
+            break
+        }
+        else current.menu <- next.menu
+      }
   }
   invisible()
 }

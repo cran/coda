@@ -37,7 +37,7 @@
 
 "frequency.mcmc" <- function (x) 
 {
-  1/thin(x)
+  1/thin.mcmc(x)
 }
 
 "thin.mcmc" <- function (x) 

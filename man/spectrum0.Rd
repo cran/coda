@@ -18,7 +18,6 @@ spectrum0(x, max.freq = 0.5, order = 1, max.length = NULL)
 \item{max.length}{The data \code{x} is aggregated if necessary by
 taking batch means so that the length of the series is less than
 \code{max.length}.  If this is set to \code{NULL} no aggregation occurs.}
-The minimum length of the time series.  The data x
 }
 \details{
 The raw periodogram is calculated for the series \code{x} and a generalized
@@ -57,6 +56,6 @@ The definition of the spectral density used here differs from that used by
 not between 0 and \code{frequency(x)/2}.
 }
 \seealso{
-   \code{\link{spectrum}}, \code{\link{glm}}.
+   \code{\link{spectrum}}, \code{\link{spectrum0.ar}}, \code{\link{glm}}.
 }
 \keyword{ts}
