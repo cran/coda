@@ -7,10 +7,10 @@ multi.menu(choices, title, header, allow.zero = TRUE)
 }
 
 \arguments{
-\item{choices}{Character vector of labels for choices}
-\item{title}{Title printed before menu}
-\item{header}{Character vector of length 2 giving column titles}
-\item{allow.zero}{Permit 0 as an acceptable response}
+  \item{choices}{Character vector of labels for choices}
+  \item{title}{Title printed before menu}
+  \item{header}{Character vector of length 2 giving column titles}
+  \item{allow.zero}{Permit 0 as an acceptable response}
 }
 
 \description{

@@ -24,15 +24,13 @@
             pvalue = 0.05, auto.layout = TRUE, ask = TRUE, ...) 
 {
   x <- as.mcmc.list(x)
-  if(start(x) >= end(x)/2)
-    stop("Markov chain too short")
   oldpar <- NULL
   on.exit(par(oldpar))
   if (auto.layout) 
     oldpar <- par(mfrow = set.mfrow(Nchains = nchain(x), 
                     Nparms = nvar(x)))
   oldpar <- c(oldpar, par(ask = ask))
-  ystart <- seq(from = start(x), to = end(x)/2, length = nbins)
+  ystart <- seq(from = start(x), to = (start(x) + end(x))/2, length = nbins)
   gcd <- array(dim = c(length(ystart), nvar(x), nchain(x)), 
                dimnames = c(ystart, varnames(x), chanames(x)))
   for (n in 1:length(ystart)) {

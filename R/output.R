@@ -21,7 +21,7 @@ function (x, lags = c(0, 1, 5, 10, 50), relative = TRUE)
 "autocorr.plot" <-
 function (x, lag.max, auto.layout = TRUE, ask = TRUE, ...) 
 {
-    oldpar <- par(ask = TRUE)
+    oldpar <- par(ask = ask)
     on.exit(par(oldpar))
     if (auto.layout) 
         oldpar <- par(mfrow = set.mfrow(Nchains = nchain(x), 

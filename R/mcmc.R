@@ -81,7 +81,7 @@
   else {
     end <- start + thin * (nobs - 1)
     if (nobs < niter) 
-      data <- data[1:nobs, , , drop = FALSE]
+      data <- data[1:nobs, , drop = FALSE]
   }
   attr(data, "mcpar") <- c(start, end, thin)
   attr(data, "class") <- "mcmc"
