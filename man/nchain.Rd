@@ -11,23 +11,26 @@ nchain(x)
 }
 
 \arguments{
-\item{x}{An \code{mcmcm} or \code{mcmc.list} object}
+  \item{x}{An \code{mcmcm} or \code{mcmc.list} object}
 }
 
 \value{
-     A numeric vector of length 1:
+  A numeric vector of length 1:
 }
 
 \description{
-     These functions give the dimensions of an MCMC object
-     \item{niter(x)} returns the number of iterations
-     \item{nvar(x)}  returns the number of variables
-     \item{chain(x)} returns the number of parallel chains
+  These functions give the dimensions of an MCMC object
+
+  \describe{
+    \item{niter(x)}{returns the number of iterations.}
+    \item{nvar(x)}{returns the number of variables.}
+    \item{chain(x)}{returns the number of parallel chains.}
+  }
 }
 
 \seealso{
-   \code{\link{mcmc}},
-   \code{\link{mcmc.list}},
+  \code{\link{mcmc}},
+  \code{\link{mcmc.list}},
 }
 
 \keyword{ts}
