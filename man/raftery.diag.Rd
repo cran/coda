@@ -4,7 +4,7 @@
 \title{Raftery and Lewis's diagnostic}
 
 \usage{
-raftery.diag(data, q=0.025, r=0.0125, s=0.95, converge.eps=0.001)
+raftery.diag(data, q=0.025, r=0.005, s=0.95, converge.eps=0.001)
 }
 
 \arguments{

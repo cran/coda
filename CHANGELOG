@@ -1,4 +1,7 @@
-0.6
+0.6-2
+- Fixed documentation bug in raftery.diag
+
+0.6-1
 - spectrum0.ar no longer crashes when the chain is a linear function
   of the iteration number
 - codamenu automatically drops variables that are linear functions
