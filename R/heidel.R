@@ -103,7 +103,7 @@ effectiveSize <- function(x)
       x <- as.mcmc(x)
       x <- as.matrix(x)
       spec <- spectrum0.ar(x)$spec
-      ans <- ifelse(spec==0, 0, niter(x) * apply(x, 2, var)/spec)
+      ans <- ifelse(spec==0, 0, nrow(x) * apply(x, 2, var)/spec)
     }
   return(ans)
 }

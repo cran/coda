@@ -1,8 +1,8 @@
 \name{gelman.diag}
 \alias{gelman.diag}
-\alias{gelman.mv.diag}
-\alias{gelman.transform}
-\alias{print.gelman.diag}
+%\alias{gelman.mv.diag}
+%\alias{gelman.transform}
+%\alias{print.gelman.diag}
 \title{Gelman and Rubin's convergence diagnostic}
 
 \usage{gelman.diag(x, confidence = 0.95, transform=FALSE)}

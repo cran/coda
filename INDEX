@@ -4,12 +4,8 @@ as.ts.mcmc              Coerce mcmc object to time series
 autocorr                Autocorrelation function for Markov chains
 autocorr.plot           Plot autocorrelations for Markov Chains
 bugs2jags               Convert WinBUGS data file to JAGS data file
-change.tfoption         Interactively modify logical codamenu options.
-coda.global.assign      Cross-platform assignment to global
-                        environment
 coda.options            Options settings for the codamenu driver
 codamenu                Main menu driver for the coda package
-codamenu.main           Submenus for the coda package
 crosscorr               Cross correlations for MCMC output
 crosscorr.plot          Plot image of correlation matrix
 cumuplot                Cumulative quantile plot
@@ -36,8 +32,6 @@ read.and.check          Read data interactively and check that it
                         satisfies conditions
 read.bugs.interactive   Read BUGS output files interactively
 read.coda               Read BUGS output files
-read.yesno              Read logical values from the command line
-set.mfrow               Set layout for graphical plots
 spectrum0               Estimate spectral density at zero
 spectrum0.ar            Estimate spectral density at zero
 summary.mcmc            Summary statistics for Markov Chain Monte

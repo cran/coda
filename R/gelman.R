@@ -17,7 +17,7 @@
   Niter <- niter(x)
   Nchain <- nchain(x)
   Nvar <- nvar(x)
-  ##  x <- as.array.mcmc.list(x, drop=FALSE)
+  xnames <- varnames(x)
   
   if(transform)
     x <- gelman.transform(x)
@@ -78,7 +78,7 @@
   R2.estimate <- R2.fixed + R2.random
   R2.upper <- R2.fixed + qf((1 + confidence)/2, B.df, W.df) * R2.random
   psrf <- cbind(sqrt(df.adj * R2.estimate), sqrt(df.adj * R2.upper))
-  dimnames(psrf) <- list(varnames(x),
+  dimnames(psrf) <- list(xnames,
                          c("Point est.",
                            paste(50 * (1+confidence), "% quantile", sep = ""))
                          )
@@ -150,7 +150,6 @@
   on.exit(par(oldpar))
   if (auto.layout) 
     oldpar <- par(mfrow = set.mfrow(Nchains = nchain(x), Nparms = nvar(x)))
-  oldpar <- c(oldpar, par(ask = ask))
   y <- gelman.preplot(x, bin.width = bin.width, max.bins = max.bins, 
                       confidence = confidence)
   all.na <- apply(is.na(y$shrink[, , 1, drop = FALSE]), 2, all)
@@ -162,17 +161,12 @@
       abline(h = 1)
       ymax <- max(c(1, y$shrink[, j, ]), na.rm = TRUE)
       leg <- dimnames(y$shrink)[[3]]
-      if (is.R()) {
-        xmax <- max(y$last.iter)
-        legend(xmax, ymax, legend = leg, lty = lty, bty = "n", 
-               col = col, xjust = 1, yjust = 1)
-      }
-      else {
-        xmid <- (max(y$last.iter) + min(y$last.iter))/2
-        legend(xmid, ymax, legend = leg, lty = lty, bty = "n", 
-               col = col)
-      }
+      xmax <- max(y$last.iter)
+      legend(xmax, ymax, legend = leg, lty = lty, bty = "n", 
+             col = col, xjust = 1, yjust = 1)
       title(main = varnames(x)[j])
+      if (j==1)
+         oldpar <- c(oldpar, par(ask = ask))
     }
   return(invisible(y))
 }
@@ -205,7 +199,7 @@
     cat("segments for variables", varnames(x)[all.na], "\n")
     cat("This indicates convergence failure\n")
   }
-  return(shrink = shrink, last.iter = last.iter)
+  return(list(shrink = shrink, last.iter = last.iter))
 }
 
 

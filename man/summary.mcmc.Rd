@@ -1,8 +1,8 @@
 \name{summary.mcmc}
 \alias{summary.mcmc}
 \alias{summary.mcmc.list}
-\alias{print.summary.mcmc}
-\alias{print.summary.mcmc.list}
+%\alias{print.summary.mcmc}
+%\alias{print.summary.mcmc.list}
 \title{Summary statistics for  Markov Chain Monte Carlo chains}
 
 \usage{

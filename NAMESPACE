@@ -1,0 +1,94 @@
+## export functions
+export(
+  as.array.mcmc.list,
+  as.mcmc,
+  as.ts.mcmc,
+  autocorr,
+  autocorr.plot,
+  bugs2jags,
+  chanames,
+  coda.options,
+  codamenu,
+  crosscorr,
+  crosscorr.plot,
+  cumuplot,
+  densplot,
+  display.coda.options,
+  effectiveSize,
+  gelman.diag,
+  gelman.plot,
+  geweke.diag,
+  geweke.plot,
+  heidel.diag,
+  is.mcmc,
+  is.mcmc.list,
+  mcmc,
+  mcmc.list,
+  mcmcUpgrade,
+  mcpar,
+  multi.menu,
+  nchain,
+  niter,
+  nvar,
+  pcramer,
+  raftery.diag,
+  read.and.check,
+  read.bugs,
+  read.bugs.interactive,
+  read.coda,
+  read.jags,
+  spectrum0,
+  spectrum0.ar,
+  traceplot,
+  varnames,
+  "varnames<-")
+
+## export data
+# export(line) 
+# this doesn't need to be exported, not sure why, but it works fine
+# as is.
+
+# [1] [.mcmc         as.matrix.mcmc end.mcmc       frequency.mcmc plot.mcmc     
+# [6] print.mcmc     start.mcmc     summary.mcmc   thin.mcmc      time.mcmc     
+# [11] window.mcmc   
+
+# [1] [.mcmc.list         as.matrix.mcmc.list as.mcmc.mcmc.list  
+# [4] end.mcmc.list       plot.mcmc.list      start.mcmc.list    
+# [7] summary.mcmc.list   thin.mcmc.list      time.mcmc.list     
+# [10] window.mcmc.list   
+
+## register S3 methods
+## mcmc
+S3method("[", mcmc)
+S3method(as.matrix, mcmc)
+S3method(end, mcmc) 
+S3method(frequency, mcmc)
+S3method(plot, mcmc)
+S3method(print, mcmc)
+S3method(start, mcmc) 
+S3method(summary, mcmc)
+S3method(thin, mcmc) 
+S3method(time, mcmc)
+S3method(window, mcmc)
+
+## mcmc.list
+S3method("[", mcmc.list)
+S3method(as.matrix, mcmc.list)
+S3method(as.mcmc, mcmc.list)
+S3method(end, mcmc.list)
+S3method(plot, mcmc.list)
+S3method(start, mcmc.list)
+S3method(summary, mcmc.list)
+S3method(thin, mcmc.list)
+S3method(time, mcmc.list)
+S3method(window, mcmc.list)
+
+## misc
+S3method(print, gelman.diag)
+S3method(print, geweke.diag)
+S3method(print, heidel.diag)
+S3method(print, raftery.diag)
+S3method(print, summary.mcmc)
+
+## Imports
+importFrom(stats, start, end, frequency, time, window)

@@ -32,7 +32,6 @@ The function "raftery.diag" is based on the "gibbsit" function
 contributed to the Statlib archive by Steven Lewis
 <slewis@stat.washington.edu>.
 
-The functions in the directory "S" are R functions which are required
-by coda to run on S-PLUS. These functions are copyright 1999, The R
-Development Core Team.
+Andrew Martin <admartin@wustl.edu> added namespace facilities and
+fixed a large number of bugs that this change uncovered (see CHANGELOG)
 

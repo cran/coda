@@ -9,7 +9,7 @@
   if (pick == 0 || pick == 3) 
     return(invisible())
   else if (pick == 1) {
-    coda.global.assign("coda.dat", read.bugs.interactive())
+    assign("coda.dat", read.bugs.interactive(), pos=1)
     if (is.null(coda.dat)) {
       return(invisible())
     }
@@ -28,11 +28,11 @@
       else {
         work.dat <- eval(parse(text = outname))
         if (is.mcmc.list(work.dat)) {
-          coda.global.assign("coda.dat", work.dat)
+          assign("coda.dat", work.dat, pos=1)
           break
         }
         else if (is.mcmc(work.dat)) {
-          coda.global.assign("coda.dat", mcmc.list(work.dat))
+          assign("coda.dat", mcmc.list(work.dat), pos=1)
           break
         }
         else
@@ -41,21 +41,23 @@
     }
   }
   else stop("Invalid option")
-  coda.dat <- coda.dat               #Create local copy
-  if (is.null(chanames(coda.dat))) 
+  coda.dat <- coda.dat #Create local copy
+  if (is.null(chanames(coda.dat))) {
     chanames(coda.dat) <- chanames(coda.dat, allow.null = FALSE)
-  if (is.null(varnames(coda.dat))) 
+  }
+  if (is.matrix(coda.dat[[1]]) && is.null(varnames(coda.dat))) {
     varnames(coda.dat) <- varnames(coda.dat, allow.null = FALSE)
-  coda.global.assign("coda.dat", coda.dat)
-  rm(coda.dat, inherits=FALSE)       #Destroy local copy
-  coda.global.assign("work.dat", coda.dat, alias=TRUE)
+  }
+  assign("coda.dat", coda.dat, pos=1)
+  rm(coda.dat, inherits=FALSE) #Destroy local copy
+  assign("work.dat", coda.dat, pos=1)
 
   ## Check for variables that are linear functions of the
   ## iteration number
   is.linear <- rep(FALSE, nvar(coda.dat))
   for (i in 1:nchain(coda.dat)) {
       for (j in 1:nvar(coda.dat)) {
-          lm.out <- lm(coda.dat[[i]][,j] ~ time(coda.dat))
+          lm.out <- lm(as.matrix(coda.dat[[i]])[,j] ~ time(coda.dat))
           if (identical(all.equal(var(residuals(lm.out)), 0), TRUE)) {
               is.linear[j] <- TRUE
           }
@@ -66,8 +68,8 @@
       cat("functions of the iteration number\n")
       print(varnames(coda.dat)[is.linear])
       inset <- varnames(coda.dat)[!is.linear]
-      coda.global.assign("coda.dat", coda.dat[,inset, drop=FALSE])
-      coda.global.assign("work.dat", coda.dat[,inset, drop=FALSE], alias=TRUE)
+      assign("coda.dat", coda.dat[,inset, drop=FALSE], pos=1)
+      assign("work.dat", coda.dat[,inset, drop=FALSE], pos=1)
   }
 
   ## Sample size test
@@ -492,7 +494,7 @@
     cat("Recreating working data...\n")
     wd <- window(coda.dat[, work.vars, drop = FALSE], start = work.start, 
                  end = work.end, thin = work.thin)
-    coda.global.assign("work.dat", wd[work.chains, drop=FALSE])
+    assign("work.dat", wd[work.chains, drop=FALSE], pos=1)
   }
   return(next.menu)
 }
@@ -732,10 +734,8 @@ function ()
                   paste(coda.options("quantiles"), collapse = ", "))
     repeat {
       cat("\n", mssg, "\n")
-      if (is.R()) 
-        ans <- as.numeric(scan(what = character(), sep = ",", 
-                               quiet = TRUE, nlines = 1))
-      else ans <- as.numeric(scan(what = character(), sep = ","))
+      ans <- as.numeric(scan(what = character(), sep = ",", 
+                             quiet = TRUE, nlines = 1))
       if (length(ans) == 0) 
         ans <- coda.options("quantiles")
       if (any(is.na(ans))) 
@@ -880,20 +880,13 @@ function ()
     if (ans == TRUE) {
       cat("Enter name you want to call this object file:\n")
       fname <- scan(what = character(), nmax = 1, strip.white = TRUE)
-      coda.global.assign(fname, coda.dat)
+      assign(fname, coda.dat, pos=1)
     }
   }
   coda.objects <- c("coda.dat", "work.dat")
-  if (is.R()) 
-    for (i in coda.objects) {
-      if (exists(i)) 
-        rm(list=i, pos = 1)
-    }
-  else {
-    for (i in coda.objects) {
-      if (exists(i)) 
-        remove(i, where = 1)
-    }
+  for (i in coda.objects) {
+    if (exists(i)) 
+      rm(list=i, pos = 1)
   }
 }
 
@@ -912,13 +905,12 @@ function ()
         mssg <- "Enter name you want to call this postscript file"
         ps.name <- read.and.check(mssg, what = character(), 
                                   default = "Rplots.ps")
-        if (is.R() && file.exists(ps.name)) {
+        if (file.exists(ps.name)) {
           pick <- menu(title = "File exists", choices = c("overwrite", 
                                                 "choose another file name"))
           if (pick == 1) 
             break
         }
-        else break
       }
       postscript(file = ps.name)
     }

@@ -21,12 +21,11 @@ function (x, lags = c(0, 1, 5, 10, 50), relative = TRUE)
 "autocorr.plot" <-
 function (x, lag.max, auto.layout = TRUE, ask = TRUE, ...) 
 {
-    oldpar <- par(ask = ask)
+    oldpar <- NULL
     on.exit(par(oldpar))
     if (auto.layout) 
         oldpar <- par(mfrow = set.mfrow(Nchains = nchain(x), 
             Nparms = nvar(x)))
-    oldpar <- c(oldpar, par(ask = ask))
     if (!is.mcmc.list(x)) 
         x <- mcmc.list(as.mcmc(x))
     for (i in 1:nchain(x)) {
@@ -39,6 +38,8 @@ function (x, lag.max, auto.layout = TRUE, ask = TRUE, ...)
                   1), ...)
             title(paste(varnames(x)[j], ifelse(is.null(chanames(x)), 
                 "", ":"), chanames(x)[i], sep = ""))
+            if (i==1 && j==1)
+               oldpar <- c(oldpar, par(ask = ask))
         }
     }
     invisible(x)
@@ -292,15 +293,18 @@ function (x, smooth = TRUE, col = 1:6, type = "l", ylab = "",
                        nplots = trace + density)
     oldpar <- par(mfrow = mfrow)
   }
-  oldpar <- c(oldpar, par(ask = ask))
   for (i in 1:nvar(x)) {
-    y <- as.matrix(x)[, i, drop = FALSE]
+    y <- mcmc(as.matrix(x)[, i, drop=FALSE], start(x), end(x), thin(x)) 
     if (trace) 
       traceplot(y, smooth = smooth)
-    if (density) 
+    if (density) {
       if (missing(bwf)) 
         densplot(y)
-      else densplot(y, bwf = bwf)
+      else 
+        densplot(y, bwf = bwf)
+    }
+    if (i==1)
+       oldpar <- c(oldpar, par(ask=ask))
   }
 }
 

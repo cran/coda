@@ -1,22 +1,3 @@
-
-"coda.global.assign" <- function(name, value, alias=FALSE)
-{
-  ## Utility function to overcome some incompatibilities between
-  ## S and R when creating global variables.
-  #
-  if(is.R()) {
-    ## R - assign to global environment
-    if(alias)
-      assign(name, value, pos=1)  
-    else
-      assign(name, value, pos=1)          
-  }
-  else {
-    ## S - assign to session database
-    assign(name, value, where=0)          
-  }
-}
-
 "read.yesno" <-
 function (string, default=TRUE)
 {
@@ -111,10 +92,8 @@ function (...)
         "Ranges such as 3:7 may be specified)", sep = "\n")
     if (allow.zero) 
       cat("(Enter 0 for none)\n")
-    if (is.R()) 
-      ans <- scan(what = character(), sep = ",", strip.white = TRUE, 
-                  nlines = 1, quiet = TRUE)
-    else ans <- scan(what = character(), sep = ",", strip.white = TRUE)
+    ans <- scan(what = character(), sep = ",", strip.white = TRUE, 
+                nlines = 1, quiet = TRUE)
     if (length(ans) > 0) {
       out <- numeric(0)
       for (i in 1:length(ans)) {

@@ -1,6 +1,6 @@
 \name{raftery.diag}
 \alias{raftery.diag}
-\alias{print.raftery.diag}
+%\alias{print.raftery.diag}
 \title{Raftery and Lewis's diagnostic}
 
 \usage{

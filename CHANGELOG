@@ -1,3 +1,42 @@
+0.8-1
+Continuing problems with namespace:
+- Addition of namespace requires new version number for coda,
+  as saved workspaces are not backwards compatible.
+- Ensured that mcmc attributes are not assumed for objects returned by
+  as.matrix.mcmc, as this now no longer returns an mcmc object.
+  This occurred in, for example, effectiveSize (which returned NA)
+  and gelman.diag (which dropped variable names).
+- Changed "[.mcmc.list" and "[.mcmc" so that they return an 
+  mcmc.list/mcmc object respectively when subsetting columns.
+  plot.mcmc() and plot.mcmc.list() now work again when there is
+  only one variable.
+- Imported the required time series generics from package stats.
+  Failure to do this may result in a saved workspace that cannot be reloaded.
+Other problems
+- Removed S compatibility (statements conditional on is.R and wrapper 
+  function coda.global.assign). Note that S compatibility never worked
+  at all, and I now have no intention of supporting it.
+- Fixed (old) bug in "[.mcmc" which made column subsets of mcmc objects
+  return invisibly.
+- Changed the plotting functions so it is no longer necessary to press
+  return to see the first page of plots.
+  
+0.7-3 (changes done by Andrew Martin <admartin@wustl.edu>)
+- Added NAMESPACE
+- export only functions that I think should have been exported (based on 
+  the documentation and common sense).
+- Registered all S3 methods.
+- Fixed documentation for non-exported functions.
+- Patched the "mcmc" function to deal with really big thinning intervals. 
+- Patched the "as.matrix.mcmc" function so it really returns matrices.
+- Fixed plot method, by having plot.mcmc pass an mcmc object
+  rather than a matrix, and by fixing the [.mcmc.list method so it 
+  returns an mcmc.list not a matrix.
+- Fixed "varnames<-" which was broken when the as.matrix method was 
+  fixed.
+- Fixed documentation mcmc.convert.Rd such that the usage is consistent 
+  with S3 class definition (this fixed an error thrown in the QC tools).
+
 0.7-2
 - The spectrum0() function now returns zero when it is given a constant
   vector. summary.mcmc() (which calls spectrum0) now works correctly.

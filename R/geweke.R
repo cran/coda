@@ -29,7 +29,6 @@
   if (auto.layout) 
     oldpar <- par(mfrow = set.mfrow(Nchains = nchain(x), 
                     Nparms = nvar(x)))
-  oldpar <- c(oldpar, par(ask = ask))
   ystart <- seq(from = start(x), to = (start(x) + end(x))/2, length = nbins)
   gcd <- array(dim = c(length(ystart), nvar(x), nchain(x)), 
                dimnames = c(ystart, varnames(x), chanames(x)))
@@ -54,6 +53,8 @@
       title(main = paste(varnames(x, allow.null = FALSE)[j], 
               sep = ""))
     }
+    if (k==1 && j==1)
+       oldpar <- c(oldpar, par(ask = ask))
   }
   invisible(list(start.iter = ystart, z = gcd))
 }

@@ -6,7 +6,7 @@
   if (length(y) == 0 || is.null(y)) 
     return(y)
   if (missing(i)) 
-    y <- mcmc(y, start = xstart, thin = xthin)
+    return(mcmc(y, start = xstart, thin = xthin))
   else
     return(y)
 }
@@ -61,9 +61,8 @@
     nvar <- ncol(data)
   }
   else if (is.data.frame(data)) {
-      if (!all(sapply(data, mode) == "numeric") ||
-          any(sapply(data, is.factor))) {
-          stop ("Data frame contains non-numeric values or factors")
+      if (!all(sapply(data, is.numeric))) {
+         stop ("Data frame contains non-numeric values")
       }
       data <- as.matrix(data)
       niter <- nrow(data)
@@ -84,7 +83,7 @@
     end <- start + (niter - 1) * thin
   else if (missing(start)) 
     start <- end - (niter - 1) * thin
-  nobs <- floor((end - start)/thin + 1.01)
+  nobs <- floor((end - start)/thin + 1.0) ### patch
   if (niter < nobs) 
     stop("Start, end and thin incompatible with data")
   else {
@@ -121,7 +120,7 @@
     rownames[1] <- "ITER"
   rownames[var.cols] <- varnames(x, allow.null = FALSE)
   dimnames(y) <- list(NULL, rownames)
-  mcmc(y, start = start(x), end = end(x), thin = thin(x))
+  return(y)
 }
 
 "time.mcmc" <- function (x, ...) 
@@ -309,15 +308,3 @@ function (Nchains = 1, Nparms = 1, nplots = 1, sepplot = FALSE)
   }
   return(mfrow)
 }
-
-
-
-
-
-
-
-
-
-
-
-

@@ -16,8 +16,8 @@
       drop1 <- drop | !is.matrix(x[[k]])
       y[[k]] <- if (missing(i) && missing(j)) 
         x[[k]]
-      else if (missing(i)) 
-        as.matrix(x[[k]])[, j, drop = drop1]
+      else if (missing(i))
+        mcmc(as.matrix(x[[k]])[, j, drop = drop1], start(x), end(x), thin(x))
       else if (missing(j)) 
         as.matrix(x[[k]])[i, , drop = drop1]
       else as.matrix(x[[k]])[i, j, drop = drop1]
@@ -81,14 +81,16 @@
                        nplots = trace + density)
     oldpar <- par(mfrow = mfrow)
   }
-  oldpar <- c(oldpar, par(ask = ask))
   for (i in 1:nvar(x)) {
     if (trace) 
       traceplot(x[, i, drop = FALSE], smooth = smooth)
-    if (density) 
+    if (density) {
       if (missing(bwf)) 
         densplot(x[, i, drop = FALSE])
       else densplot(x[, i, drop = FALSE], bwf = bwf)
+    }
+    if (i==1)
+       oldpar <- c(oldpar, par(ask = ask))
   }
 }
 
@@ -186,15 +188,4 @@
   else
     return(y)
 }
-
-
-
-
-
-
-
-
-
-
-
 

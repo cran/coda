@@ -48,9 +48,9 @@ selects a single \code{mcmc} object from the list.
 
 \examples{
 data(line)
-x1 <- line[[1]]			#Select first chain
-x2 <- line[,1, drop=FALSE]	#Select first var from all chains
-varnames(x2) == varnames(line)[1]	#TRUE
+x1 <- line[[1]]                    #Select first chain
+x2 <- line[,1, drop=FALSE]         #Select first var from all chains
+varnames(x2) == varnames(line)[1]  #TRUE
 }
 
 \keyword{ts}

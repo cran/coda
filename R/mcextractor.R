@@ -38,7 +38,6 @@ function (x, allow.null = TRUE)
 function (x, value) 
 {
     if (is.mcmc(x)) {
-        x <- as.matrix(x)
         dimnames(x)[[2]] <- value
     }
     else if (is.mcmc.list(x)) 
