@@ -4,8 +4,11 @@
 \alias{autocorr.diag.mcmc.list}
 \title{Autocorrelation function for Markov chains}
 
-\usage{autocorr.diag(mcmc.obj, lags = c(0, 1, 5, 10, 50), relative=TRUE }
-
+\usage{autocorr.diag(mcmc.obj, ...)}
+\arguments{
+  \item{mcmc.obj}{an object of class \code{mcmc} or \code{mcmc.list}}
+  \item{...}{optional arguments to be passed to \code{autocorr}}
+}
 \description{
 \code{autocorr.diag} calculates the autocorrelation function for the
 Markov chain \code{mcmc.obj} at the lags given by \code{lags}.

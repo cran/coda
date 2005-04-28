@@ -1,13 +1,12 @@
-[.mcmc                  Extract or replace parts of MCMC objects
 as.matrix.mcmc          Conversions of MCMC objects
 as.ts.mcmc              Coerce mcmc object to time series
 autocorr                Autocorrelation function for Markov chains
-autocorr.diag		Autocorrelations for diagonal elements only
+autocorr.diag           Autocorrelation function for Markov chains
 autocorr.plot           Plot autocorrelations for Markov Chains
-batchSE			Batch Standard Errors
+batchSE                 Batch Standard Error
 bugs2jags               Convert WinBUGS data file to JAGS data file
-coda.options            Options settings for the codamenu driver
 codamenu                Main menu driver for the coda package
+coda.options            Options settings for the codamenu driver
 crosscorr               Cross correlations for MCMC output
 crosscorr.plot          Plot image of correlation matrix
 cumuplot                Cumulative quantile plot
@@ -22,6 +21,7 @@ heidel.diag             Heidelberger and Welch's convergence
                         diagnostic
 line                    Simple linear regression example
 mcmc                    Markov Chain Monte Carlo Objects
+[.mcmc                  Extract or replace parts of MCMC objects
 mcmc.list               Replicated Markov Chain Monte Carlo Objects
 mcmcUpgrade             Upgrade mcmc objects in obsolete format
 mcpar                   Mcpar attribute of MCMC objects
@@ -35,7 +35,7 @@ read.and.check          Read data interactively and check that it
 read.coda               Read output files in CODA format
 read.coda.interactive   Read CODA output files interactively
 read.openbugs           Read CODA output files produced by OpenBUGS
-rejectionRate		Rejection Rate (for Metropolis--Hastings samples).
+rejectionRate           Rejection Rate for Metropolis-Hastings chains
 spectrum0               Estimate spectral density at zero
 spectrum0.ar            Estimate spectral density at zero
 summary.mcmc            Summary statistics for Markov Chain Monte

@@ -157,25 +157,38 @@ function (x, show.obs = TRUE, bwf, main = "", ylim, ...)
   read.coda(file, index.file, start, end, thin, quiet)
 }
 
-"read.openbugs" <- function(stem="", start, end, thin, quiet=FALSE)
+"read.openbugs" <-
+function (stem = "", start, end, thin, quiet = FALSE) 
 {
+  index.file <- paste(stem, "CODAindex.txt", sep = "")
+  if (!file.exists(index.file))
+    stop("No index file found")
+  index.date <- file.info(index.file)$ctime
+  
   nchain <- 0
   while (TRUE) {
-    output.file <- paste(stem,"CODAchain",nchain+1,".txt",sep="")
-    if (file.exists(output.file))
+    output.file <- paste(stem, "CODAchain", nchain + 1, ".txt", 
+                         sep = "")
+    if (file.exists(output.file)) {
       nchain <- nchain + 1
-    else
-      break
+      output.date <- file.info(output.file)$ctime
+      dt <- difftime(index.date, output.date, units="mins")
+      if(abs(as.numeric(dt)) > 1 ) {
+        warning(paste("Files \"",index.file,"\" and \"",output.file,
+                      "\" were created at different times\n",sep=""))
+      }
+    }
+    else break
+    
   }
-
-  if (nchain==0)
+  if (nchain == 0) 
     stop("No output files found")
 
-  index.file <- paste(stem,"CODAindex.txt",sep="")
-  ans <- vector("list",nchain)
+  ans <- vector("list", nchain)
   for (i in 1:nchain) {
-    output.file <- paste(stem,"CODAchain",i,".txt",sep="")
-    ans[[i]] <- read.coda(output.file, index.file, start, end, thin, quiet)
+    output.file <- paste(stem, "CODAchain", i, ".txt", sep = "")
+    ans[[i]] <- read.coda(output.file, index.file, start, 
+                          end, thin, quiet)
   }
   return(mcmc.list(ans))
 }

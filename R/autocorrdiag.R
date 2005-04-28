@@ -1,7 +1,7 @@
 ### This is a replacement for the autocorrelation function
 ### which only gives the autocorrelations and not the cross correlations.
 
-"autocorr.diag" <- function (mcmc.obj) {
+"autocorr.diag" <- function (mcmc.obj, ...) {
   UseMethod("autocorr.diag")
 }
 

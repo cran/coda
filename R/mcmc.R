@@ -17,7 +17,7 @@
 "as.mcmc.default" <- function (x) 
   if (is.mcmc(x)) x else mcmc(x)
 
-"as.ts.mcmc" <- function (x) 
+"as.ts.mcmc" <- function (x, ...) 
 {
   x <- as.mcmc(x)
   y <- ts(x, start = start(x), end = end(x), deltat = thin(x))
