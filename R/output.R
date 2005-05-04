@@ -379,7 +379,7 @@ function (x, smooth = TRUE, col = 1:6, type = "l", ylab = "",
   else {
     xmean <- mean(x, na.rm = TRUE)
     xvar <- var(x, na.rm = TRUE)
-    xtsvar <- safespec(x)
+    xtsvar <- safespec0(x)
     varquant <- quantile(x, quantiles)
   }
   varstats[, 1] <- xmean

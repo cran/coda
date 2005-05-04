@@ -1,3 +1,8 @@
+0.9-5
+
+- Fixed bug in summary.mcmc (safespec0 misspelled) which affected
+  univariate chains.
+
 0.9-4
 
 - Fixed documentation errors.
