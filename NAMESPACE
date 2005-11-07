@@ -1,5 +1,7 @@
 ## export functions
 export(
+  acfplot,
+  HPDinterval,
   as.array.mcmc.list,
   as.mcmc,
   as.ts.mcmc,
@@ -82,6 +84,8 @@ S3method(autocorr.diag, mcmc)
 S3method(rejectionRate, mcmc)
 S3method(batchSE,mcmc)
 S3method(as.data.frame,mcmc)
+##DMB
+S3method(HPDinterval, mcmc)
 
 ## mcmc.list
 S3method("[", mcmc.list)
@@ -98,6 +102,8 @@ S3method(window, mcmc.list)
 S3method(autocorr.diag, mcmc.list)
 S3method(rejectionRate, mcmc.list)
 S3method(batchSE,mcmc.list)
+##DMB
+S3method(HPDinterval, mcmc.list)
 
 ## misc
 S3method(print, gelman.diag)
@@ -108,3 +114,20 @@ S3method(print, summary.mcmc)
 
 ## Imports
 importFrom(stats, start, end, frequency, time, window)
+
+
+## lattice methods
+
+S3method(xyplot, mcmc)
+S3method(qqmath, mcmc)
+S3method(densityplot, mcmc)
+S3method(acfplot, mcmc)
+S3method(levelplot, mcmc)
+
+S3method(xyplot, mcmc.list)
+S3method(qqmath, mcmc.list)
+S3method(densityplot, mcmc.list)
+S3method(acfplot, mcmc.list)
+
+
+

@@ -1,3 +1,14 @@
+
+
+0.10-1
+
+- Added "mcmc" and "mcmc.list" methods for several lattice functions
+  (xyplot, qqmath, densityplot and acfplot (with generic here as
+  well)).  There's a levelplot method too, which is currently
+  experimental.  These are Trellis analogs of existing coda functions,
+  and may in future replace them.
+
+
 0.9-5
 
 - Fixed bug in summary.mcmc (safespec0 misspelled) which affected
