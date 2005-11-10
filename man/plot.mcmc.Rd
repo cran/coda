@@ -4,7 +4,7 @@
 
 \usage{
 \method{plot}{mcmc}(x, trace = TRUE, density = TRUE, smooth = TRUE, bwf,
-	auto.layout = TRUE, ask = par("ask"), ...)
+	auto.layout = TRUE, ask = dev.interactive(), ...)
 }
 
 \arguments{

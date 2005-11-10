@@ -5,8 +5,8 @@
 
 \usage{
 gelman.plot(x, bin.width = 10, max.bins = 50,
-confidence = 0.95, transform = FALSE, auto.layout = TRUE, ask = TRUE,
-col, lty, xlab, ylab, type, ...)
+confidence = 0.95, transform = FALSE, auto.layout = TRUE,
+ask = dev.interactive(), col, lty, xlab, ylab, type, ...)
 } 
 
 \arguments{

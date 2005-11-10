@@ -114,6 +114,7 @@ S3method(print, summary.mcmc)
 
 ## Imports
 importFrom(stats, start, end, frequency, time, window)
+importFrom(lattice, xyplot, qqmath, densityplot, levelplot)
 
 
 ## lattice methods

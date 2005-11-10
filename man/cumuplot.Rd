@@ -4,8 +4,8 @@
 
 \usage{
   cumuplot(x, probs=c(0.025,0.5,0.975), ylab="",
-           lty=c(2,1), lwd=c(1,2), type="l", ask=TRUE, auto.layout=TRUE, 
-	   col=1, ...)
+           lty=c(2,1), lwd=c(1,2), type="l", ask=dev.interactive(),
+           auto.layout=TRUE, col=1, ...)
 }
 
 \arguments{

@@ -1,4 +1,7 @@
-
+0.10-2
+- Import generics from lattice
+- In plotting functions, "ask" now defaults to dev.interactive(),
+  and not the default value in par(), as introduced in 0.9-2
 
 0.10-1
 

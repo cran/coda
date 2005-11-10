@@ -1,6 +1,6 @@
 cumuplot <- function(x, probs=c(0.025,0.5,0.975), ylab="", lty=c(2,1),
-                     lwd=c(1,2), type="l", ask=TRUE, auto.layout=TRUE,
-                     col=1, ...)
+                     lwd=c(1,2), type="l", ask=dev.interactive(),
+                     auto.layout=TRUE, col=1, ...)
 {
     cquantile <- function(z, probs)
     {
@@ -14,12 +14,11 @@ cumuplot <- function(x, probs=c(0.025,0.5,0.975), ylab="", lty=c(2,1),
         return(cquant)
     }
 
-    oldpar <- par(ask = ask)
+    oldpar <- NULL
     on.exit(par(oldpar))
     if (auto.layout) {
         oldpar <- par(mfrow = set.mfrow(Nchains = nchain(x), 
                       Nparms = nvar(x)))
-        oldpar <- c(oldpar, par(ask = ask))
     }
     
     if (!is.mcmc.list(x)) 
@@ -33,6 +32,8 @@ cumuplot <- function(x, probs=c(0.025,0.5,0.975), ylab="", lty=c(2,1),
                     col=col, ...)
             title(paste(varnames(x)[j], ifelse(is.null(chanames(x)), 
                   "", ":"), chanames(x)[i], sep = ""))
+            if (i == 1 & j == 1)
+                oldpar <- c(oldpar, par(ask=ask))
         }
     }
 }

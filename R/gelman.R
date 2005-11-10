@@ -144,7 +144,7 @@
 
 "gelman.plot" <-
   function (x, bin.width = 10, max.bins = 50, confidence = 0.95,
-            transform = FALSE, auto.layout = TRUE, ask = TRUE,
+            transform = FALSE, auto.layout = TRUE, ask = dev.interactive(),
             col = 1:2, lty = 1:2, xlab = "last iteration in chain",
             ylab = "shrink factor", type = "l", ...) 
 {

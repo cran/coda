@@ -4,7 +4,7 @@
 
 \usage{
 geweke.plot(x, frac1 = 0.1, frac2 = 0.5, nbins = 20,
-            pvalue = 0.05, auto.layout = TRUE, ask = TRUE, ...)
+            pvalue = 0.05, auto.layout = TRUE, ask = dev.interactive(), ...)
 } 
 
 \arguments{
