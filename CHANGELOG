@@ -1,3 +1,7 @@
+
+0.12-3
+- added 'data' in lattice generics for compatibility
+
 0.10-2
 - Import generics from lattice
 - In plotting functions, "ask" now defaults to dev.interactive(),

@@ -52,7 +52,8 @@ thinned.indices <- function(object, n = nrow(object), start = 1, thin = 1)
 
 
 levelplot.mcmc <-
-    function(x, main = attr(x, "title"),
+    function(x, data = NULL,
+             main = attr(x, "title"),
              start = 1, thin = 1,
              ...,
              xlab = "", ylab = "",
@@ -87,7 +88,8 @@ levelplot.mcmc <-
 
 
 splom.mcmc <-
-    function(x, main = attr(x, "title"),
+    function(x, data = NULL,
+             main = attr(x, "title"),
              start = 1, thin = 1,
              as.matrix = TRUE,
              xlab = "", ylab = "",
@@ -125,7 +127,8 @@ splom.mcmc <-
 
 
 densityplot.mcmc <-
-    function(x, outer, aspect = "xy",
+    function(x, data = NULL,
+             outer, aspect = "xy",
              default.scales = list(relation = "free"),
              start = 1, thin = 1,
              main = attr(x, "title"),
@@ -174,7 +177,8 @@ densityplot.mcmc <-
 
 
 densityplot.mcmc.list <-
-    function(x, outer = FALSE, groups = !outer,
+    function(x, data = NULL,
+             outer = FALSE, groups = !outer,
              aspect = "xy",
              default.scales = list(relation = "free"),
              start = 1, thin = 1,
@@ -234,7 +238,8 @@ densityplot.mcmc.list <-
 
 
 qqmath.mcmc <-
-    function(x, outer, aspect = "xy",
+    function(x, data = NULL,
+             outer, aspect = "xy",
              default.scales = list(y = list(relation = "free")),
              prepanel = prepanel.qqmathline,
              start = 1, thin = 1,
@@ -261,7 +266,8 @@ qqmath.mcmc <-
 
 
 qqmath.mcmc.list <-
-    function(x, outer = FALSE, groups = !outer,
+    function(x, data = NULL,
+             outer = FALSE, groups = !outer,
              aspect = "xy",
              default.scales = list(y = list(relation = "free")),
              prepanel = prepanel.qqmathline,
@@ -313,7 +319,8 @@ qqmath.mcmc.list <-
 
 
 xyplot.mcmc <-
-    function(x, outer, layout = c(1, ncol(x)),
+    function(x, data = NULL,
+             outer, layout = c(1, ncol(x)),
              default.scales = list(y = list(relation = "free")),
              type = 'l',
              start = 1, thin = 1,
@@ -342,7 +349,8 @@ xyplot.mcmc <-
 
 
 xyplot.mcmc.list <-
-    function(x, outer = FALSE, groups = !outer,
+    function(x, data = NULL,
+             outer = FALSE, groups = !outer,
              aspect = "xy", layout = c(1, ncol(x[[1]])),
              default.scales = list(y = list(relation = "free")),
              type = 'l',
@@ -421,13 +429,14 @@ panel.acfplot <-
 
 
 
-acfplot <- function(x, ...)
+acfplot <- function(x, data, ...)
     UseMethod("acfplot")
 
 
 
 acfplot.mcmc <-
-    function(x, outer,
+    function(x, data = NULL,
+             outer,
              prepanel = function(x, y, ...) list(ylim= c(-1, 1) * max(abs(y[-1]))),
              panel = panel.acfplot,
              type = "h",
@@ -466,7 +475,8 @@ acfplot.mcmc <-
 
 
 acfplot.mcmc.list <-
-    function(x, outer = FALSE, groups = !outer,
+    function(x, data = NULL,
+             outer = FALSE, groups = !outer,
              prepanel = function(x, y, ..., groups = NULL, subscripts) {
                  if (is.null(groups)) list(ylim= c(-1, 1) * max(abs(y[-1])))
                  else list(ylim = c(-1, 1) * max(sapply(split(y, groups[subscripts]),

@@ -12,7 +12,7 @@
 \alias{acfplot.mcmc}
 \alias{acfplot.mcmc.list}
 \usage{
-\method{densityplot}{mcmc}(x,
+\method{densityplot}{mcmc}(x, data,
              outer, aspect = "xy",
              default.scales = list(relation = "free"),
              start = 1, thin = 1,
@@ -21,7 +21,7 @@
              plot.points = "rug",
              \dots,
              subset)
-\method{densityplot}{mcmc.list}(x,
+\method{densityplot}{mcmc.list}(x, data,
              outer = FALSE, groups = !outer,
              aspect = "xy",
              default.scales = list(relation = "free"),
@@ -31,14 +31,14 @@
              plot.points = "rug",
              \dots,
              subset)
-\method{levelplot}{mcmc}(x, main = attr(x, "title"),
+\method{levelplot}{mcmc}(x, data, main = attr(x, "title"),
              start = 1, thin = 1,
              \dots,
              xlab = "", ylab = "",
              cuts = 10, at,
              col.regions = topo.colors(100),
              subset)
-\method{qqmath}{mcmc}(x,
+\method{qqmath}{mcmc}(x, data,
              outer, aspect = "xy",
              default.scales = list(y = list(relation = "free")),
              prepanel = prepanel.qqmathline,
@@ -47,7 +47,7 @@
              ylab = "",
              \dots,
              subset)
-\method{qqmath}{mcmc.list}(x,
+\method{qqmath}{mcmc.list}(x, data,
              outer = FALSE, groups = !outer,
              aspect = "xy",
              default.scales = list(y = list(relation = "free")),
@@ -57,7 +57,7 @@
              ylab = "",
              \dots,
              subset)
-\method{xyplot}{mcmc}(x,
+\method{xyplot}{mcmc}(x, data,
              outer, layout = c(1, ncol(x)),
              default.scales = list(y = list(relation = "free")),
              type = 'l',
@@ -67,7 +67,7 @@
              main = attr(x, "title"),
              \dots,
              subset)
-\method{xyplot}{mcmc.list}(x, outer = FALSE, groups = !outer,
+\method{xyplot}{mcmc.list}(x, data, outer = FALSE, groups = !outer,
              aspect = "xy", layout = c(1, ncol(x[[1]])),
              default.scales = list(y = list(relation = "free")),
              type = 'l',
@@ -76,8 +76,8 @@
              ylab = "",
              \dots,
              subset)
-acfplot(x, \dots)
-\method{acfplot}{mcmc}(x, outer,
+acfplot(x, data, \dots)
+\method{acfplot}{mcmc}(x, data, outer,
              prepanel, panel, 
              type = 'h',
              aspect = "xy",
@@ -88,7 +88,7 @@ acfplot(x, \dots)
              main = attr(x, "title"),
              ...,
              subset)
-\method{acfplot}{mcmc.list}(x, outer = FALSE, groups = !outer,
+\method{acfplot}{mcmc.list}(x, data, outer = FALSE, groups = !outer,
              prepanel, panel,
              type = if (groups) 'b' else 'h',
              aspect = "xy",
@@ -112,6 +112,7 @@ acfplot(x, \dots)
 }
 \arguments{
   \item{x}{ an \code{"mcmc"} or \code{"mcmc.list"} object. }
+  \item{data}{ ignored, present for consistency with generic. }
   \item{outer}{ for the \code{"mcmc.list"} methods, a logical flag to
     control whether multiple runs of a series are displayed in the same
     panel (they are if \code{FALSE}, not if \code{TRUE}).  If specified

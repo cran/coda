@@ -1,3 +1,5 @@
+HPDinterval             Highest Posterior Density intervals
+[.mcmc                  Extract or replace parts of MCMC objects
 as.matrix.mcmc          Conversions of MCMC objects
 as.ts.mcmc              Coerce mcmc object to time series
 autocorr                Autocorrelation function for Markov chains
@@ -5,8 +7,8 @@ autocorr.diag           Autocorrelation function for Markov chains
 autocorr.plot           Plot autocorrelations for Markov Chains
 batchSE                 Batch Standard Error
 bugs2jags               Convert WinBUGS data file to JAGS data file
-codamenu                Main menu driver for the coda package
 coda.options            Options settings for the codamenu driver
+codamenu                Main menu driver for the coda package
 crosscorr               Cross correlations for MCMC output
 crosscorr.plot          Plot image of correlation matrix
 cumuplot                Cumulative quantile plot
@@ -19,10 +21,8 @@ gelman.plot             Gelman-Rubin-Brooks plot
 geweke.diag             Geweke's convergence diagnostic
 geweke.plot             Geweke-Brooks plot
 heidel.diag             Heidelberger and Welch's convergence diagnostic
-HPDinterval             Highest Posterior Density intervals
 line                    Simple linear regression example
 mcmc                    Markov Chain Monte Carlo Objects
-[.mcmc                  Extract or replace parts of MCMC objects
 mcmc.list               Replicated Markov Chain Monte Carlo Objects
 mcmcUpgrade             Upgrade mcmc objects in obsolete format
 mcpar                   Mcpar attribute of MCMC objects
