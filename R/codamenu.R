@@ -899,6 +899,9 @@ function ()
           if (pick == 1) 
             break
         }
+        else {
+          break
+        }
       }
       postscript(file = ps.name)
     }

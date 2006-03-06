@@ -1,3 +1,6 @@
+0.10-4
+- fixed eternal loop in codamenu() when saving plot as PostScript.
+  Thanks to Bengt Sennblad.
 
 0.12-3
 - added 'data' in lattice generics for compatibility
