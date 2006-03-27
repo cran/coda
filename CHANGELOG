@@ -1,3 +1,7 @@
+0.10-5
+- Registered default method for as.mcmc in NAMESPACE
+  Thanks to Christian Grose
+
 0.10-4
 - fixed eternal loop in codamenu() when saving plot as PostScript.
   Thanks to Bengt Sennblad.
