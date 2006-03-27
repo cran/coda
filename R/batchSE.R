@@ -45,6 +45,6 @@
 }
 
 ## Needed for this function, but generally useful anyway.
-as.data.frame.mcmc <- function(x, row.names = NULL, optional=FALSE) {
-  as.data.frame.matrix(x,row.names,optional)
+as.data.frame.mcmc <- function(x, row.names = NULL, optional=FALSE, ...) {
+  as.data.frame.matrix(x,row.names,optional, ...)
 }

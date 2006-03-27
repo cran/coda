@@ -1,3 +1,8 @@
+0.10-6
+- Fixed HPDinterval() for univariate chains
+  Thanks to David LeBlond
+- Fixed optional parameters in as.data.frame method for mcmc objects
+
 0.10-5
 - Registered default method for as.mcmc in NAMESPACE
   Thanks to Christian Grose

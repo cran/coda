@@ -692,20 +692,6 @@ function ()
   return("codamenu.options.plot")
 }
 
-"codamenu.options.plot.ps" <- function () 
-{
-  choices <- c("Portrait", "Landscape")
-  pick <- menu(choices, "Select options for saving plots to PostScript files")
-  if (pick == 0) 
-    return("quit")
-  else coda.options(ps.orientation = c("portrait", "landscape")[pick])
-  if (.Device == "X11") 
-    x11(orientation = coda.options("ps.orientation"))
-  else if (.Device == "Win32") 
-    windows(orientation = coda.options("ps.orientation"))
-  return("codamenu.options.plot")
-}
-
 "codamenu.options.raftery" <- function (last.menu) 
 {
   coda.options(q = read.and.check("Enter quantile to be estimated:", 
