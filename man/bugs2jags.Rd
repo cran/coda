@@ -19,6 +19,12 @@ bugs2jags(infile, outfile)
   automatically reorder the data in arrays, without changing the
   dimension.
 }
+\note{
+  If the input file is saved from WinBUGS, it must be saved in plain text
+  format. The default format for files saved from WinBUGS is a binary
+  compound document format (with extension odc) that cannot be read by
+  bugs2jags.
+}
 \references{
   Spiegelhalter DJ, Thomas A, Best NG and Lunn D (2003).
   \emph{WinBUGS version 1.4 user manual}

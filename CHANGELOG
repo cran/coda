@@ -1,3 +1,10 @@
+0.10-7
+- Documentation clarification for bugs2jags()
+- Made linearity test in codamenu less stringent.
+  Thanks to Bengt Sennblad.
+- Fixed rejectionRate() for single-variable chains.
+  Thanks to Rob Scharpf.
+
 0.10-6
 - Fixed HPDinterval() for univariate chains
   Thanks to David LeBlond

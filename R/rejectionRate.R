@@ -1,7 +1,6 @@
-
 rejectionRate.mcmc <- function (x) {
-  n <- nrow(x)
-  apply(x[1:(n-1),] == x[2:n,],2,mean)
+  x <- as.matrix(x)
+  apply(x[-nrow(x),,drop=FALSE] == x[-1,, drop=FALSE],2,mean)
 }
 
 rejectionRate.mcmc.list <- function (x) {

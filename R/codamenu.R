@@ -58,7 +58,7 @@
   for (i in 1:nchain(coda.dat)) {
       for (j in 1:nvar(coda.dat)) {
           lm.out <- lm(as.matrix(coda.dat[[i]])[,j] ~ time(coda.dat))
-          if (identical(all.equal(var(residuals(lm.out)), 0), TRUE)) {
+          if (identical(all.equal(sd(residuals(lm.out)), 0), TRUE)) {
               is.linear[j] <- TRUE
           }
       }
