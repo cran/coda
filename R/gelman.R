@@ -10,6 +10,9 @@
   ## Graphical Statistics, 7, 434-455.
 
 {
+  if (!is.R()) {
+    stop("This function is not yet available in S-PLUS")
+  }
   x <- as.mcmc.list(x)
   if (nchain(x) < 2) 
     stop("You need at least two chains")
@@ -148,6 +151,9 @@
             col = 1:2, lty = 1:2, xlab = "last iteration in chain",
             ylab = "shrink factor", type = "l", ...) 
 {
+  if (!is.R()) {
+    stop("This function is not yet avialable in S-PLUS")
+  }
   x <- as.mcmc.list(x)
   oldpar <- NULL
   on.exit(par(oldpar))

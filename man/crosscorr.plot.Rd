@@ -2,12 +2,12 @@
 \alias{crosscorr.plot}
 \title{Plot image of correlation matrix}
 
-\usage{crosscorr.plot (x, col = topo.colors(10), ...)}
+\usage{crosscorr.plot (x, col = topo.colors(10), \dots)}
 
 \arguments{
 \item{x}{an \code{mcmc} or \code{mcmc.list} object}
 \item{col}{color palette to use}
-\item{...}{graphical parameters}
+\item{\dots}{graphical parameters}
 }
 
 \description{

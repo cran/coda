@@ -4,7 +4,7 @@
 
 \usage{
 geweke.plot(x, frac1 = 0.1, frac2 = 0.5, nbins = 20,
-            pvalue = 0.05, auto.layout = TRUE, ask = dev.interactive(), ...)
+            pvalue = 0.05, auto.layout = TRUE, ask = dev.interactive(), \dots)
 } 
 
 \arguments{
@@ -16,7 +16,7 @@ geweke.plot(x, frac1 = 0.1, frac2 = 0.5, nbins = 20,
   \item{auto.layout}{If \code{TRUE} then, set up own layout for
     plots, otherwise use existing one.}
   \item{ask}{Prompt user before displaying each page of plots.}
-  \item{...}{Graphical parameters.}
+  \item{\dots}{Graphical parameters.}
 }
 
 \description{

@@ -8,9 +8,9 @@
   an MCMC sample.
 }
 \usage{
-HPDinterval(obj, prob = 0.95, ...)
-\method{HPDinterval}{mcmc}(obj, prob = 0.95, ...)
-\method{HPDinterval}{mcmc.list}(obj, prob = 0.95, ...)
+HPDinterval(obj, prob = 0.95, \dots)
+\method{HPDinterval}{mcmc}(obj, prob = 0.95, \dots)
+\method{HPDinterval}{mcmc.list}(obj, prob = 0.95, \dots)
 }
 \arguments{
   \item{obj}{The object containing the MCMC sample - usually of class

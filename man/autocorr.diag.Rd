@@ -4,10 +4,10 @@
 \alias{autocorr.diag.mcmc.list}
 \title{Autocorrelation function for Markov chains}
 
-\usage{autocorr.diag(mcmc.obj, ...)}
+\usage{autocorr.diag(mcmc.obj, \dots)}
 \arguments{
   \item{mcmc.obj}{an object of class \code{mcmc} or \code{mcmc.list}}
-  \item{...}{optional arguments to be passed to \code{autocorr}}
+  \item{\dots}{optional arguments to be passed to \code{autocorr}}
 }
 \description{
 \code{autocorr.diag} calculates the autocorrelation function for the

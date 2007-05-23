@@ -9,7 +9,7 @@ read.openbugs(stem="", start, end, thin, quiet=FALSE)
 \arguments{
   \item{stem}{Character string giving the stem for the output files.
     OpenBUGS produces files with names "<stem>CODAindex.txt",
-    "<stem>CODAchain1.txt", "<stem>CODAchain2.txt", ...}
+    "<stem>CODAchain1.txt", "<stem>CODAchain2.txt", \ldots}
   \item{start}{First iteration of chain}
   \item{end}{Last iteration of chain}
   \item{thin}{Thinning interval for chain}

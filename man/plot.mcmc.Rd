@@ -4,7 +4,7 @@
 
 \usage{
 \method{plot}{mcmc}(x, trace = TRUE, density = TRUE, smooth = TRUE, bwf,
-	auto.layout = TRUE, ask = dev.interactive(), ...)
+	auto.layout = TRUE, ask = dev.interactive(), \dots)
 }
 
 \arguments{
@@ -15,7 +15,7 @@
   \item{bwf}{Bandwidth function for density plots}
   \item{auto.layout}{Automatically generate output format}
   \item{ask}{Prompt user before each page of plots}
-  \item{...}{Further arguments}
+  \item{\dots}{Further arguments}
 }
 
 \description{

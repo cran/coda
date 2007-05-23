@@ -4,7 +4,8 @@ function (x, lags = c(0, 1, 5, 10, 50), relative = TRUE)
   ## RGA moved MCMC list processing first, else thinning gets
   ## applied twice.  Thanks to Denise Chang for finding this.
   if (is.mcmc.list(x)) 
-    return(lapply(x, autocorr, lags, relative))
+    return(lapply(x, autocorr, lags = lags, relative = relative))
+  lag.max <- max(lags)
   if (relative) 
     lags <- lags * thin(x)
   else if (any(lags%%thin(x) != 0)) 
@@ -13,7 +14,7 @@ function (x, lags = c(0, 1, 5, 10, 50), relative = TRUE)
   x <- as.mcmc(x)
   y <- array(dim = c(length(lags), nvar(x), nvar(x)))
   dimnames(y) <- list(paste("Lag", lags), varnames(x), varnames(x))
-  acf.out <- acf(as.ts.mcmc(x), lag.max = max(lags), plot = FALSE)$acf
+  acf.out <- acf(as.ts.mcmc(x), lag.max = lag.max, plot = FALSE)$acf
   y[, , ] <- if (is.array(acf.out)) 
     acf.out[lags%/%thin(x) + 1, , ]
   else acf.out[lags%/%thin(x) + 1]
@@ -21,8 +22,16 @@ function (x, lags = c(0, 1, 5, 10, 50), relative = TRUE)
 }
 
 "autocorr.plot" <-
-function (x, lag.max, auto.layout = TRUE, ask = dev.interactive(), ...) 
+function (x, lag.max, auto.layout = TRUE, ask, ...) 
 {
+    if (missing(ask)) {
+      ask <- if (is.R()) {
+        dev.interactive()
+      }
+      else {
+        interactive()
+      }
+    }
     oldpar <- NULL
     on.exit(par(oldpar))
     if (auto.layout) 
@@ -56,6 +65,9 @@ function (x)
 "crosscorr.plot" <-
 function (x, col = topo.colors(10), ...) 
 {
+    if (!is.R()) {
+      stop("This function is not yet available in S-PLUS")
+    }
     Nvar <- nvar(x)
     pcorr <- crosscorr(x)
     dens <- ((pcorr + 1) * length(col))%/%2 + (pcorr < 1) + (pcorr < 
@@ -95,6 +107,9 @@ function (x, col = topo.colors(10), ...)
 "densplot" <-
 function (x, show.obs = TRUE, bwf, main = "", ylim, ...) 
 {
+  if (!is.R()) {
+    stop("This function is not yet available in S-PLUS")
+  }
   xx <- as.matrix(x)
   for (i in 1:nvar(x)) {
     y <- xx[, i, drop = TRUE]
@@ -159,6 +174,9 @@ function (x, show.obs = TRUE, bwf, main = "", ylim, ...)
 "read.openbugs" <-
 function (stem = "", start, end, thin, quiet = FALSE) 
 {
+  if (!is.R()) {
+    stop("This function is not yet available in S-PLUS")
+  }
   index.file <- paste(stem, "CODAindex.txt", sep = "")
   if (!file.exists(index.file))
     stop("No index file found")
@@ -196,7 +214,12 @@ function (stem = "", start, end, thin, quiet = FALSE)
   index <- read.table(index.file,
                       row.names = 1, col.names = c("", "begin", "end"))
   vnames <- row.names(index)
-  temp <- scan(output.file, what = list(iter = 0, val = 0), quiet = TRUE)
+  if (is.R()) {
+    temp <- scan(output.file, what = list(iter = 0, val = 0), quiet = TRUE)
+  }
+  else {
+    temp <- scan(output.file, what = list(iter = 0, val = 0))
+  }
   ## Do one pass through the data to see if we can construct 
   ## a regular time series easily 
   ## 
@@ -388,7 +411,12 @@ function (x, smooth = TRUE, col = 1:6, type = "l", ylab = "",
   varquant <- drop(varquant)
   out <- list(statistics = varstats, quantiles = varquant, 
               start = start(x), end = end(x), thin = thin(x), nchain = 1)
-  class(out) <- "summary.mcmc"
+  if (is.R()) {
+    class(out) <- "summary.mcmc"
+  }
+  else {
+    oldClass(out) <- "summary.mcmc"
+  }
   return(out)
 }
 

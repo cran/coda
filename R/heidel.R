@@ -1,5 +1,8 @@
 "heidel.diag" <- function (x, eps = 0.1, pvalue=0.05) 
 {
+  if (!is.R()) {
+    stop("This function is not yet available in S-PLUS")
+  }
   if (is.mcmc.list(x)) 
     return(lapply(x, heidel.diag, eps))
   x <- as.mcmc(as.matrix(x))
@@ -113,7 +116,12 @@ effectiveSize <- function(x)
   x <- as.matrix(x)
   if (!is.null(max.length) && nrow(x) > max.length) {
     batch.size <- ceiling(nrow(x)/max.length)
-    x <- aggregate(ts(x, frequency=batch.size), nfreq = 1, FUN=mean)
+    if (is.R()) {
+      x <- aggregate(ts(x, frequency=batch.size), nfreq = 1, FUN=mean)
+    }
+    else {
+      x <- aggregate(ts(x, frequency=batch.size), nf = 1, fun=mean)
+    }
   }
   else {
     batch.size <- 1
@@ -157,8 +165,7 @@ effectiveSize <- function(x)
                               spec = spec[1 + (1:Nfreq)],
                               inset = I(freq<=max.freq))
       
-      glm.out <- glm(fmla, family=Gamma(link="log"), data=spec.data,
-                     subset=inset)
+      glm.out <- glm(fmla, family=Gamma(link="log"), data=spec.data)
       v0[i] <- predict(glm.out, type="response",
                        newdata=data.frame(spec=0,one=1,f1=-sqrt(3),f2=sqrt(5)))
     }
@@ -168,6 +175,9 @@ effectiveSize <- function(x)
 
 "pcramer" <- function (q, eps=1.0e-5)
 {
+  if (!is.R()) {
+    stop("This function is not yet available in S-PLUS")
+  }
   ## Distribution function of the Cramer-von Mises statistic
   ##
   log.eps <- log(eps)

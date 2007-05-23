@@ -1,7 +1,10 @@
 "raftery.diag" <-
 function (data, q = 0.025, r = 0.005, s = 0.95, converge.eps = 0.001) 
 {
-    if (is.mcmc.list(data)) 
+  if (!is.R()) {
+    stop("This function is not yet available in S-PLUS")
+  }
+  if (is.mcmc.list(data)) 
         return(lapply(data, raftery.diag, q, r, s, converge.eps))
     data <- as.mcmc(data)
     resmatrix <- matrix(nrow = nvar(data), ncol = 4, dimnames = list(varnames(data, 

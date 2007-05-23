@@ -137,6 +137,9 @@ densityplot.mcmc <-
              ...,
              subset = thinned.indices(x, start = start, thin = thin))
 {
+    if (!is.R()) {
+      stop("This function is not yet available in S-PLUS")
+    }
     if (!missing(outer)) warning("specification of outer ignored")
     data <- as.data.frame(x)
     form <-
@@ -188,6 +191,9 @@ densityplot.mcmc.list <-
              ...,
              subset = thinned.indices(x[[1]], start = start, thin = thin))
 {
+    if (!is.R()) {
+      stop("This function is not yet available in S-PLUS")
+    }
     if (groups && outer) warning("'groups=TRUE' ignored when 'outer=TRUE'")
     datalist <- lapply(x, function(x) as.data.frame(x)[subset, ])
     data <- do.call("rbind", datalist)
@@ -209,7 +215,7 @@ densityplot.mcmc.list <-
 ##                              paste(names(data),
 ##                                    collapse = "+")))
     ##data[["index"]] <- seq(length = nrow(x[[1]]))[subset]
-    data[[".run"]] <- gl(length(datalist), nrow(datalist[[1]]))
+    .run <- gl(length(datalist), nrow(datalist[[1]]))
     if (groups && !outer)
         densityplot(form, data = data,
                     outer = TRUE,
@@ -291,7 +297,8 @@ qqmath.mcmc.list <-
                              paste(lapply(names(data), as.name),
                                    collapse = "+")))
     ##data[["index"]] <- seq(length = nrow(x[[1]]))[subset]
-    data[[".run"]] <- gl(length(datalist), nrow(datalist[[1]]))
+    ##data[[".run"]] <- gl(length(datalist), nrow(datalist[[1]]))
+    .run <- gl(length(datalist), nrow(datalist[[1]]))
     if (groups && !outer)
         qqmath(form, data = data,
                outer = TRUE,
@@ -380,7 +387,7 @@ xyplot.mcmc.list <-
 ##                                    collapse = "+"),
 ##                              "~ index"))
     data[[".index"]] <- seq(length = nrow(datalist[[1]])) ## repeated
-    data[[".run"]] <- gl(length(datalist), nrow(datalist[[1]]))
+    .run <- gl(length(datalist), nrow(datalist[[1]]))
     if (groups && !outer)
         xyplot(form, data = data,
                outer = TRUE,
@@ -527,7 +534,7 @@ acfplot.mcmc.list <-
                                    collapse = "+"),
                              "~ .lag"))
     data[[".lag"]] <- seq(length = nrow(datalist[[1]])) ## repeated
-    data[[".run"]] <- gl(length(datalist), nrow(datalist[[1]]))
+    .run <- gl(length(datalist), nrow(datalist[[1]]))
     if (groups && !outer)
         xyplot(form, data = data,
                outer = TRUE,

@@ -25,7 +25,7 @@ from a chain that has converged.
 The convergence test uses the Cramer-von-Mises statistic to test the null
 hypothesis that the sampled values come from a stationary distribution.
 The test is successively applied, firstly  to the whole chain, then after
-discarding the first 10\%, 20\%, ... of the chain until either the null
+discarding the first 10\%, 20\%, \ldots of the chain until either the null
 hypothesis is accepted, or 50\% of the chain has been discarded. The latter
 outcome constitutes `failure' of the stationarity test and indicates
 that a longer MCMC run is needed. If the stationarity test is passed,

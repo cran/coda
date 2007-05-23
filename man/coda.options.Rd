@@ -5,7 +5,7 @@
 \alias{.Coda.Options.Default}
 \title{Options settings for the codamenu driver}
 \usage{
-coda.options(...)
+coda.options(\dots)
 display.coda.options(data = FALSE, stats = FALSE, plots = FALSE, diags = FALSE)
 .Coda.Options
 .Coda.Options.Default
@@ -15,7 +15,7 @@ display.coda.options(data = FALSE, stats = FALSE, plots = FALSE, diags = FALSE)
   \item{stats}{logical flag: show summary statistic options?}
   \item{plots}{logical flag: show plotting options?}
   \item{diags}{logical flag: show plotting options?}
-  \item{...}{list of options}
+  \item{\dots}{list of options}
 }
 \description{
   \code{coda.options} is a utility function that queries and sets

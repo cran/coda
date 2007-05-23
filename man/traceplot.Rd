@@ -2,7 +2,7 @@
 \alias{traceplot}
 \title{Trace plot of MCMC output}
 
-\usage{traceplot(x, smooth = TRUE, col, type, ylab, ...)}
+\usage{traceplot(x, smooth = TRUE, col, type, ylab, \dots)}
 
 \arguments{
   \item{x}{An \code{mcmc} or \code{mcmc.list} object}
@@ -10,7 +10,7 @@
   \item{col}{graphical parameter (see \code{par})}
   \item{type}{graphical parameter (see \code{par})}
   \item{ylab}{graphical parameter (see \code{par})}
-  \item{...}{further graphical parameters}
+  \item{\dots}{further graphical parameters}
 }
 
 \description{

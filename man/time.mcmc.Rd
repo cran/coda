@@ -11,15 +11,15 @@
 \title{Time attributes for mcmc objects}
 
 \usage{
-\method{time}{mcmc}(x, ...)
-\method{start}{mcmc}(x, ...)
-\method{end}{mcmc}(x, ...)
-\method{thin}{mcmc}(x, ...)
+\method{time}{mcmc}(x, \dots)
+\method{start}{mcmc}(x, \dots)
+\method{end}{mcmc}(x, \dots)
+\method{thin}{mcmc}(x, \dots)
 }
 
 \arguments{
   \item{x}{an \code{mcmc} or \code{mcmc.list} object}
-  \item{...}{extra arguments for future methods}
+  \item{\dots}{extra arguments for future methods}
 }
 
 \description{

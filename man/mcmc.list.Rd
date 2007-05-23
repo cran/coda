@@ -7,13 +7,13 @@
 \title{Replicated Markov Chain Monte Carlo Objects}
 
 \usage{
-mcmc.list(...)
-as.mcmc.list(x, ...)
+mcmc.list(\dots)
+as.mcmc.list(x, \dots)
 is.mcmc.list(x)
 }
 
 \arguments{
-  \item{...}{a list of mcmc objects}
+  \item{\dots}{a list of mcmc objects}
   \item{x}{an object that may be coerced to mcmc.list}
 }
 

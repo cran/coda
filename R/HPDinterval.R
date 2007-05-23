@@ -2,6 +2,9 @@ HPDinterval <- function(obj, prob = 0.95, ...) UseMethod("HPDinterval")
 
 HPDinterval.mcmc <- function(obj, prob = 0.95, ...)
 {
+    if (!is.R()) {
+      stop("This function is not yet available in S-PLUS")
+    }
     obj <- as.matrix(obj)
     vals <- apply(obj, 2, sort)
     if (!is.matrix(vals)) stop("obj must have nsamp > 1")

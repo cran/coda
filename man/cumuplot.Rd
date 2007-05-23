@@ -5,7 +5,7 @@
 \usage{
   cumuplot(x, probs=c(0.025,0.5,0.975), ylab="",
            lty=c(2,1), lwd=c(1,2), type="l", ask=dev.interactive(),
-           auto.layout=TRUE, col=1, ...)
+           auto.layout=TRUE, col=1, \dots)
 }
 
 \arguments{
@@ -16,7 +16,7 @@
    plots, otherwise use existing one.}
   \item{ask}{If \code{TRUE} then prompt user before displaying
    each page of plots.}
-  \item{...}{further graphical parameters}
+  \item{\dots}{further graphical parameters}
 }
 
 \description{

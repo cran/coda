@@ -6,9 +6,9 @@
 \title{Conversions of MCMC objects}
 
 \usage{
-as.matrix.mcmc(x, iters = FALSE)
-as.matrix.mcmc.list(x, iters = FALSE, chains = FALSE)
-as.array.mcmc.list(x, drop, ...)
+\method{as.matrix}{mcmc}(x, iters = FALSE, ...)
+\method{as.matrix}{mcmc.list}(x, iters = FALSE, chains = FALSE, ...)
+\method{as.array}{mcmc.list}(x, drop, ...)
 }
 
 \arguments{
@@ -17,7 +17,7 @@ as.array.mcmc.list(x, drop, ...)
   \item{chains}{logical flag: add column for chain number? (if mcmc.list)}
   \item{drop}{logical flag: if \code{TRUE} the result is coerced to the
     lowest possible dimension}
-  \item{...}{further arguments for future methods}
+  \item{...}{optional arguments to the various methods}
 }
 
 \description{

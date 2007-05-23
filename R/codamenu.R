@@ -1,5 +1,8 @@
 "codamenu" <- function () 
 {
+  if (!is.R()) {
+    stop("This function is not yet available in S-PLUS")
+  }
   on.exit(tidy.up())
   coda.options(default=TRUE)
   file.menu <- c("Read BUGS output files", 
@@ -720,8 +723,13 @@ function ()
                   paste(coda.options("quantiles"), collapse = ", "))
     repeat {
       cat("\n", mssg, "\n")
-      ans <- as.numeric(scan(what = character(), sep = ",", 
-                             quiet = TRUE, nlines = 1))
+      if (is.R()) {
+        ans <- as.numeric(scan(what = character(), sep = ",", nlines = 1,
+                               quiet = TRUE))
+      }
+      else {
+        ans <- as.numeric(scan(what = character(), sep = ",", nlines = 1))
+      }
       if (length(ans) == 0) 
         ans <- coda.options("quantiles")
       if (any(is.na(ans))) 
@@ -820,17 +828,31 @@ function ()
 
 "read.coda.interactive" <- function () 
 {
+  if (!is.R()) {
+    stop("This function is not yet available in S-PLUS")
+  }
   repeat {
     cat("Enter CODA index file name\n")
     cat("(or a blank line to exit)\n")
-    index.file <- scan(what = character(), sep = "\n", strip.white = TRUE, 
-                       quiet = TRUE, nlines=1)
+    if (is.R()) {
+      index.file <- scan(what = character(), sep = "\n", strip.white = TRUE, 
+                         nlines=1, quiet=TRUE)
+    }
+    else {
+      index.file <- scan(what = character(), sep = "\n", strip.white = TRUE,
+                         nlines = 1)
+    }
     if (length(index.file) == 0)
       return()
     cat("Enter CODA output file names, separated by return key\n")
     cat("(leave a blank line when you have finished)\n")
-    output.files <- scan(what = character(), sep = "\n", strip.white = TRUE, 
-                         quiet = TRUE)
+    if (is.R()) {
+      output.files <- scan(what = character(), sep = "\n", strip.white = TRUE, 
+                           quiet = TRUE)
+    }
+    else {
+      output.files <- scan(what = character(), sep = "\n", strip.white = TRUE)
+    }
     all.files <- c(index.file, output.files)
     if (any(!file.exists(all.files))) {
       cat("The following files were not found:\n")
@@ -910,43 +932,8 @@ function ()
   invisible()
 }
 
+## Need global binding for these data
 
+'coda.dat' <- NULL
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+'work.dat' <- NULL

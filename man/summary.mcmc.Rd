@@ -6,13 +6,13 @@
 \title{Summary statistics for  Markov Chain Monte Carlo chains}
 
 \usage{
-\method{summary}{mcmc}(object, quantiles = c(0.025, 0.25, 0.5, 0.75, 0.975), ...)
+\method{summary}{mcmc}(object, quantiles = c(0.025, 0.25, 0.5, 0.75, 0.975), \dots)
 }
 
 \arguments{
   \item{object}{an object of class \code{mcmc} or \code{mcmc.list}}
   \item{quantiles}{a vector of quantiles to evaluate for each variable}
-  \item{...}{a list of further arguments}
+  \item{\dots}{a list of further arguments}
 }
 
 \description{

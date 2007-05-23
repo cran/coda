@@ -2,11 +2,11 @@
 \alias{as.ts.mcmc}
 \title{Coerce mcmc object to time series}
 
-\usage{as.ts.mcmc(x,...)}
+\usage{as.ts.mcmc(x,\dots)}
 
 \arguments{
    \item{x}{an mcmc object}
-   \item{...}{unused arguments for compatibility with generic \code{as.ts}}
+   \item{\dots}{unused arguments for compatibility with generic \code{as.ts}}
 }
 
 \description{

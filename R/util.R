@@ -29,6 +29,9 @@ function (string, option)
 "coda.options" <-
 function (...) 
 {
+  if (!is.R()) {
+    stop("This function is not yet available in S-PLUS")
+  }
   ## Set and display coda options
   single <- FALSE
   if (!exists(".Coda.Options", frame = 1)) 
@@ -240,6 +243,8 @@ function (...)
        gr.max = 50,
        data.saved = TRUE
        )
+
+".Coda.Options" <- ".Coda.Options.Default"
 
 
 

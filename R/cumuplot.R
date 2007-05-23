@@ -2,9 +2,12 @@ cumuplot <- function(x, probs=c(0.025,0.5,0.975), ylab="", lty=c(2,1),
                      lwd=c(1,2), type="l", ask=dev.interactive(),
                      auto.layout=TRUE, col=1, ...)
 {
-    cquantile <- function(z, probs)
+  if (!is.R()) {
+    stop("This function is not yet available in S-PLUS")
+  }
+  cquantile <- function(z, probs)
     {
-        ## Calculates cumulative quantile of a vector
+      ## Calculates cumulative quantile of a vector
         cquant <- matrix(0, nrow=length(z), length(probs))
         for(i in seq(along=z))  # for loop proved faster than apply here
             cquant[i,] <- quantile(z[1:i], probs=probs, names=FALSE)

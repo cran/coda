@@ -2,6 +2,9 @@
   function (x, frac1 = 0.1, frac2 = 0.5) 
   ## 
 {
+  if (!is.R()) {
+    stop("This function is not yet available in S-PLUS")
+  }
   if (is.mcmc.list(x)) 
     return(lapply(x, geweke.diag, frac1, frac2))
   x <- as.mcmc(x)
@@ -23,6 +26,9 @@
   function (x, frac1 = 0.1, frac2 = 0.5, nbins = 20, 
             pvalue = 0.05, auto.layout = TRUE, ask = dev.interactive(), ...) 
 {
+  if (!is.R()) {
+    stop("This function is not yet available in S-PLUS")
+  }
   x <- as.mcmc.list(x)
   oldpar <- NULL
   on.exit(par(oldpar))

@@ -4,8 +4,10 @@
   UseMethod("batchSE")
 }
 
-"batchSE.mcmc" <-
-  function(x,batchSize=100) {
+"batchSE.mcmc" <- function(x,batchSize=100) {
+  if (!is.R()) {
+    stop("This function is not yet available in S-PLUS")
+  }
   niter <- niter(x)
   nbatch <- niter%/%batchSize
   ## Truncate the odd lot observations
@@ -21,8 +23,10 @@
   stds/sqrt(niter(x))
 }
 
-"batchSE.mcmc.list" <-
-  function(x,batchSize=100) {
+"batchSE.mcmc.list" <- function(x,batchSize=100) {
+  if (!is.R()) {
+    stop("This function is not yet available in S-PLUS")
+  }
   nchain <- nchain(x)
   niter <- niter(x)
   nbatch <- niter%/%batchSize

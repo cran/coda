@@ -3,12 +3,12 @@
 \title{Thinning interval}
 
 \usage{
-thin(x, ...)
+thin(x, \dots)
 }
 
 \arguments{
    \item{x}{a regular time series}
-   \item{...}{a list of arguments}
+   \item{\dots}{a list of arguments}
  }
 
 \description{

@@ -10,8 +10,9 @@
   ac <- autocorr(mcmc.obj,...)
   dd <- dim(ac)
   result <- matrix(NA,nrow=dd[1],ncol=dd[2],dimnames =dimnames(ac)[1:2])
-  for (i in 1:dd[2])
+  for (i in 1:dd[2]) {
     result[,i] <- ac[,i,i]
+  }
   return (result)
 }
 
@@ -19,7 +20,10 @@
 "autocorr.diag.mcmc.list" <- function (mcmc.obj,...) {
   ac <- lapply(mcmc.obj,autocorr.diag.mcmc,...)
   result <- ac[[1]]
-  for (chain in 2:length(ac))
-    result <- result + ac[[chain]]
-  result/length(ac)
+  if (length(ac) > 1) {
+    for (chain in 2:length(ac)) {
+      result <- result + ac[[chain]]
+    }
+  }
+  return (result/length(ac))
 }

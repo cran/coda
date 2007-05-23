@@ -2,7 +2,7 @@
 \alias{densplot}
 \title{Probability density function estimate from MCMC output}
 
-\usage{densplot(x, show.obs=TRUE, bwf, main, ylim, ...)}
+\usage{densplot(x, show.obs=TRUE, bwf, main, ylim, \dots)}
 
 \arguments{
   \item{x}{An \code{mcmc} or \code{mcmc.list} object}
@@ -13,7 +13,7 @@
     size to the negative one fifth power}
   \item{main}{Title. See \code{par()}}
   \item{ylim}{Limits on y axis.  See \code{par()}}
-  \item{...}{Further graphical parameters}
+  \item{\dots}{Further graphical parameters}
 }
 
 \description{

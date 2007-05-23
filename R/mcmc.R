@@ -1,8 +1,15 @@
 "[.mcmc" <- function (x, i, j, drop = missing(i)) 
 {
+  ## In S-PLUS the code is altered so that the user can
+  ## pick out particular parameters by calling mcmc.obj[,c("param1", "param2")]
   xstart <- start(x)
   xthin <- thin(x)
-  y <- NextMethod("[")
+  if (is.R()) {
+    y <- NextMethod("[")
+  }
+  else {
+    y <- as.matrix(x)[i,j]
+  }
   if (length(y) == 0 || is.null(y)) 
     return(y)
   if (missing(i)) 
@@ -108,7 +115,7 @@
 }
 
 
-"as.matrix.mcmc" <- function (x, iters = FALSE) 
+"as.matrix.mcmc" <- function (x, iters = FALSE, ...) 
 {
   y <- matrix(nrow = niter(x), ncol = nvar(x) + iters)
   var.cols <- iters + 1:nvar(x)

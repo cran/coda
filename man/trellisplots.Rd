@@ -86,7 +86,7 @@ acfplot(x, data, \dots)
              ylab = "Autocorrelation",
              xlab = "Lag",
              main = attr(x, "title"),
-             ...,
+             \dots,
              subset)
 \method{acfplot}{mcmc.list}(x, data, outer = FALSE, groups = !outer,
              prepanel, panel,
@@ -97,7 +97,7 @@ acfplot(x, data, \dots)
              ylab = "Autocorrelation",
              xlab = "Lag",
              main = attr(x, "title"),
-             ...,
+             \dots,
              subset)
 }
 \description{

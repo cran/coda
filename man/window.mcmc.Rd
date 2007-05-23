@@ -4,7 +4,7 @@
 \title{Time windows for mcmc objects}
 
 \usage{
-\method{window}{mcmc}(x, start, end, thin, ...)
+\method{window}{mcmc}(x, start, end, thin, \dots)
 }
 
 \arguments{
@@ -12,7 +12,7 @@
    \item{start}{the first iteration of interest}
    \item{end}{the last iteration of interest}
    \item{thin}{the required interval between successive samples}
-   \item{...}{futher arguments for future methods}
+   \item{\dots}{futher arguments for future methods}
  }
 
 \description{

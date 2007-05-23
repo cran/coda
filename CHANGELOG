@@ -1,3 +1,7 @@
+0.11-1
+- Added changes from Dawn Woodward for S-PLUS.
+- Fixed global binding problems 
+
 0.10-7
 - Documentation clarification for bugs2jags()
 - Made linearity test in codamenu less stringent.

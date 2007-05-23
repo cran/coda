@@ -1,12 +1,20 @@
 "[.mcmc.list" <- function (x, i, j, drop = TRUE) 
 {
+  ## In S-PLUS the code is altered so that the user can
+  ## pick out particular parameters by calling mcmc.obj[,c("param1", "param2")]
+  
   ## Trying to squeeze too much functionality in here
   ## x[p:q] will subset the list
   ## x[p,], x[,q], x[p,q] will be recursively applied to
   ## the elements of the list, even if they are vectors
   if (nargs() < 3 + !missing(drop)) {
     ## Subset the list
-    y <- NextMethod("[")
+    if (is.R()) {
+      y <- NextMethod("[")
+    }
+    else {
+      y <- as.matrix(x)[i,j]
+    }
   }
   else {
     ## Subset the elements of the list
@@ -137,7 +145,7 @@
 }
 
 "as.matrix.mcmc.list" <-
-  function (x, iters = FALSE, chains = FALSE) 
+  function (x, iters = FALSE, chains = FALSE, ...) 
 {
   x <- mcmc.list(x)
   y <- matrix(nrow = niter(x) * nchain(x), ncol = nvar(x) + 

@@ -6,7 +6,7 @@
 \usage{
 gelman.plot(x, bin.width = 10, max.bins = 50,
 confidence = 0.95, transform = FALSE, auto.layout = TRUE,
-ask = dev.interactive(), col, lty, xlab, ylab, type, ...)
+ask = dev.interactive(), col, lty, xlab, ylab, type, \dots)
 } 
 
 \arguments{
@@ -24,7 +24,7 @@ ask = dev.interactive(), col, lty, xlab, ylab, type, ...)
   \item{xlab}{graphical parameter (see \code{par})}
   \item{ylab}{graphical parameter (see \code{par})}
   \item{type}{graphical parameter (see \code{par})}
-  \item{...}{further graphical parameters.}
+  \item{\dots}{further graphical parameters.}
 }
 
 \description{
