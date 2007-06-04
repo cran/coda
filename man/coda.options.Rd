@@ -6,12 +6,11 @@
 \title{Options settings for the codamenu driver}
 \usage{
 coda.options(\dots)
-display.coda.options(data = FALSE, stats = FALSE, plots = FALSE, diags = FALSE)
+display.coda.options(stats = FALSE, plots = FALSE, diags = FALSE)
 .Coda.Options
 .Coda.Options.Default
 }
 \arguments{
-  \item{data}{logical flag: show data options?}
   \item{stats}{logical flag: show summary statistic options?}
   \item{plots}{logical flag: show plotting options?}
   \item{diags}{logical flag: show plotting options?}

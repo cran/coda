@@ -31,6 +31,6 @@ A vector containing the autocorrelations.
 \author{Russell Almond}
 
 \seealso{
-\code{\link{autocorr}}, \code{\link{acf}}, \code{\link{autocorr.plot}}.}
+  \code{\link{autocorr}}, \code{\link{acf}}, \code{\link{autocorr.plot}}.
 }
 \keyword{ts}

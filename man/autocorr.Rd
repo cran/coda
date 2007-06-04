@@ -33,6 +33,6 @@ A vector or array containing the autocorrelations.
 \author{Martyn Plummer}
 
 \seealso{
-\code{\link{acf}}, \code{\link{autocorr.plot}}.}
+  \code{\link{acf}}, \code{\link{autocorr.plot}}.
 }
 \keyword{ts}

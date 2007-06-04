@@ -3,7 +3,6 @@
   if (!is.R()) {
     stop("This function is not yet available in S-PLUS")
   }
-  on.exit(tidy.up())
   coda.options(default=TRUE)
   file.menu <- c("Read BUGS output files", 
                  "Use an mcmc object", 
@@ -12,7 +11,7 @@
   if (pick == 0 || pick == 3) 
     return(invisible())
   else if (pick == 1) {
-    assign("coda.dat", read.coda.interactive(), pos=1)
+    coda.dat <- read.coda.interactive()
     if (is.null(coda.dat)) {
       return(invisible())
     }
@@ -29,32 +28,29 @@
       else if (!exists(outname)) 
         msg <- "Can't find this object"
       else {
-        work.dat <- eval(parse(text = outname))
-        if (is.mcmc.list(work.dat)) {
-          assign("coda.dat", work.dat, pos=1)
-          break
+        coda.dat <- eval(parse(text = outname))
+        if (is.mcmc(coda.dat)) {
+          coda.dat <- mcmc.list(coda.dat)
         }
-        else if (is.mcmc(work.dat)) {
-          assign("coda.dat", mcmc.list(work.dat), pos=1)
-          break
-        }
-        else
+        if (!is.mcmc.list(coda.dat)) {
           msg <- "Not an mcmc or mcmc.list object"
+        }
+        else {
+          break
+        }
       }
     }
   }
   else stop("Invalid option")
-  coda.dat <- coda.dat #Create local copy
   if (is.null(chanames(coda.dat))) {
     chanames(coda.dat) <- chanames(coda.dat, allow.null = FALSE)
   }
   if (is.matrix(coda.dat[[1]]) && is.null(varnames(coda.dat))) {
     varnames(coda.dat) <- varnames(coda.dat, allow.null = FALSE)
   }
-  assign("coda.dat", coda.dat, pos=1)
-  rm(coda.dat, inherits=FALSE) #Destroy local copy
-  assign("work.dat", coda.dat, pos=1)
+  on.exit(tidy.up(coda.dat))
 
+  
   ## Check for variables that are linear functions of the
   ## iteration number
   is.linear <- rep(FALSE, nvar(coda.dat))
@@ -71,15 +67,14 @@
       cat("functions of the iteration number\n")
       print(varnames(coda.dat)[is.linear])
       inset <- varnames(coda.dat)[!is.linear]
-      assign("coda.dat", coda.dat[,inset, drop=FALSE], pos=1)
-      assign("work.dat", coda.dat[,inset, drop=FALSE], pos=1)
+      coda.dat <- coda.dat[, inset, drop=FALSE]
   }
 
   ## Sample size test
   cat("Checking effective sample size ...")
-  ess <- effectiveSize(gelman.transform(coda.dat))
+  ess <- lapply(gelman.transform(coda.dat), effectiveSize)
   warn.small <- FALSE
-  for (i in 1:nchain(coda.dat))
+  for (i in 1:length(ess))
     {
       if (any(ess[[i]] < 200))
         warn.small <- TRUE
@@ -89,8 +84,9 @@
       cat("\n")
       cat("*******************************************\n")
       cat("WARNING !!!                              \n")
-      cat("Some variables in your chain have an     \n")
-      cat("effective sample size of less than 200   \n")
+      cat("Some variables have an effective sample  \n")
+      cat("size of less than 200 in at least one    \n")
+      cat("chain.                                   \n")
       cat("This is too small, and may cause errors  \n")
       cat("in the diagnostic tests                  \n")
       cat("HINT:                                    \n")
@@ -109,8 +105,11 @@
   current.menu <- "codamenu.main"
   old.opt <- options(warn=-1, show.error.messages=FALSE)
   on.exit(options(old.opt))
+  ## Create working data, a subset of coda.dat
+  work.dat <- coda.dat
+
   repeat {
-    next.menu <- try(do.call(current.menu, vector("list", 0)))
+    next.menu <- try(do.call(current.menu, list(work.dat, coda.dat)))
     if (!is.null(class(next.menu)) && class(next.menu) == "try-error")
       {
         if (current.menu == "codamenu.main")
@@ -130,6 +129,10 @@
       }
     else
       {
+        if (is.list(next.menu) && !is.null(next.menu[["work.dat"]])) {
+          work.dat <- next.menu$work.dat
+          next.menu <- next.menu[[1]]
+        }
         if (next.menu == "quit") {
           if(read.yesno("Are you sure you want to quit", FALSE))
             break
@@ -140,7 +143,7 @@
   invisible()
 }
 
-"codamenu.anal" <- function () 
+"codamenu.anal" <- function (work.dat, ...) 
 {
   next.menu <- "codamenu.anal"
   choices <- c("Plots", "Statistics", "List/Change Options", 
@@ -191,7 +194,7 @@
   return(next.menu)
 }
 
-"codamenu.diags" <- function () 
+"codamenu.diags" <- function (work.dat, ...) 
 {
   next.menu <- "diags"
   while (next.menu == "diags") {
@@ -211,10 +214,10 @@
   return(next.menu)
 }
 
-"codamenu.diags.autocorr" <- function () 
+"codamenu.diags.autocorr" <- function (work.dat, ...) 
 {
   next.menu <- "codamenu.diags"
-  codamenu.output.header("AUTOCORRELATIONS WITHIN EACH CHAIN:")
+  codamenu.output.header("AUTOCORRELATIONS WITHIN EACH CHAIN:", work.dat)
   print(autocorr(work.dat), digits = coda.options("digits"))
   choices <- c("Plot autocorrelations", "Return to Diagnostics Menu")
   pick <- menu(choices, title = "Autocorrelation Plots Menu")
@@ -234,7 +237,7 @@
   return(next.menu)
 }
 
-"codamenu.diags.crosscorr" <- function () 
+"codamenu.diags.crosscorr" <- function (work.dat, ...) 
 {
   next.menu <- "codamenu.diags.crosscorr"
   crosscorr.out <- if (coda.options("combine.corr")) {
@@ -273,12 +276,12 @@
   return(next.menu)
 }
 
-"codamenu.diags.heidel" <- function () 
+"codamenu.diags.heidel" <- function (work.dat, ...) 
 {
   this.menu <- "codamenu.diags.heidel"
   next.menu <- "codamenu.diags"
   title <- "HEIDELBERGER AND WELCH STATIONARITY AND INTERVAL HALFWIDTH TESTS"
-  codamenu.output.header(title)
+  codamenu.output.header(title, work.dat)
   cat("Precision of halfwidth test =", coda.options("halfwidth"), "\n\n")
   heidel.out <- heidel.diag(work.dat, eps = coda.options("halfwidth"))
   print(heidel.out, digits = coda.options("digits"))
@@ -291,10 +294,10 @@
   return(next.menu)
 }
 
-"codamenu.diags.raftery" <- function () 
+"codamenu.diags.raftery" <- function (work.dat, ...) 
 {
   next.menu <- this.menu <- "codamenu.diags.raftery"
-  codamenu.output.header("RAFTERY AND LEWIS CONVERGENCE DIAGNOSTIC")
+  codamenu.output.header("RAFTERY AND LEWIS CONVERGENCE DIAGNOSTIC", work.dat)
   print(raftery.diag(work.dat, q = coda.options("q"), r = coda.options("r"), 
                      s = coda.options("s")), digits = coda.options("digits"))
   choices <- c("Change parameters", "Return to diagnostics menu")
@@ -308,7 +311,7 @@
   return(next.menu)
 }
 
-"codamenu.main" <- function () 
+"codamenu.main" <- function (work.dat, ...) 
 {
   choices <- c("Output Analysis", "Diagnostics", "List/Change Options", "Quit")
   next.menu.list <- c("codamenu.anal", "codamenu.diags", "codamenu.options", 
@@ -320,7 +323,7 @@
   return(next.menu)
 }
 
-"codamenu.diags.gelman" <- function (tol = 1e-08) 
+"codamenu.diags.gelman" <- function (work.dat, ...) 
 {
   next.menu <- this.menu <- "codamenu.diags.gelman"
   if (nchain(work.dat) == 1) {
@@ -334,7 +337,7 @@
   z <- window(work.dat, start = niter(work.dat)/2)
   for (i in 2:nchain(z)) {
     for (j in 1:(i - 1)) {
-      if (any(apply(as.matrix(z[[i]] - z[[j]]), 2, var)) < tol) {
+      if (any(apply(as.matrix(z[[i]] - z[[j]]), 2, var)) < 1e-08) {
         cat("\nError: 2nd halves of",
             chanames(z, allow.null = FALSE)[c(j, i)],
             "are identical for at least one variable\n")
@@ -342,7 +345,7 @@
       }
     }
   }
-  codamenu.output.header("GELMAN AND RUBIN DIAGNOSTIC")
+  codamenu.output.header("GELMAN AND RUBIN DIAGNOSTIC", work.dat)
   print(gelman.diag(work.dat, transform = TRUE),
         digits = coda.options("digits"))
   choices <- c("Shrink Factor Plots", "Change bin size for shrink plot", 
@@ -365,7 +368,7 @@
         else break
       }
     }, ChangeBin = {
-      codamenu.options.gelman(NULL)
+      codamenu.options.gelman(NULL, work.dat)
     }, Return = {
       next.menu <- "codamenu.diags"
     })
@@ -373,10 +376,10 @@
   return(next.menu)
 }
 
-"codamenu.diags.geweke" <- function () 
+"codamenu.diags.geweke" <- function (work.dat, ...) 
 {
   next.menu <- "codamenu.diags.geweke"
-  codamenu.output.header("GEWEKE CONVERGENCE DIAGNOSTIC (Z-score)")
+  codamenu.output.header("GEWEKE CONVERGENCE DIAGNOSTIC (Z-score)", work.dat)
   geweke.out <- geweke.diag(work.dat, frac1 = coda.options("frac1"), 
                             frac2 = coda.options("frac2"))
   print(geweke.out, digits = coda.options("digits"))
@@ -421,7 +424,7 @@
   return(next.menu)
 }
 
-"codamenu.options" <- function () 
+"codamenu.options" <- function (work.dat, ...) 
 {
   next.menu <- "codamenu.options"
   choices <- c("List current options", "Data Options", "Plot Options", 
@@ -435,15 +438,15 @@
   if (pick == 0) 
     return("quit")
   if (action.list[pick] == "ListOptions") {
-    display.coda.options(data = TRUE, stats = TRUE, plots = TRUE, 
-                       diags = TRUE)
+    display.working.data(work.dat)
+    display.coda.options(stats = TRUE, plots = TRUE, diags = TRUE)
     next.menu <- "codamenu.options"
   }
   else next.menu <- action.list[pick]
   return(next.menu)
 }
 
-"codamenu.options.data" <- function () 
+"codamenu.options.data" <- function (work.dat, coda.dat) 
 {
   next.menu <- "codamenu.options.data"
    
@@ -462,7 +465,7 @@
   if (pick == 0) 
     return("quit")
   switch(action.list[pick], ListDataOptions = {
-    display.coda.options(data = TRUE)
+    display.working.data(work.dat)
   }, SelectVars = {
     work.vars <- multi.menu(varnames(coda.dat, allow.null = FALSE), 
                             "Select variables for analysis",
@@ -497,12 +500,12 @@
     cat("Recreating working data...\n")
     wd <- window(coda.dat[, work.vars, drop = FALSE], start = work.start, 
                  end = work.end, thin = work.thin)
-    assign("work.dat", wd[work.chains, drop=FALSE], pos=1)
+    work.dat <- wd[work.chains, drop=FALSE]
   }
-  return(next.menu)
+  return(list(next.menu, "work.dat"=work.dat))
 }
 
-"codamenu.options.diag" <- function () 
+"codamenu.options.diag" <- function (work.dat, ...) 
 {
   next.menu <- this.menu <- "codamenu.options.diag"
   choices <- c("Display current diagnostic options",
@@ -519,7 +522,7 @@
   switch(pick, display.coda.options(diags = TRUE),
          next.menu <- codamenu.options.geweke.win(this.menu), 
          next.menu <- codamenu.options.geweke.bin(this.menu), 
-         next.menu <- codamenu.options.gelman(this.menu),
+         next.menu <- codamenu.options.gelman(this.menu, work.dat),
          next.menu <- codamenu.options.raftery(this.menu), 
          next.menu <- codamenu.options.heidel(this.menu),
          {
@@ -528,7 +531,7 @@
   return(next.menu)
 }
 
-"codamenu.options.gelman" <- function (last.menu) 
+"codamenu.options.gelman" <- function (last.menu, work.dat) 
 {
   choices <- c("Default: bin width = 10; maximum number of bins = 50", 
                "User-specified bin width",
@@ -594,8 +597,7 @@ function (last.menu)
   return(last.menu)
 }
 
-"codamenu.options.plot" <-
-function () 
+"codamenu.options.plot" <- function (...) 
 {
   next.menu <- "codamenu.options.plot"
   choices <- c("Show current plotting options",
@@ -640,8 +642,7 @@ function ()
   return(next.menu)
 }
 
-"codamenu.options.plot.kernel" <-
-function () 
+"codamenu.options.plot.kernel" <- function (...) 
 {
   if (!coda.options("densplot")) {
     cat("\nNo density plots requested - this option is irrelevant\n")
@@ -706,7 +707,7 @@ function ()
   return(last.menu)
 }
 
-"codamenu.options.stats" <- function () 
+"codamenu.options.stats" <- function (...) 
 {
   next.menu <- "codamenu.options.stats"
   choices <- c("Display current statistics options", "Combine chains for summary statistics", 
@@ -751,25 +752,27 @@ function ()
   return(next.menu)
 }
 
+"display.working.data" <-  function (data)
+{
+  cat("WORKING DATA\n")
+  cat("============\n")
+  cat("Variables selected : ",
+      paste(varnames(data, allow.null = FALSE), collapse=", ")
+      ,"\n", sep="")
+  cat("Chains selected    : ",
+      paste(chanames(data, allow.null = FALSE), collapse=", ")
+      , "\n", sep="")
+  cat("Iterations - start : ", start(data), "\n", sep="")
+  cat("               end : ", end(data), "\n", sep="")
+  cat("Thinning interval  : ", thin(data), "\n", sep="")
+  cat("\n")
+}
+
 "display.coda.options" <-
-  function (data = FALSE, stats = FALSE, plots = FALSE, diags = FALSE) 
+  function (stats = FALSE, plots = FALSE, diags = FALSE) 
 {
   cat("\nCurrent option settings:")
   cat("\n=======================\n\n")
-  if (data) {
-    cat("WORKING DATA\n")
-    cat("============\n")
-    cat("Variables selected : ",
-        paste(varnames(work.dat, allow.null = FALSE), collapse=", ")
-        ,"\n", sep="")
-    cat("Chains selected    : ",
-        paste(chanames(work.dat, allow.null = FALSE), collapse=", ")
-        , "\n", sep="")
-    cat("Iterations - start : ", start(work.dat), "\n", sep="")
-    cat("               end : ", end(work.dat), "\n", sep="")
-    cat("Thinning interval  : ", thin(work.dat), "\n", sep="")
-    cat("\n")
-  }
   if (stats) {
     cat("SUMMARY STATISTICS OPTIONS\n")
     cat("==========================\n\n")
@@ -868,21 +871,16 @@ function ()
   return(mcmc.list(chains))
 }
 
-"tidy.up" <- function () 
+"tidy.up" <- function (data) 
 {
   cat("\nQuitting codamenu ...\n")
   if (!coda.options("data.saved")) {
     ans <- read.yesno("Do you want to save the mcmc output", default=FALSE)
     if (ans == TRUE) {
-      cat("Enter name you want to call this object file:\n")
+      cat("Enter name you want to call this object:\n")
       fname <- scan(what = character(), nmax = 1, strip.white = TRUE)
-      assign(fname, coda.dat, pos=1)
+      assign(fname, data, pos=1)
     }
-  }
-  coda.objects <- c("coda.dat", "work.dat")
-  for (i in coda.objects) {
-    if (exists(i)) 
-      rm(list=i, pos = 1)
   }
 }
 
@@ -917,7 +915,7 @@ function ()
   return(dev.cur())
 }
 
-"codamenu.output.header" <- function (title) 
+"codamenu.output.header" <- function (title, data) 
 {
   ##
   ## A short header: common to most codamenu output
@@ -925,15 +923,9 @@ function ()
   cat("\n", title, sep = "")
   cat("\n", paste(rep("=", nchar(title)), collapse = ""), "\n\n", 
       sep = "")
-  cat("Iterations used = ", start(work.dat), ":", end(work.dat), 
+  cat("Iterations used = ", start(data), ":", end(data), 
       "\n", sep = "")
-  cat("Thinning interval =", thin(work.dat), "\n")
-  cat("Sample size per chain =", niter(work.dat), "\n\n")
+  cat("Thinning interval =", thin(data), "\n")
+  cat("Sample size per chain =", niter(data), "\n\n")
   invisible()
 }
-
-## Need global binding for these data
-
-'coda.dat' <- NULL
-
-'work.dat' <- NULL

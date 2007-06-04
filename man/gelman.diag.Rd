@@ -37,27 +37,31 @@ distribution of the variable under examination is normal. Hence the
 }
 
 \section{Theory}{
+
 Gelman and Rubin (1992) propose a general approach to monitoring
-convergence of MCMC output in which two or more parallel chains are run
+convergence of MCMC output in which \eqn{m > 1} parallel chains are run
 with starting values that are overdispersed relative to the posterior
 distribution. Convergence is diagnosed when the chains have `forgotten'
-their initial values, and the output from all chains is indistinguishable.
-The \code{gelman.diag} diagnostic is applied to a single variable from
-the chain. It is based a comparison of within-chain and between-chain
-variances, and is similar to a classical analysis of variance.
+their initial values, and the output from all chains is
+indistinguishable.  The \code{gelman.diag} diagnostic is applied to a
+single variable from the chain. It is based a comparison of within-chain
+and between-chain variances, and is similar to a classical analysis of
+variance.
 
 There are two ways to estimate the variance of the stationary distribution:
 the mean of the empirical variance within each chain, \eqn{W}, and
 the empirical variance from all chains combined, which can be expressed as
 \deqn{ \widehat{\sigma}^2 = 
-   \frac{(n-1) B }{n} + \frac{W}{n} }{ sigma.hat^2 =  (n-1)B/n + W/n }
-where \eqn{B} is the empirical between-chain variance.
+  \frac{(n-1) W }{n} + \frac{B}{n} }{ sigma.hat^2 =  (n-1)W/n + B/n }
+where {n} is the number of iterations and \eqn{B/n} is the empirical
+between-chain variance.
 
-If the chains have converged, then both estimates are unbiased. Otherwise
-the first method will \emph{underestimate} the variance, since the
-individual chains have not had time to range all over the stationary
-distribution, and the second method will \emph{overestimate} the variance,
-since the starting points were chosen to be overdispersed. 
+If the chains have converged, then both estimates are
+unbiased. Otherwise the first method will \emph{underestimate} the
+variance, since the individual chains have not had time to range all
+over the stationary distribution, and the second method will
+\emph{overestimate} the variance, since the starting points were chosen
+to be overdispersed.
 
 The convergence diagnostic is based on the assumption that the
 target distribution is normal. A Bayesian credible interval can
@@ -66,9 +70,8 @@ be constructed using a t-distribution with mean
 combined}}{mu.hat = Sample mean of all chains combined}
 and variance
 \deqn{\widehat{V}=\widehat{\sigma}^2 + \frac{B}{mn}}{V.hat=sigma.hat2 + B/(mn)}
-where \eqn{m} is the number of chains, and degrees of freedom
-estimated by the method of moments
-\deqn{d = \frac{2*\widehat{V}}{\mbox{Var}(\widehat{V})}}{d = 2*V.hat/Var(V.hat)}
+and degrees of freedom estimated by the method of moments
+\deqn{d = \frac{2*\widehat{V}^2}{\mbox{Var}(\widehat{V})}}{d = 2*V.hat^2/Var(V.hat)}
 Use of the t-distribution accounts for the fact that the mean
 and variance of the posterior distribution are estimated.
 

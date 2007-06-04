@@ -1,3 +1,13 @@
+0.11-2
+- The codamenu function has been modified so that it no longer works with
+  coda.dat and work.dat in the global environment, solving global binding
+  issues.
+- The sample size test at the beginning of codamenu has been corrected
+  for the case of multiple chains.
+  Thanks to Luwis Diya and Pablo G Goicoechea for these bug reports
+- Syntax errors fixed in help pages.
+- Description of Gelman and Rubin diagnostic corrected
+
 0.11-1
 - Added changes from Dawn Woodward for S-PLUS.
 - Fixed global binding problems 

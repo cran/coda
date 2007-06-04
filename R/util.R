@@ -34,10 +34,14 @@ function (...)
   }
   ## Set and display coda options
   single <- FALSE
-  if (!exists(".Coda.Options", frame = 1)) 
-    .Coda.Options <<- .Coda.Options.Default
+  copt <- if (exists(".Coda.Options", frame = 1)) {
+    get(".Coda.Options", pos=1)
+  }
+  else {
+    .Coda.Options.Default
+  }
   if (nargs() == 0) {
-    return(.Coda.Options)
+    return(copt)
   }
   else {
     args <- list(...)
@@ -53,8 +57,8 @@ function (...)
     args <- unlist(args)
     value <- vector("list", length(args))
     names(value) <- args
-    for (v in args) if (any(v == names(.Coda.Options))) 
-      value[v] <- .Coda.Options[v]
+    for (v in args) if (any(v == names(copt))) 
+      value[v] <- copt[v]
     if (single) 
       return(value[[1]])
     else return(value)
@@ -65,14 +69,15 @@ function (...)
     names(oldvalue) <- names(args)
     if (any(names(args) == "default") && args$default == 
         TRUE) 
-      .Coda.Options <<- .Coda.Options.Default
-    for (v in names(args)) if (any(v == names(.Coda.Options))) {
-      oldvalue[v] <- .Coda.Options[v]
+      copt <- .Coda.Options.Default
+    for (v in names(args)) if (any(v == names(copt))) {
+      oldvalue[v] <- copt[v]
       if (is.null(args[[v]])) 
-        .Coda.Options[v] <<- list(NULL)
-      else if (mode(.Coda.Options[[v]]) == mode(args[[v]])) 
-        .Coda.Options[v] <<- args[v]
+        copt[v] <- list(NULL)
+      else if (mode(copt[[v]]) == mode(args[[v]])) 
+        copt[v] <- args[v]
     }
+    assign(".Coda.Options", copt, pos=1)
     invisible(oldvalue)
   }
 }
@@ -244,7 +249,6 @@ function (...)
        data.saved = TRUE
        )
 
-".Coda.Options" <- ".Coda.Options.Default"
 
 
 
