@@ -1,3 +1,6 @@
+0.11-3
+- Fixed documentation on subsetting methods for mcmc and mcmc.list objects
+
 0.11-2
 - The codamenu function has been modified so that it no longer works with
   coda.dat and work.dat in the global environment, solving global binding

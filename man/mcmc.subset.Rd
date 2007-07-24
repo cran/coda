@@ -4,13 +4,15 @@
 \title{Extract or replace parts of MCMC objects}
 
 \usage{
-x[i,j]
+\method{[}{mcmc}(x,i,j, drop=missing(i))
+\method{[}{mcmc.list}(x,i,j, drop=TRUE)
 }
 
 \arguments{
    \item{x}{An \code{mcmc} object}
    \item{i}{Row to extract}
    \item{j}{Column to extract}
+   \item{drop}{if \code{TRUE}, the redundant dimensions are dropped}
 }
 
 \description{
