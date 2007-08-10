@@ -109,6 +109,8 @@ acfplot(x, data, \dots)
   plots.  The \code{levelplot} method depicts the correlation of the
   series.  The \code{acfplot} methods plot the auto-correlation in the
   series.  
+
+  Not yet available in S-PLUS.
 }
 \arguments{
   \item{x}{ an \code{"mcmc"} or \code{"mcmc.list"} object. }
@@ -186,11 +188,14 @@ acfplot(x, data, \dots)
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \examples{
 data(line)
+
+\dontrun{
 xyplot(line)
 xyplot(line[[1]], start = 10)
 densityplot(line, start = 10)
 qqmath(line, start = 10)
 levelplot(line[[2]])
 acfplot(line, outer = TRUE)
+}
 }
 \keyword{hplot}

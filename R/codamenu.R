@@ -1,8 +1,5 @@
 "codamenu" <- function () 
 {
-  if (!is.R()) {
-    stop("This function is not yet available in S-PLUS")
-  }
   coda.options(default=TRUE)
   file.menu <- c("Read BUGS output files", 
                  "Use an mcmc object", 
@@ -831,9 +828,6 @@ function (last.menu)
 
 "read.coda.interactive" <- function () 
 {
-  if (!is.R()) {
-    stop("This function is not yet available in S-PLUS")
-  }
   repeat {
     cat("Enter CODA index file name\n")
     cat("(or a blank line to exit)\n")
@@ -842,8 +836,7 @@ function (last.menu)
                          nlines=1, quiet=TRUE)
     }
     else {
-      index.file <- scan(what = character(), sep = "\n", strip.white = TRUE,
-                         nlines = 1)
+      index.file <- scan(what = character(), sep = "\n", strip.white = TRUE)
     }
     if (length(index.file) == 0)
       return()

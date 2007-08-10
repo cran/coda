@@ -18,6 +18,8 @@ bugs2jags(infile, outfile)
   difference is taken into account by \code{bugs2jags} which will
   automatically reorder the data in arrays, without changing the
   dimension.
+
+  Not yet available in S-PLUS.
 }
 \note{
   If the input file is saved from WinBUGS, it must be saved in plain text

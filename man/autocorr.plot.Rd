@@ -10,7 +10,8 @@
 \item{auto.layout}{If \code{TRUE} then, set up own layout for
 plots, otherwise use existing one.}
 \item{ask}{If \code{TRUE} then prompt user before displaying
-  each page of plots.}
+  each page of plots.  Default is \code{dev.interactive()} in
+  R and \code{interactive()} in S-PLUS.}
 \item{\dots}{graphical parameters}
 }
 

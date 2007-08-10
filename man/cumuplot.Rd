@@ -4,7 +4,7 @@
 
 \usage{
   cumuplot(x, probs=c(0.025,0.5,0.975), ylab="",
-           lty=c(2,1), lwd=c(1,2), type="l", ask=dev.interactive(),
+           lty=c(2,1), lwd=c(1,2), type="l", ask,
            auto.layout=TRUE, col=1, \dots)
 }
 
@@ -15,7 +15,8 @@
   \item{auto.layout}{If \code{TRUE}, then set up own layout for
    plots, otherwise use existing one.}
   \item{ask}{If \code{TRUE} then prompt user before displaying
-   each page of plots.}
+   each page of plots.  Default is \code{dev.interactive()} in
+   R and \code{interactive()} in S-PLUS.}
   \item{\dots}{further graphical parameters}
 }
 

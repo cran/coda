@@ -65,9 +65,6 @@ function (x)
 "crosscorr.plot" <-
 function (x, col = topo.colors(10), ...) 
 {
-    if (!is.R()) {
-      stop("This function is not yet available in S-PLUS")
-    }
     Nvar <- nvar(x)
     pcorr <- crosscorr(x)
     dens <- ((pcorr + 1) * length(col))%/%2 + (pcorr < 1) + (pcorr < 
@@ -81,6 +78,9 @@ function (x, col = topo.colors(10), ...)
     oldpar <- c(par(pty = "s", adj = 0.5), oldpar)
     plot(0, 0, type = "n", xlim = c(0, Nvar), ylim = c(0, Nvar), 
         xlab = "", ylab = "", xaxt = "n", yaxt = "n", ...)
+    if (!is.R()){ # In S-PLUS, specify that the y-axis labels should be right-justified
+      par(adj = 1) 
+    }
     axis(1, at = 1:Nvar - 0.5, labels = abbreviate(varnames(x, 
         allow.null = FALSE), minlength = 7))
     axis(2, at = 1:Nvar - 0.5, labels = abbreviate(varnames(x, 
@@ -107,9 +107,6 @@ function (x, col = topo.colors(10), ...)
 "densplot" <-
 function (x, show.obs = TRUE, bwf, main = "", ylim, ...) 
 {
-  if (!is.R()) {
-    stop("This function is not yet available in S-PLUS")
-  }
   xx <- as.matrix(x)
   for (i in 1:nvar(x)) {
     y <- xx[, i, drop = TRUE]
@@ -147,9 +144,16 @@ function (x, show.obs = TRUE, bwf, main = "", ylim, ...)
       }
       if(missing(ylim))
         ylim <- c(0, max(dens$y))
-      plot(dens, ylab = "", main = main, type = "l", 
-           xlab = paste("N =", niter(x), "  Bandwidth =", formatC(dens$bw)),
-           ylim = ylim, ...)
+
+      if (is.R()){
+	      plot(dens, ylab = "", main = main, type = "l", 
+	           xlab = paste("N =", niter(x), "  Bandwidth =", formatC(dens$bw)),
+	           ylim = ylim, ...)
+	    } else { #In S-PLUS the bandwidth is not returned by the "density" function
+	      plot(dens, ylab = "", main = main, type = "l", 
+	           xlab = paste("N =", niter(x), "  Bandwidth =", formatC(bw)),
+	           ylim = ylim, ...)
+	    }
       if (show.obs) 
         lines(y[1:niter(x)], rep(max(dens$y)/100, niter(x)), 
               type = "h")
@@ -158,6 +162,14 @@ function (x, show.obs = TRUE, bwf, main = "", ylim, ...)
       title(paste("Density of", varnames(x)[i]))
   }
   return(invisible(x))
+}
+
+if (!is.R()){
+
+"IQR"<-
+function(x, na.rm = FALSE)
+diff(quantile(as.numeric(x), c(0.25, 0.75), na.rm = na.rm))
+
 }
 
 "read.jags" <- function (file = "jags.out", start, end, thin, quiet=FALSE) 
@@ -174,9 +186,6 @@ function (x, show.obs = TRUE, bwf, main = "", ylim, ...)
 "read.openbugs" <-
 function (stem = "", start, end, thin, quiet = FALSE) 
 {
-  if (!is.R()) {
-    stop("This function is not yet available in S-PLUS")
-  }
   index.file <- paste(stem, "CODAindex.txt", sep = "")
   if (!file.exists(index.file))
     stop("No index file found")

@@ -6,7 +6,7 @@
 \usage{
 gelman.plot(x, bin.width = 10, max.bins = 50,
 confidence = 0.95, transform = FALSE, auto.layout = TRUE,
-ask = dev.interactive(), col, lty, xlab, ylab, type, \dots)
+ask, col, lty, xlab, ylab, type, \dots)
 } 
 
 \arguments{
@@ -18,7 +18,8 @@ ask = dev.interactive(), col, lty, xlab, ylab, type, \dots)
   \item{transform}{Automatic variable transformation (see \code{gelman.diag})}
   \item{auto.layout}{If \code{TRUE} then, set up own layout for
     plots, otherwise use existing one.}
-  \item{ask}{Prompt user before displaying each page of plots.}
+  \item{ask}{Prompt user before displaying each page of plots.  Default is 
+    \code{dev.interactive()} in R and \code{interactive()} in S-PLUS.}
   \item{col}{graphical parameter (see \code{par})}
   \item{lty}{graphical parameter (see \code{par})}
   \item{xlab}{graphical parameter (see \code{par})}

@@ -1,8 +1,5 @@
 "heidel.diag" <- function (x, eps = 0.1, pvalue=0.05) 
 {
-  if (!is.R()) {
-    stop("This function is not yet available in S-PLUS")
-  }
   if (is.mcmc.list(x)) 
     return(lapply(x, heidel.diag, eps))
   x <- as.mcmc(as.matrix(x))
@@ -175,9 +172,6 @@ effectiveSize <- function(x)
 
 "pcramer" <- function (q, eps=1.0e-5)
 {
-  if (!is.R()) {
-    stop("This function is not yet available in S-PLUS")
-  }
   ## Distribution function of the Cramer-von Mises statistic
   ##
   log.eps <- log(eps)

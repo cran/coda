@@ -5,9 +5,6 @@
 }
 
 "batchSE.mcmc" <- function(x,batchSize=100) {
-  if (!is.R()) {
-    stop("This function is not yet available in S-PLUS")
-  }
   niter <- niter(x)
   nbatch <- niter%/%batchSize
   ## Truncate the odd lot observations
@@ -24,9 +21,6 @@
 }
 
 "batchSE.mcmc.list" <- function(x,batchSize=100) {
-  if (!is.R()) {
-    stop("This function is not yet available in S-PLUS")
-  }
   nchain <- nchain(x)
   niter <- niter(x)
   nbatch <- niter%/%batchSize

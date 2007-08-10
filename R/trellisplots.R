@@ -62,6 +62,9 @@ levelplot.mcmc <-
              col.regions = topo.colors(100),
              subset = thinned.indices(x, start = start, thin = thin))
 {
+    if (!is.R()) {
+      stop("This function is not yet available in S-PLUS")
+    }
     cormat <- cor(x[subset, ])
     cormat <- cormat[, rev(seq(length = ncol(cormat)))]
     levelplot(cormat,
@@ -102,6 +105,9 @@ splom.mcmc <-
 {
 ##     cormat <- cor(x[subset, ])
 ##     cormat <- cormat[, rev(seq(length = ncol(cormat)))]
+    if (!is.R()) {
+      stop("This function is not yet available in S-PLUS")
+    }
     splom(as.data.frame(x[subset, ]),
           as.matrix = as.matrix,
           main = main, ...,
@@ -254,6 +260,9 @@ qqmath.mcmc <-
              ...,
              subset = thinned.indices(x, start = start, thin = thin))
 {
+    if (!is.R()) {
+      stop("This function is not yet available in S-PLUS")
+    }
     if (!missing(outer)) warning("specification of outer ignored")
     data <- as.data.frame(x)
     form <-
@@ -283,6 +292,9 @@ qqmath.mcmc.list <-
              ...,
              subset = thinned.indices(x[[1]], start = start, thin = thin))
 {
+    if (!is.R()) {
+      stop("This function is not yet available in S-PLUS")
+    }
     if (groups && outer) warning("'groups=TRUE' ignored when 'outer=TRUE'")
     datalist <- lapply(x, function(x) as.data.frame(x)[subset, ])
     data <- do.call("rbind", datalist)
@@ -337,6 +349,9 @@ xyplot.mcmc <-
              ...,
              subset = thinned.indices(x, start = start, thin = thin))
 {
+    if (!is.R()) {
+      stop("This function is not yet available in S-PLUS")
+    }
     if (!missing(outer)) warning("specification of outer ignored")
     data <- as.data.frame(x)
     form <- eval(parse(text = paste(paste(lapply(names(data), as.name),
@@ -367,6 +382,9 @@ xyplot.mcmc.list <-
              ...,
              subset = thinned.indices(x[[1]], start = start, thin = thin))
 {
+    if (!is.R()) {
+      stop("This function is not yet available in S-PLUS")
+    }
     if (groups && outer) warning("'groups=TRUE' ignored when 'outer=TRUE'")
     datalist <- lapply(x, function(x) as.data.frame(x)[subset, ])
     data <- do.call("rbind", datalist)
@@ -423,6 +441,9 @@ xyplot.mcmc.list <-
 panel.acfplot <-
     function(..., groups = NULL)
 {
+    if (!is.R()) {
+      stop("This function is not yet available in S-PLUS")
+    }
     reference.line <- trellis.par.get("reference.line")
     panel.abline(h = 0,
                  col = reference.line$col, 
@@ -456,6 +477,9 @@ acfplot.mcmc <-
              ...,
              subset = thinned.indices(x, start = start, thin = thin))
 {
+    if (!is.R()) {
+      stop("This function is not yet available in S-PLUS")
+    }
     if (!missing(outer)) warning("specification of outer ignored")
     getAcf <- function(x, lag.max)
     {
@@ -501,6 +525,9 @@ acfplot.mcmc.list <-
              ...,
              subset = thinned.indices(x[[1]], start = start, thin = thin))
 {
+    if (!is.R()) {
+      stop("This function is not yet available in S-PLUS")
+    }
     if (groups && outer) warning("'groups=TRUE' ignored when 'outer=TRUE'")
     getAcf <- function(x, lag.max)
     {

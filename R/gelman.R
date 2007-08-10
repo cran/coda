@@ -10,9 +10,6 @@
   ## Graphical Statistics, 7, 434-455.
 
 {
-  if (!is.R()) {
-    stop("This function is not yet available in S-PLUS")
-  }
   x <- as.mcmc.list(x)
   if (nchain(x) < 2) 
     stop("You need at least two chains")
@@ -100,6 +97,13 @@
   ## improve the normal approximation, variables on [0, Inf) are log
   ## transformed, and variables on [0,1] are logit-transformed.
 {
+  if (!is.R())  {
+    # in S-PLUS this function generates a superfluous warning,
+    # so turn off all warnings during the function.
+    oldWarn <- getOption("warn")
+    options(warn=-1)
+    on.exit(options (warn=oldWarn))
+  }
   if (nvar(x) == 1) {
     z <- data.frame(lapply(x, unclass))
     if (min(z) > 0) {
@@ -147,12 +151,17 @@
 
 "gelman.plot" <-
   function (x, bin.width = 10, max.bins = 50, confidence = 0.95,
-            transform = FALSE, auto.layout = TRUE, ask = dev.interactive(),
+            transform = FALSE, auto.layout = TRUE, ask,
             col = 1:2, lty = 1:2, xlab = "last iteration in chain",
             ylab = "shrink factor", type = "l", ...) 
 {
-  if (!is.R()) {
-    stop("This function is not yet avialable in S-PLUS")
+  if (missing(ask)) {
+    ask <- if (is.R()) {
+      dev.interactive()
+    }
+    else {
+      interactive()
+    }
   }
   x <- as.mcmc.list(x)
   oldpar <- NULL
@@ -211,6 +220,23 @@
   return(list(shrink = shrink, last.iter = last.iter))
 }
 
+if (!is.R()){
+
+qr.solve <- function (a, b, tol = 1e-07) {
+    if (!is.qr(a))
+        a <- qr(a, tol = tol)
+    nc <- ncol(a$qr)
+    if (a$rank != nc)
+        stop("singular matrix 'a' in solve")
+    if (missing(b)) {
+        if (nc != nrow(a$qr))
+            stop("only square matrices can be inverted")
+        b <- diag(1, nc)
+    }
+    return(qr.coef(a, b))
+}
+
+}
 
 
 

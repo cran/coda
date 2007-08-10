@@ -4,7 +4,7 @@
 
 \usage{
 geweke.plot(x, frac1 = 0.1, frac2 = 0.5, nbins = 20,
-            pvalue = 0.05, auto.layout = TRUE, ask = dev.interactive(), \dots)
+            pvalue = 0.05, auto.layout = TRUE, ask, \dots)
 } 
 
 \arguments{
@@ -15,7 +15,9 @@ geweke.plot(x, frac1 = 0.1, frac2 = 0.5, nbins = 20,
   \item{pvalue}{p-value used to plot confidence limits for the null hypothesis.}
   \item{auto.layout}{If \code{TRUE} then, set up own layout for
     plots, otherwise use existing one.}
-  \item{ask}{Prompt user before displaying each page of plots.}
+  \item{ask}{If \code{TRUE} then prompt user before displaying
+    each page of plots.  Default is \code{dev.interactive()} in
+    R and \code{interactive()} in S-PLUS.}
   \item{\dots}{Graphical parameters.}
 }
 

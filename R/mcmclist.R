@@ -56,7 +56,10 @@
     if (!all(unlist(lapply(xvarnames, "==", xvarnames[[1]])))) 
       stop("Different variable names in each chain")
   }
-  class(x) <- "mcmc.list"
+  if (is.R())
+    class(x) <- "mcmc.list"
+  else
+    oldClass(x) <- "mcmc.list"
   return(x)
 }
 

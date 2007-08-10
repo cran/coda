@@ -24,7 +24,7 @@ nchain(x)
   \describe{
     \item{niter(x)}{returns the number of iterations.}
     \item{nvar(x)}{returns the number of variables.}
-    \item{chain(x)}{returns the number of parallel chains.}
+    \item{nchain(x)}{returns the number of parallel chains.}
   }
 }
 

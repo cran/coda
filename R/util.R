@@ -29,13 +29,13 @@ function (string, option)
 "coda.options" <-
 function (...) 
 {
-  if (!is.R()) {
-    stop("This function is not yet available in S-PLUS")
-  }
   ## Set and display coda options
   single <- FALSE
   copt <- if (exists(".Coda.Options", frame = 1)) {
-    get(".Coda.Options", pos=1)
+    if (is.R())
+      get(".Coda.Options", pos=1)
+    else
+      get(".Coda.Options")
   }
   else {
     .Coda.Options.Default
@@ -77,7 +77,10 @@ function (...)
       else if (mode(copt[[v]]) == mode(args[[v]])) 
         copt[v] <- args[v]
     }
-    assign(".Coda.Options", copt, pos=1)
+    if (is.R())
+      assign(".Coda.Options", copt, pos=1)
+    else 
+      assign(".Coda.Options", copt)
     invisible(oldvalue)
   }
 }
@@ -86,6 +89,7 @@ function (...)
 {
   ## Select more than one value from a menu 
   ## 
+
   if (!missing(title)) 
     cat(title, "\n\n")
   mat <- matrix(c(1:length(choices), choices), ncol = 2)
@@ -140,6 +144,7 @@ function (...)
   ## and answer satisfying the conditions. This entails extensive 
   ## checking of the conditions to  make sure they are consistent 
   ## so we don't end up in an infinite loop. 
+
   have.lower <- !missing(lower)
   have.upper <- !missing(upper)
   have.ans.in <- !missing(answer.in)

@@ -1,3 +1,6 @@
+0.12-1
+- Added further changes for S-PLUS from Dawn Woodward.
+
 0.11-3
 - Fixed documentation on subsetting methods for mcmc and mcmc.list objects
 

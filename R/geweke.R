@@ -2,9 +2,6 @@
   function (x, frac1 = 0.1, frac2 = 0.5) 
   ## 
 {
-  if (!is.R()) {
-    stop("This function is not yet available in S-PLUS")
-  }
   if (is.mcmc.list(x)) 
     return(lapply(x, geweke.diag, frac1, frac2))
   x <- as.mcmc(x)
@@ -24,11 +21,17 @@
 
 "geweke.plot" <-
   function (x, frac1 = 0.1, frac2 = 0.5, nbins = 20, 
-            pvalue = 0.05, auto.layout = TRUE, ask = dev.interactive(), ...) 
+            pvalue = 0.05, auto.layout = TRUE, ask, ...) 
 {
-  if (!is.R()) {
-    stop("This function is not yet available in S-PLUS")
+  if (missing(ask)) {
+    ask <- if (is.R()) {
+      dev.interactive()
+    }
+    else {
+      interactive()
+    }
   }
+    
   x <- as.mcmc.list(x)
   oldpar <- NULL
   on.exit(par(oldpar))
@@ -36,8 +39,13 @@
     oldpar <- par(mfrow = set.mfrow(Nchains = nchain(x), 
                     Nparms = nvar(x)))
   ystart <- seq(from = start(x), to = (start(x) + end(x))/2, length = nbins)
-  gcd <- array(dim = c(length(ystart), nvar(x), nchain(x)), 
+  if (is.R())
+    gcd <- array(dim = c(length(ystart), nvar(x), nchain(x)), 
                dimnames = c(ystart, varnames(x), chanames(x)))
+  else
+    gcd <- array(dim = c(length(ystart), nvar(x), nchain(x)), 
+               dimnames = list(ystart, varnames(x), chanames(x)))
+               
   for (n in 1:length(ystart)) {
     geweke.out <- geweke.diag(window(x, start = ystart[n]), 
                               frac1 = frac1, frac2 = frac2)
