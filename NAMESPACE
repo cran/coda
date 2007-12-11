@@ -4,6 +4,7 @@ export(
   HPDinterval,
   as.array.mcmc.list,
   as.mcmc,
+  as.mcmc.list,
   as.ts.mcmc,
   autocorr,
   ##RGA
@@ -68,6 +69,7 @@ export(
 
 ## register S3 methods
 S3method(as.mcmc, default)
+S3method(as.mcmc.list, default)
 ## as.matrix
 S3method(as.matrix, mcmc)
 S3method(as.matrix, mcmc.list)
