@@ -315,7 +315,7 @@ function (stem = "", start, end, thin, quiet = FALSE)
         start & iter.v <= end
       use <- (iter.v[use.v] - start)%/%thin + 1
     }
-    if (any(use) & any(use.v)) 
+    if (length(use) > 0 && any(use.v)) 
       out[use, v] <- temp$val[inset[use.v]]
     if(!quiet)
       cat(length(use), "valid values\n")
