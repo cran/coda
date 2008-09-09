@@ -38,8 +38,19 @@
   B <- Niter * var(t(xbar))
 
   if(Nvar > 1) {
-    emax <- eigen(qr.solve(W,B), symmetric=FALSE, only.values=TRUE)$values[1]
-    mpsrf <- sqrt( (1 - 1/Niter) + (1 + 1/Nvar) * emax/Niter )
+      ## We want the maximal eigenvalue of the square matrix X that
+      ## solves WX = B. It is numerically easier to work with a
+      ## symmetric matrix that has the same eigenvalues as X.
+      if (is.R()) {
+          CW <- chol(W)
+          emax <- eigen(backsolve(CW, t(backsolve(CW, B, transpose=TRUE)),
+                                  transpose=TRUE),
+                        symmetric=TRUE, only.values=TRUE)$values[1]
+      }
+      else {
+          emax <- eigen(qr.solve(W,B), symmetric=FALSE, only.values=TRUE)$values
+      }
+      mpsrf <- sqrt( (1 - 1/Niter) + (1 + 1/Nvar) * emax/Niter )
   }
   else
     mpsrf <- NULL

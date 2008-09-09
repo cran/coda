@@ -85,7 +85,9 @@ factor if the MCMC run is continued.
 
 \note{
 The multivariate a version of Gelman and Rubin's diagnostic was
-proposed by Brooks and Gelman (1997).
+proposed by Brooks and Gelman (1997). Unlike the univariate proportional
+scale reduction factor, the multivariate version does not include an
+adjustment for the estimated number of degrees of freedom.
 }
 
 \references{
