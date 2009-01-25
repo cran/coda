@@ -6,7 +6,7 @@
 \usage{heidel.diag(x, eps=0.1, pvalue=0.05)}
 
 \arguments{
-\item{x} {An \code{mcmc} object}
+\item{x}{An \code{mcmc} object}
 \item{eps}{Target value for ratio of halfwidth to sample mean}
 \item{pvalue}{significance level to use}
 }

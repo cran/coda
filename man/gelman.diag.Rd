@@ -53,7 +53,7 @@ the mean of the empirical variance within each chain, \eqn{W}, and
 the empirical variance from all chains combined, which can be expressed as
 \deqn{ \widehat{\sigma}^2 = 
   \frac{(n-1) W }{n} + \frac{B}{n} }{ sigma.hat^2 =  (n-1)W/n + B/n }
-where {n} is the number of iterations and \eqn{B/n} is the empirical
+where \eqn{n} is the number of iterations and \eqn{B/n} is the empirical
 between-chain variance.
 
 If the chains have converged, then both estimates are
