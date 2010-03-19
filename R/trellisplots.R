@@ -174,7 +174,7 @@ densityplot.mcmc <-
 ### original.  But that's true even if the original mcmc object was
 ### itself already thinned.
 
-    densityplot(form, data = data[subset, ],
+    densityplot(form, data = data[subset, , drop=FALSE],
                 outer = TRUE,
                 aspect = aspect,
                 default.scales = default.scales,
@@ -201,7 +201,7 @@ densityplot.mcmc.list <-
       stop("This function is not yet available in S-PLUS")
     }
     if (groups && outer) warning("'groups=TRUE' ignored when 'outer=TRUE'")
-    datalist <- lapply(x, function(x) as.data.frame(x)[subset, ])
+    datalist <- lapply(x, function(x) as.data.frame(x)[subset, ,drop=FALSE])
     data <- do.call("rbind", datalist)
     form <-
         if (outer)
@@ -269,7 +269,7 @@ qqmath.mcmc <-
         as.formula(paste("~",
                          paste(lapply(names(data), as.name),
                                collapse = "+")))
-    qqmath(form, data = data[subset, ],
+    qqmath(form, data = data[subset, ,drop=FALSE],
            outer = TRUE,
            aspect = aspect,
            prepanel = prepanel,
@@ -296,7 +296,7 @@ qqmath.mcmc.list <-
       stop("This function is not yet available in S-PLUS")
     }
     if (groups && outer) warning("'groups=TRUE' ignored when 'outer=TRUE'")
-    datalist <- lapply(x, function(x) as.data.frame(x)[subset, ])
+    datalist <- lapply(x, function(x) as.data.frame(x)[subset, , drop=FALSE])
     data <- do.call("rbind", datalist)
     form <-
         if (outer)
@@ -485,7 +485,7 @@ acfplot.mcmc <-
     {
         as.vector(acf(x, lag.max = lag.max, plot = FALSE)$acf)
     }
-    data <- as.data.frame(apply(x[subset, ], 2, getAcf, lag.max = lag.max))
+    data <- as.data.frame(apply(as.matrix(x)[subset, ,drop=FALSE], 2, getAcf, lag.max = lag.max))
     form <-
         eval(parse(text = paste(paste(lapply(names(data), as.name),
                    collapse = "+"), "~.lag")))
@@ -537,7 +537,7 @@ acfplot.mcmc.list <-
     {
         datalist <-
             lapply(x, function(x) 
-                   as.data.frame(apply(x[subset, ], 2,
+                   as.data.frame(apply(as.matrix(x)[subset, ,drop=FALSE], 2,
                                        getAcf, lag.max = lag.max)))
         data <- do.call("rbind", datalist)
     }
@@ -546,7 +546,7 @@ acfplot.mcmc.list <-
         ## this is not quite valid, as we are combining multiple
         ## series, but shouldn't be too bad (FIXME: should we warn?)
 
-        datalist <- lapply(x, function(x) x[subset, ])
+        datalist <- lapply(x, function(x) as.matrix(x)[subset, ,drop=FALSE])
         data <-
             as.data.frame(apply(do.call("rbind", datalist),
                                 2, getAcf, lag.max = lag.max))

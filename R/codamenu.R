@@ -112,7 +112,7 @@
         if (current.menu == "codamenu.main")
           {
             cat("A crash has occurred in the main menu\nBailing out\n")
-            return();
+            return(invisible());
           }
         else
           {
@@ -839,7 +839,7 @@ function (last.menu)
       index.file <- scan(what = character(), sep = "\n", strip.white = TRUE)
     }
     if (length(index.file) == 0)
-      return()
+      return(invisible())
     cat("Enter CODA output file names, separated by return key\n")
     cat("(leave a blank line when you have finished)\n")
     if (is.R()) {

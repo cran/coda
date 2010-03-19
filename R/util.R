@@ -23,7 +23,7 @@ function (string, option)
     names(arg) <- option
     coda.options(arg)
   }
-  return()
+  invisible()
 }
 
 "coda.options" <-

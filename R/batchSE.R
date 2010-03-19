@@ -44,5 +44,12 @@
 
 ## Needed for this function, but generally useful anyway.
 as.data.frame.mcmc <- function(x, row.names = NULL, optional=FALSE, ...) {
-  as.data.frame.matrix(x,row.names,optional, ...)
+    if (is.matrix(x))
+        as.data.frame.matrix(x,row.names,optional, ...)
+    else {
+        if (is.null(row.names))
+            row.names <- time(x)
+        data.frame("var1"=as.numeric(x), row.names=row.names)
+    }
+
 }

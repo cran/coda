@@ -26,6 +26,6 @@
 }
   
 \author{
-  Arni Magnusson <arnima@u.washington.edu>
+  Arni Magnusson 
 }
 \keyword{hplot}

@@ -28,6 +28,7 @@ function (data, q = 0.025, r = 0.005, s = 0.95, converge.eps = 0.001)
         while (bic >= 0) {
             kthin <- kthin + thin(data)
             testres <- as.vector(window.mcmc(dichot, thin = kthin))
+            testres <- factor(testres, levels=c(FALSE,TRUE))
             newdim <- length(testres)
             testtran <- table(testres[1:(newdim - 2)], testres[2:(newdim - 
                 1)], testres[3:newdim])
