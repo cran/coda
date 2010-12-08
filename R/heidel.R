@@ -77,7 +77,7 @@
   for (i in 1:ncol(x))
   {
       lm.out <- lm(x[,i] ~ z)
-      if (identical(all.equal(var(residuals(lm.out)), 0), TRUE)) {
+      if (identical(all.equal(sd(residuals(lm.out)), 0), TRUE)) {
           v0[i] <- 0
           order[i] <- 0
       }

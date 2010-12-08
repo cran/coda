@@ -2,7 +2,7 @@
 \alias{traceplot}
 \title{Trace plot of MCMC output}
 
-\usage{traceplot(x, smooth = TRUE, col, type, ylab, \dots)}
+\usage{traceplot(x, smooth = FALSE, col = 1:6, type = "l", ylab = "", \dots)}
 
 \arguments{
   \item{x}{An \code{mcmc} or \code{mcmc.list} object}

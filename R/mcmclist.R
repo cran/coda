@@ -187,6 +187,17 @@
   structure(lapply(x, window.mcmc, ...), class = "mcmc.list")
 }
 
+"head.mcmc.list" <- function (x, ...) 
+{
+  structure(lapply(x, head.mcmc, ...), class = "mcmc.list")
+}
+
+
+"tail.mcmc.list" <- function (x, ...) 
+{
+  structure(lapply(x, tail.mcmc, ...), class = "mcmc.list")
+}
+
 "as.mcmc.list" <- function (x, ...) 
   UseMethod("as.mcmc.list")
 
@@ -205,24 +216,3 @@
     return(y)
 }
 
-#FIXME: Check this
-"as.mcmc.list.bugs" <-
-function( x, ... )
-{
-    nchain <- x$n.chains
-    
-    start <- x$n.burnin + 1 #FIXME: Is this correct starting value?
-    thin <- x$n.thin 
-
-    parameter.names <- x$root.short
-    
-    zz <- vector("list", x$n.chains)
-
-    aa <- x$sims.array
-    for( i in 1:nchain) {
-        bb <- aa[,i,]
-        
-        zz[[i]] <- mcmc(aa[,i,], start=start, thin=thin)
-    }
-    mcmc.list( zz[-1] )
-}

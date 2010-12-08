@@ -315,3 +315,11 @@ function (Nchains = 1, Nparms = 1, nplots = 1, sepplot = FALSE)
   }
   return(mfrow)
 }
+
+head.mcmc <- function(x, n = 6L, ...) {
+    window.mcmc(x, end=min(start.mcmc(x) + n * thin.mcmc(x), end.mcmc(x)))
+}
+
+tail.mcmc <- function(x, n = 6L, ...) {
+    window.mcmc(x, start=max(end.mcmc(x) - n * thin.mcmc(x), start.mcmc(x)))
+}

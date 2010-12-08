@@ -21,7 +21,7 @@ cumuplot <- function(x, probs=c(0.025,0.5,0.975), ylab="", lty=c(2,1),
               cquant[i,] <- quantile(z[1:i], probs=probs)
             }
         cquant <- as.data.frame(cquant)
-        names(cquant) <- paste(formatC(100*probs,format="fg",wid=1,digits=7),
+        names(cquant) <- paste(formatC(100*probs,format="fg",width=1,digits=7),
                                "%", sep="")  # just like quantile.default
         return(cquant)
     }

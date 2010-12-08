@@ -84,6 +84,8 @@ S3method(summary, mcmc)
 S3method(thin, mcmc) 
 S3method(time, mcmc)
 S3method(window, mcmc)
+S3method(head, mcmc)
+S3method(tail, mcmc)
 ##RGA
 S3method(autocorr.diag, mcmc)
 S3method(rejectionRate, mcmc)
@@ -103,6 +105,8 @@ S3method(summary, mcmc.list)
 S3method(thin, mcmc.list)
 S3method(time, mcmc.list)
 S3method(window, mcmc.list)
+S3method(head, mcmc.list)
+S3method(tail, mcmc.list)
 ##RGA
 S3method(autocorr.diag, mcmc.list)
 S3method(rejectionRate, mcmc.list)
@@ -120,7 +124,7 @@ S3method(print, summary.mcmc)
 ## Imports
 importFrom(stats, start, end, frequency, time, window)
 importFrom(lattice, xyplot, qqmath, densityplot, levelplot)
-
+importFrom(utils, head, tail)
 
 ## lattice methods
 

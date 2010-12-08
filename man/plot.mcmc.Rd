@@ -3,7 +3,7 @@
 \title{Summary plots of mcmc objects}
 
 \usage{
-\method{plot}{mcmc}(x, trace = TRUE, density = TRUE, smooth = TRUE, bwf,
+\method{plot}{mcmc}(x, trace = TRUE, density = TRUE, smooth = FALSE, bwf,
 	auto.layout = TRUE, ask = dev.interactive(), \dots)
 }
 

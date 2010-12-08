@@ -1,3 +1,11 @@
+0.14-2
+- Fix documentation bugs (Thanks to Kurt Hornik)
+
+0.14-1
+- traceplot and plot.mcmc no longer plot a smooth line by default,
+  although it can be added using smooth=TRUE
+- new head and tail methods for mcmc and mcmc.list objects
+
 0.13-1
 - as.mcmc.list generic and default method are exported in namespace
 
