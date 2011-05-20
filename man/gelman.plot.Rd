@@ -5,7 +5,7 @@
 
 \usage{
 gelman.plot(x, bin.width = 10, max.bins = 50,
-confidence = 0.95, transform = FALSE, auto.layout = TRUE,
+confidence = 0.95, transform = FALSE, autoburnin=TRUE, auto.layout = TRUE,
 ask, col, lty, xlab, ylab, type, \dots)
 } 
 
@@ -16,6 +16,7 @@ ask, col, lty, xlab, ylab, type, \dots)
   \item{max.bins}{Maximum number of bins, excluding the last one.}
   \item{confidence}{Coverage probability of confidence interval.}
   \item{transform}{Automatic variable transformation (see \code{gelman.diag})}
+  \item{autoburnin}{Remove first half of sequence (see \code{gelman.diag})}
   \item{auto.layout}{If \code{TRUE} then, set up own layout for
     plots, otherwise use existing one.}
   \item{ask}{Prompt user before displaying each page of plots.  Default is 
@@ -43,8 +44,8 @@ the bin width, the third contains samples \eqn{1:(50+2n)} and so on.
 
 \references{
 Brooks, S P. and Gelman, A. (1998) General Methods for Monitoring
-Convergence of Iterative Simulations. Journal of Computational and
-Graphical Statistics. 7. p434-455.
+Convergence of Iterative Simulations. \emph{Journal of Computational and
+Graphical Statistics}, \bold{7}, 434-455.
 }
 
 \section{Theory}{

@@ -92,11 +92,7 @@
   R2.estimate <- R2.fixed + R2.random
   R2.upper <- R2.fixed + qf((1 + confidence)/2, B.df, W.df) * R2.random
   psrf <- cbind(sqrt(df.adj * R2.estimate), sqrt(df.adj * R2.upper))
-  dimnames(psrf) <- list(xnames,
-                         c("Point est.",
-                           paste(50 * (1+confidence), "% quantile", sep = ""))
-                         )
-  
+  dimnames(psrf) <- list(xnames, c("Point est.", "Upper C.I."))
   
   out <- list(psrf = psrf, mpsrf=mpsrf)
   class(out) <- "gelman.diag"
@@ -162,7 +158,7 @@
 
 "gelman.plot" <-
   function (x, bin.width = 10, max.bins = 50, confidence = 0.95,
-            transform = FALSE, auto.layout = TRUE, ask,
+            transform = FALSE, autoburnin = TRUE, auto.layout = TRUE, ask,
             col = 1:2, lty = 1:2, xlab = "last iteration in chain",
             ylab = "shrink factor", type = "l", ...) 
 {
@@ -180,7 +176,8 @@
   if (auto.layout) 
     oldpar <- par(mfrow = set.mfrow(Nchains = nchain(x), Nparms = nvar(x)))
   y <- gelman.preplot(x, bin.width = bin.width, max.bins = max.bins, 
-                      confidence = confidence)
+                      confidence = confidence, transform = transform,
+                      autoburnin = autoburnin)
   all.na <- apply(is.na(y$shrink[, , 1, drop = FALSE]), 2, all)
   if (!any(all.na)) 
     for (j in 1:nvar(x)) {
@@ -201,8 +198,9 @@
 }
 
 "gelman.preplot" <-
-  function (x, confidence = 0.95, transform = FALSE, bin.width = 10, 
-            max.bins = 50) 
+  function (x, bin.width = bin.width, max.bins = max.bins,
+            confidence = confidence, transform = transform,
+            autoburnin = autoburnin) 
 {
   x <- as.mcmc.list(x)
   if (niter(x) <= 50) 
@@ -219,7 +217,8 @@
   for (i in 1:(nbin + 1)) {
     shrink[i, , ] <- gelman.diag(window(x, end = last.iter[i]), 
                                  confidence = confidence,
-                                 transform = transform)$psrf
+                                 transform = transform,
+                                 autoburnin = autoburnin)$psrf
   }
   all.na <- apply(is.na(shrink[, , 1, drop = FALSE]), 2, all)
   if (any(all.na)) {

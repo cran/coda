@@ -36,6 +36,18 @@ distribution of the variable under examination is normal. Hence the
 `transform' parameter may be used to improve the normal approximation.
 }
 
+\value{
+
+  An object of class \code{gelman.diag}. This is a list with the
+  following elements:
+  \item{psrf}{A list containing the point estimates of the potential
+  scale reduction factor (labelled \code{Point est.})  and their upper
+  confidence limits (labelled \code{Upper C.I.}).}
+  \item{mpsrf}{The point estimate of the multivariate potential scale reduction
+  factor. This is NULL if there is only one variable in \code{x}.}
+  The \code{gelman.diag} class has its own \code{print} method.
+}
+
 \section{Theory}{
 
 Gelman and Rubin (1992) propose a general approach to monitoring
@@ -85,7 +97,7 @@ factor if the MCMC run is continued.
 
 \note{
 The multivariate a version of Gelman and Rubin's diagnostic was
-proposed by Brooks and Gelman (1997). Unlike the univariate proportional
+proposed by Brooks and Gelman (1998). Unlike the univariate proportional
 scale reduction factor, the multivariate version does not include an
 adjustment for the estimated number of degrees of freedom.
 }
@@ -94,7 +106,7 @@ adjustment for the estimated number of degrees of freedom.
 Gelman, A and Rubin, DB (1992) Inference from iterative simulation
 using multiple sequences, \emph{Statistical Science}, \bold{7}, 457-511.
 
-Brooks, SP. and Gelman, A. (1997) General methods for monitoring
+Brooks, SP. and Gelman, A. (1998) General methods for monitoring
 convergence of iterative simulations. \emph{Journal of Computational and
 Graphical Statistics}, \bold{7}, 434-455.
 }
