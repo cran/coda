@@ -663,7 +663,6 @@ function (last.menu)
       }
       coda.options(bandwidth = bwf)
     }, {
-      restart()
       func.OK <- FALSE
       while (!func.OK) {
         cat("Enter bandwidth as an expression in terms of x,\n")
@@ -676,14 +675,25 @@ function (last.menu)
             bwf <- paste(bwf, ans[i], sep = "")
           }
           bwf <- paste(bwf, "}", sep = "")
-          bwf <- eval(parse(text = bwf))
-          ## Carry out simple test to check whether the
-          ## function entered makes sense
-          ##
-          func.OK <- is.numeric(bw <- bwf(1:10)) && (length(bw) == 1)
-          if(!func.OK) {
-            cat("This is not a suitable function: it must return a single\n")
-            cat("numeric value given a numeric vector x.")
+          bwf <- try(eval(parse(text = bwf)), silent=TRUE)
+          if (inherits(bwf, "try-error")) {
+            cat("Invalid expression\n")
+          }
+          else {
+            ## Carry out simple test to check whether the
+            ## function entered makes sense
+            ##
+            bw <- try(bwf(1:10), silent=FALSE)
+            if (inherits(bw, "try-error")) {
+               cat("Error calling function with input 1:10\n")
+            }
+            else {
+               func.OK <- is.numeric(bw) && (length(bw) == 1)
+               if(!func.OK) {
+                 cat("This is not a suitable function: it must return a\n")
+                 cat("single numeric value given a numeric vector x.\n")
+               }
+            }
           }
         }
       }

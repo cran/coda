@@ -1,3 +1,7 @@
+0.14-4
+- Replaced defunct restart() function in codamenu with with try()
+- Changed as.ts.mcmc to be a method for generic function as.ts
+
 0.14-3
 - Fixed documentation errors in gelman.diag (Thanks to Peng Yu)
 - Added CITATION file

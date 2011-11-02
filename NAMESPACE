@@ -5,7 +5,6 @@ export(
   as.array.mcmc.list,
   as.mcmc,
   as.mcmc.list,
-  as.ts.mcmc,
   autocorr,
   ##RGA
   autocorr.diag,
@@ -70,6 +69,7 @@ export(
 ## register S3 methods
 S3method(as.mcmc, default)
 S3method(as.mcmc.list, default)
+S3method(as.ts, mcmc)
 ## as.matrix
 S3method(as.matrix, mcmc)
 S3method(as.matrix, mcmc.list)
@@ -122,7 +122,7 @@ S3method(print, raftery.diag)
 S3method(print, summary.mcmc)
 
 ## Imports
-importFrom(stats, start, end, frequency, time, window)
+importFrom(stats, start, end, frequency, time, window, as.ts)
 importFrom(lattice, xyplot, qqmath, densityplot, levelplot)
 importFrom(utils, head, tail)
 

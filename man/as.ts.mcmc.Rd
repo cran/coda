@@ -2,7 +2,7 @@
 \alias{as.ts.mcmc}
 \title{Coerce mcmc object to time series}
 
-\usage{as.ts.mcmc(x,\dots)}
+\usage{\method{as.ts}{mcmc}(x,\dots)}
 
 \arguments{
    \item{x}{an mcmc object}
@@ -10,7 +10,7 @@
 }
 
 \description{
-\code{as.ts.mcmc} will coerce an mcmc object to a time series.}
+the \code{as.ts} method for \code{mcmc} objects coerces an mcmc object to a time series.}
 
 \author{Martyn Plummer}
 
