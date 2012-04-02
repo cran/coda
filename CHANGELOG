@@ -1,9 +1,16 @@
-0.14-5
+0.14-7
+- In gelman.diag, the multivariate potential scale reduction factor
+  is now optional and can be turned off with the argument multivariate=FALSE.
+
+0.14-6
 - Removed deprecated top-level file COPYING
 
-0.14-4
+0.14-5
 - Replaced defunct restart() function in codamenu with with try()
 - Changed as.ts.mcmc to be a method for generic function as.ts
+
+0.14-4
+- Arguments of gelman.plot are now consistent with gelman.diag.
 
 0.14-3
 - Fixed documentation errors in gelman.diag (Thanks to Peng Yu)

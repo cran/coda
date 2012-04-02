@@ -5,7 +5,8 @@
 %\alias{print.gelman.diag}
 \title{Gelman and Rubin's convergence diagnostic}
 
-\usage{gelman.diag(x, confidence = 0.95, transform=FALSE, autoburnin=TRUE)}
+\usage{gelman.diag(x, confidence = 0.95, transform=FALSE, autoburnin=TRUE,
+                   multivariate=TRUE)}
 
 \arguments{
 \item{x}{An \code{mcmc.list} object with more than one chain,
@@ -21,6 +22,9 @@ appropriate, will be applied.}
   of the series should be used in the computation.  If set to TRUE
   (default) and \code{start(x)} is less than \code{end(x)/2} then start
   of series will be adjusted so that only second half of series is used.}
+\item{multivariate}{a logical flag indicating whether the multivariate
+potential scale reduction factor should be calculated for multivariate
+chains}
 }
 
 \description{

@@ -1,5 +1,5 @@
 "gelman.diag" <- function (x, confidence = 0.95, transform = FALSE,
-                           autoburnin=TRUE) 
+                           autoburnin=TRUE, multivariate=TRUE) 
   ## Gelman and Rubin's diagnostic
   ## Gelman, A. and Rubin, D (1992). Inference from iterative simulation
   ## using multiple sequences.  Statistical Science, 7, 457-551.
@@ -37,7 +37,7 @@
                  ncol=Nchain)
   B <- Niter * var(t(xbar))
 
-  if(Nvar > 1) {
+  if(Nvar > 1 && multivariate) {
       ## We want the maximal eigenvalue of the square matrix X that
       ## solves WX = B. It is numerically easier to work with a
       ## symmetric matrix that has the same eigenvalues as X.
