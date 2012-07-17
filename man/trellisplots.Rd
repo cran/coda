@@ -58,7 +58,7 @@
              \dots,
              subset)
 \method{xyplot}{mcmc}(x, data,
-             outer, layout = c(1, ncol(x)),
+             outer, layout = c(1, nvar(x)),
              default.scales = list(y = list(relation = "free")),
              type = 'l',
              start = 1, thin = 1,
@@ -68,7 +68,7 @@
              \dots,
              subset)
 \method{xyplot}{mcmc.list}(x, data, outer = FALSE, groups = !outer,
-             aspect = "xy", layout = c(1, ncol(x[[1]])),
+             aspect = "xy", layout = c(1, nvar(x)),
              default.scales = list(y = list(relation = "free")),
              type = 'l',
              start = 1, thin = 1,

@@ -2,14 +2,16 @@
 \alias{traceplot}
 \title{Trace plot of MCMC output}
 
-\usage{traceplot(x, smooth = FALSE, col = 1:6, type = "l", ylab = "", \dots)}
+\usage{traceplot(x, smooth = FALSE,
+       col = 1:6, type = "l", xlab = "Iterations", ylab = "", \dots)}
 
 \arguments{
   \item{x}{An \code{mcmc} or \code{mcmc.list} object}
   \item{smooth}{draw smooth line through trace plot}
   \item{col}{graphical parameter (see \code{par})}
-  \item{type}{graphical parameter (see \code{par})}
-  \item{ylab}{graphical parameter (see \code{par})}
+  \item{type}{graphical parameter (see \code{plot})}
+  \item{xlab}{graphical parameter (see \code{plot})}
+  \item{ylab}{graphical parameter (see \code{plot})}
   \item{\dots}{further graphical parameters}
 }
 

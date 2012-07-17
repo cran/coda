@@ -1,3 +1,12 @@
+0.15-2
+- Allow default plotting parameters to be overridden in densplot and traceplot.
+- Stop overplotting of user-supplied title in densplot.
+- Fix xyplot for univariate chains.
+
+0.15-1
+- Use Authors@R field in DESCRIPTION 
+- Fixe geweke.diag for long mcmc samples. Thanks to Philip Johnson
+
 0.14-7
 - In gelman.diag, the multivariate potential scale reduction factor
   is now optional and can be turned off with the argument multivariate=FALSE.

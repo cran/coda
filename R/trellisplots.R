@@ -339,7 +339,7 @@ qqmath.mcmc.list <-
 
 xyplot.mcmc <-
     function(x, data = NULL,
-             outer, layout = c(1, ncol(x)),
+             outer, layout = c(1, nvar(x)),
              default.scales = list(y = list(relation = "free")),
              type = 'l',
              start = 1, thin = 1,
@@ -373,7 +373,7 @@ xyplot.mcmc <-
 xyplot.mcmc.list <-
     function(x, data = NULL,
              outer = FALSE, groups = !outer,
-             aspect = "xy", layout = c(1, ncol(x[[1]])),
+             aspect = "xy", layout = c(1, nvar(x)),
              default.scales = list(y = list(relation = "free")),
              type = 'l',
              start = 1, thin = 1,
@@ -386,7 +386,7 @@ xyplot.mcmc.list <-
       stop("This function is not yet available in S-PLUS")
     }
     if (groups && outer) warning("'groups=TRUE' ignored when 'outer=TRUE'")
-    datalist <- lapply(x, function(x) as.data.frame(x)[subset, ])
+    datalist <- lapply(x, function(x) as.data.frame(x)[subset,,drop=FALSE])
     data <- do.call("rbind", datalist)
     form <-
         if (outer)

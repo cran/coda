@@ -1,6 +1,6 @@
 3ad76246334ca13bb7cba54ce71e48bd *AUTHORS
-b4191ed8eaf048c11836f626b9c2a96e *CHANGELOG
-60dcd15c8b79c8daf2fbddcdff8153bf *DESCRIPTION
+ab01afde635441bd4eff15e8712ac718 *CHANGELOG
+3d853733aa59d033b33fa40c9b62c6f8 *DESCRIPTION
 ff890b50eaa074ed668c6f2fac1b4141 *INDEX
 5096b7ad0e6c457ab9fbde263755c84f *NAMESPACE
 45f88adec7bcfab586a4deebba1cc02d *R/HPDinterval.R
@@ -15,14 +15,14 @@ ae77a3ec34f086bd7ec8ea787baeeb1e *R/jags.R
 f3b382582d73aad54d77c4c655513c58 *R/mcextractor.R
 154e68d755b5c0317257351c3364d4de *R/mcmc.R
 699f3e94ff1f124a5b514e11320136fd *R/mcmclist.R
-29fbc4c9526791d48768136d0c2f059c *R/output.R
+8e97d2c164d624f638637d0dd0baabee *R/output.R
 389758882050a375ac4b5298a42ae35f *R/raftery.R
 4caafbeb9941605b240d3ae9f6c8d5ff *R/rejectionRate.R
 d41d8cd98f00b204e9800998ecf8427e *R/thin.R
-b95af999515a96aec97f3d54487eda47 *R/trellisplots.R
+607215d8af46d60bfec9ddbd601d1c85 *R/trellisplots.R
 eb953d257fed9708d6848e4976b2b223 *R/util.R
 4d7d828d6d2b4fee5357d3a4dd108458 *README
-bd3d2db1b8c3e7b281e1103d8f620e7a *data/line.rda
+9c541902238e99137f5877291f92214e *data/line.rda
 81c1ae300d47f9a787eb871fbaafeb9f *inst/CITATION
 868ded8f4d10a67c7b31854bce6f3d63 *man/Cramer.Rd
 7bfe602ce737efac910300e5be5a8552 *man/HPDinterval.Rd
@@ -37,7 +37,7 @@ e704de229cf312aa584094b126529e1a *man/coda.options.Rd
 d3b21ba8f4c82fd92adfb1d4380d4cc8 *man/crosscorr.Rd
 80c2893a13683e442443b36764810498 *man/crosscorr.plot.Rd
 2cc5efe9b602aae1ad07e0f7266142b6 *man/cumuplot.Rd
-3551dd04cb13f4b22a221d7de9fa1699 *man/densplot.Rd
+912dd5ff064b119e0a8b36227b1dc5a2 *man/densplot.Rd
 4009d8e9105a4e23590a07623c752627 *man/effectiveSize.Rd
 c78c35ac982bcd74befe51f98ba641e4 *man/gelman.diag.Rd
 394ae6df9b067ecb6120067aba37728c *man/gelman.plot.Rd
@@ -65,8 +65,8 @@ ebcd8ee89d1f3af805963f1e1333a2be *man/spectrum0.Rd
 1e1eca44b09a15921da4416e9e891047 *man/summary.mcmc.Rd
 54f2dfd12079753baa57a248db815ce8 *man/thin.Rd
 21dfd4f22d65bdea5153a83b4dd16840 *man/time.mcmc.Rd
-5790bf954071478cd9a23fd543338b27 *man/traceplot.Rd
-b44246e6c656a238c32b144a97f64482 *man/trellisplots.Rd
+70b102ac597896ee4dd2db87daca8fa5 *man/traceplot.Rd
+71ae23157d5746b56748551e3da9a6d5 *man/trellisplots.Rd
 4b44de8c8b54df57e83be296d9c75ed7 *man/varnames.Rd
 18042191cfa6ac3659b1be6a7460bfdb *man/window.mcmc.Rd
 1791a98bb716209178215a857193df65 *misc/change.tfoption.Rd

@@ -105,63 +105,86 @@ function (x, col = topo.colors(10), ...)
 }
 
 "densplot" <-
-function (x, show.obs = TRUE, bwf, main = "", ylim, ...) 
+function (x, show.obs = TRUE, bwf, ylim, xlab, ylab = "", type = "l", ...) 
 {
-  xx <- as.matrix(x)
-  for (i in 1:nvar(x)) {
-    y <- xx[, i, drop = TRUE]
-    if (missing(bwf)) 
-      bwf <- function(x) {
-        x <- x[!is.na(as.vector(x))]
-        return(1.06 * min(sd(x), IQR(x)/1.34) * length(x)^-0.2)
-      }
-    bw <- bwf(y)
-    width <- 4 * bw
-    if (max(abs(y - floor(y))) == 0 || bw == 0) 
-      hist(y, prob = TRUE, main = main, ...)
-    else {
-      scale <- "open"
-      if (max(y) <= 1 && 1 - max(y) < 2 * bw) {
-        if (min(y) >= 0 && min(y) < 2 * bw) {
-          scale <- "proportion"
-          y <- c(y, -y, 2 - y)
-        }
-      }
-      else if (min(y) >= 0 && min(y) < 2 * bw) {
-        scale <- "positive"
-        y <- c(y, -y)
-      }
-      else scale <- "open"
-      dens <- density(y, width = width)
-      if (scale == "proportion") {
-        dens$y <- 3 * dens$y[dens$x >= 0 & dens$x <= 
-                             1]
-        dens$x <- dens$x[dens$x >= 0 & dens$x <= 1]
-      }
-      else if (scale == "positive") {
-        dens$y <- 2 * dens$y[dens$x >= 0]
-        dens$x <- dens$x[dens$x >= 0]
-      }
-      if(missing(ylim))
-        ylim <- c(0, max(dens$y))
+    xx <- as.matrix(x)
+    for (i in 1:nvar(x)) {
+        y <- xx[, i, drop = TRUE]
+        if (missing(bwf)) 
+            bwf <- function(x) {
+                x <- x[!is.na(as.vector(x))]
+                return(1.06 * min(sd(x), IQR(x)/1.34) * length(x)^-0.2)
+            }
+        bw <- bwf(y)
+        width <- 4 * bw
 
-      if (is.R()){
-	      plot(dens, ylab = "", main = main, type = "l", 
-	           xlab = paste("N =", niter(x), "  Bandwidth =", formatC(dens$bw)),
-	           ylim = ylim, ...)
-	    } else { #In S-PLUS the bandwidth is not returned by the "density" function
-	      plot(dens, ylab = "", main = main, type = "l", 
-	           xlab = paste("N =", niter(x), "  Bandwidth =", formatC(bw)),
-	           ylim = ylim, ...)
-	    }
-      if (show.obs) 
-        lines(y[1:niter(x)], rep(max(dens$y)/100, niter(x)), 
-              type = "h")
+        if (max(abs(y - floor(y))) == 0 || bw == 0) {
+            ## Draw histogram
+
+            ## Set default values for graphical parameters
+            if (missing(xlab)) {
+                xlab <- ""
+            }
+            if (missing(ylim)) {
+                ylim <- NULL
+            }
+            hist(y, prob = TRUE, xlab=xlab, ylab=ylab,
+                 ylim=ylim, ...)
+        }
+        else {
+            ## Draw density plot
+
+            ## Reflect data at boundary, if necessary
+            scale <- "open"
+            if (max(y) <= 1 && 1 - max(y) < 2 * bw) {
+                if (min(y) >= 0 && min(y) < 2 * bw) {
+                    scale <- "proportion"
+                    y <- c(y, -y, 2 - y)
+                }
+            }
+            else if (min(y) >= 0 && min(y) < 2 * bw) {
+                scale <- "positive"
+                y <- c(y, -y)
+            }
+            else scale <- "open"
+            dens <- density(y, width = width)
+            if (scale == "proportion") {
+                dens$y <- 3 * dens$y[dens$x >= 0 & dens$x <= 1]
+                dens$x <- dens$x[dens$x >= 0 & dens$x <= 1]
+            }
+            else if (scale == "positive") {
+                dens$y <- 2 * dens$y[dens$x >= 0]
+                dens$x <- dens$x[dens$x >= 0]
+            }
+
+            ## Set default graphics parameters
+            if (missing(ylim)) {
+                ylim <- c(0, max(dens$y))
+            }
+            if (missing(xlab)) {
+                if (is.R()) {
+                    xlab <- paste("N =", niter(x), "  Bandwidth =",
+                                  formatC(dens$bw))
+                }
+                else {
+                    ##In S-PLUS the bandwidth is not returned by the
+                    ##"density" function
+                    xlab <- paste("N =", niter(x), "  Bandwidth =", formatC(bw))
+                }
+            }
+
+            plot(dens, xlab=xlab, ylab = ylab, type = type, 
+                 ylim = ylim, ...)
+
+            if (show.obs) {
+                lines(y[1:niter(x)], rep(max(dens$y)/100, niter(x)), 
+                      type = "h")
+            }
+        }
+        if (!is.null(varnames(x)) && is.null(list(...)$main)) 
+            title(paste("Density of", varnames(x)[i]))
     }
-    if (!is.null(varnames(x)) && is.null(list(...)$main)) 
-      title(paste("Density of", varnames(x)[i]))
-  }
-  return(invisible(x))
+    return(invisible(x))
 }
 
 if (!is.R()){
@@ -327,26 +350,26 @@ function (stem = "", start, end, thin, quiet = FALSE)
 }
 
 "traceplot" <-
-function (x, smooth = FALSE, col = 1:6, type = "l", ylab = "", ...) 
+function (x, smooth = FALSE, col = 1:6, type = "l", xlab = "Iterations",
+          ylab = "", ...) 
 {
-  x <- mcmc.list(x)
-  args <- list(...)
-  for (j in 1:nvar(x)) {
-    xp <- as.vector(time(x))
-    yp <- if (nvar(x) > 1) 
-      x[, j, drop = TRUE]
-    else x
-    yp <- do.call("cbind", yp)
-    matplot(xp, yp, xlab = "Iterations", ylab = ylab, type = type, 
-            col = col, ...)
-    if (!is.null(varnames(x)) && is.null(list(...)$main)) 
-      title(paste("Trace of", varnames(x)[j]))
-    if (smooth) {
-      scol <- rep(col, length = nchain(x))
-      for (k in 1:nchain(x)) lines(lowess(xp, yp[, k]), 
-                                   col = scol[k])
+    x <- mcmc.list(x)
+    args <- list(...)
+    for (j in 1:nvar(x)) {
+        xp <- as.vector(time(x))
+        yp <- if (nvar(x) > 1) 
+            x[, j, drop = TRUE]
+        else x
+        yp <- do.call("cbind", yp)
+        matplot(xp, yp, xlab = xlab, ylab = ylab, type = type, col = col, ...)
+        if (!is.null(varnames(x)) && is.null(list(...)$main)) 
+            title(paste("Trace of", varnames(x)[j]))
+        if (smooth) {
+            scol <- rep(col, length = nchain(x))
+            for (k in 1:nchain(x)) lines(lowess(xp, yp[, k]), 
+                                         col = scol[k])
+        }
     }
-  }
 }
 
 "plot.mcmc" <- function (x, trace = TRUE, density = TRUE, smooth = FALSE, bwf, 
