@@ -1,22 +1,30 @@
-"geweke.diag" <-
-  function (x, frac1 = 0.1, frac2 = 0.5) 
-  ## 
+"geweke.diag" <-  function (x, frac1 = 0.1, frac2 = 0.5) 
 {
-  if (is.mcmc.list(x)) 
-    return(lapply(x, geweke.diag, frac1, frac2))
-  x <- as.mcmc(x)
-  xstart <- c(start(x), end(x) - frac2 * (end(x) - start(x)))
-  xend <- c(start(x) + frac1 * (end(x) - start(x)), end(x))
-  y.variance <- y.mean <- vector("list", 2)
-  for (i in 1:2) {
-    y <- window(x, start = xstart[i], end = xend[i])
-    y.mean[[i]] <- apply(as.matrix(y), 2, mean)
-    y.variance[[i]] <- spectrum0(y)$spec/niter(y)
-  }
-  z <- (y.mean[[1]] - y.mean[[2]])/sqrt(y.variance[[1]] + y.variance[[2]])
-  out <- list(z = z, frac = c(frac1, frac2))
-  class(out) <- "geweke.diag"
-  return(out)
+    if (frac1 < 0 || frac1 > 1) {
+        stop("frac1 invalid")
+    }
+    if (frac2 < 0 || frac2 > 1) {
+        stop("frac2 invalid")
+    }
+    if (frac1 + frac2 > 1) {
+        stop("start and end sequences are overlapping")
+    }
+    if (is.mcmc.list(x)) {
+        return(lapply(x, geweke.diag, frac1, frac2))
+    }
+    x <- as.mcmc(x)
+    xstart <- c(start(x), floor(end(x) - frac2 * (end(x) - start(x))))
+    xend <- c(ceiling(start(x) + frac1 * (end(x) - start(x))), end(x))
+    y.variance <- y.mean <- vector("list", 2)
+    for (i in 1:2) {
+        y <- window(x, start = xstart[i], end = xend[i])
+        y.mean[[i]] <- apply(as.matrix(y), 2, mean)
+        y.variance[[i]] <- spectrum0(y)$spec/niter(y)
+    }
+    z <- (y.mean[[1]] - y.mean[[2]])/sqrt(y.variance[[1]] + y.variance[[2]])
+    out <- list(z = z, frac = c(frac1, frac2))
+    class(out) <- "geweke.diag"
+    return(out)
 }
 
 "geweke.plot" <-
