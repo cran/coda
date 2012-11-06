@@ -19,7 +19,7 @@
     for (i in 1:2) {
         y <- window(x, start = xstart[i], end = xend[i])
         y.mean[[i]] <- apply(as.matrix(y), 2, mean)
-        y.variance[[i]] <- spectrum0(y)$spec/niter(y)
+        y.variance[[i]] <- spectrum0.ar(y)$spec/niter(y)
     }
     z <- (y.mean[[1]] - y.mean[[2]])/sqrt(y.variance[[1]] + y.variance[[2]])
     out <- list(z = z, frac = c(frac1, frac2))

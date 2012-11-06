@@ -14,7 +14,7 @@
     n1 <- length(Y)
     ## Schruben's test for convergence, applied sequentially
     ##
-    S0 <- spectrum0(window(Y, start=end(Y)/2))$spec
+    S0 <- spectrum0.ar(window(Y, start=end(Y)/2))$spec
     converged <- FALSE
     for (i in seq(along = start.vec)) {
       Y <- window(Y, start = start.vec[i])
@@ -27,7 +27,7 @@
         break
     }
     ## Recalculate S0 using section of chain that passed convergence test
-    S0ci <- spectrum0(Y)$spec
+    S0ci <- spectrum0.ar(Y)$spec
     halfwidth <- 1.96 * sqrt(S0ci/n)
     passed.hw <- !is.na(halfwidth) & (abs(halfwidth/ybar) <= eps)
     if (!converged || is.na(I) || is.na(halfwidth)) {

@@ -1,7 +1,15 @@
+0.16-1
+- Fixed main title bug in densplot
+- Substitute spectrum0.ar for spectrum0 internally
+- densplot parameters fixed when drawing multiple plots 
+
+0.15-3
+- Correct x axis labelling in xyplot. Thanks to Pavel Krivitsky.
+
 0.15-2
 - Allow default plotting parameters to be overridden in densplot and traceplot.
 - Stop overplotting of user-supplied title in densplot.
-- Fix xyplot for univariate chains.
+- Fix xyplot for univariate chains.  Thanks to Pavel Krivitsky.
 
 0.15-1
 - Use Authors@R field in DESCRIPTION 

@@ -62,8 +62,8 @@
              default.scales = list(y = list(relation = "free")),
              type = 'l',
              start = 1, thin = 1,
-             ylab = "", 
              xlab = "Iteration number",
+             ylab = "", 
              main = attr(x, "title"),
              \dots,
              subset)
@@ -72,8 +72,9 @@
              default.scales = list(y = list(relation = "free")),
              type = 'l',
              start = 1, thin = 1,
-             main = attr(x, "title"),
+             xlab = "Iteration number",
              ylab = "",
+             main = attr(x, "title"),
              \dots,
              subset)
 acfplot(x, data, \dots)

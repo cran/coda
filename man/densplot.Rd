@@ -3,7 +3,7 @@
 \title{Probability density function estimate from MCMC output}
 
 \usage{densplot(x, show.obs = TRUE, bwf, 
-                ylim, xlab, ylab = "", type="l", \ldots)}
+                ylim, xlab, ylab = "", type="l", main, \ldots)}
 
 \arguments{
   \item{x}{An \code{mcmc} or \code{mcmc.list} object}
@@ -17,6 +17,7 @@
     and the bandwidth used for smoothing. See \code{plot}}
   \item{ylab}{Y-axis label. By default, this is blank. See \code{plot}}
   \item{type}{Plot type. See \code{plot}}
+  \item{main}{An overall title for the plot. See \code{title}}
   \item{\dots}{Further graphical parameters}
 }
 

@@ -343,8 +343,8 @@ xyplot.mcmc <-
              default.scales = list(y = list(relation = "free")),
              type = 'l',
              start = 1, thin = 1,
-             ylab = "", 
              xlab = "Iteration number",
+             ylab = "", 
              main = attr(x, "title"),
              ...,
              subset = thinned.indices(x, start = start, thin = thin))
@@ -356,7 +356,7 @@ xyplot.mcmc <-
     data <- as.data.frame(x)
     form <- eval(parse(text = paste(paste(lapply(names(data), as.name),
                        collapse = "+"), "~.index")))
-    data[[".index"]] <- seq(length = nrow(data))
+    data[[".index"]] <- time(x)
     xyplot(form, data = data[subset, ],
            outer = TRUE,
            layout = layout,
@@ -377,8 +377,9 @@ xyplot.mcmc.list <-
              default.scales = list(y = list(relation = "free")),
              type = 'l',
              start = 1, thin = 1,
-             main = attr(x, "title"),
+             xlab = "Iteration number",
              ylab = "",
+             main = attr(x, "title"),
              ...,
              subset = thinned.indices(x[[1]], start = start, thin = thin))
 {
@@ -404,7 +405,7 @@ xyplot.mcmc.list <-
 ##             as.formula(paste(paste(names(data),
 ##                                    collapse = "+"),
 ##                              "~ index"))
-    data[[".index"]] <- seq(length = nrow(datalist[[1]])) ## repeated
+    data[[".index"]] <- time(x)
     .run <- gl(length(datalist), nrow(datalist[[1]]))
     if (groups && !outer)
         xyplot(form, data = data,
@@ -414,6 +415,7 @@ xyplot.mcmc.list <-
                default.scales = default.scales,
                type = type,
                main = main,
+               xlab = xlab,
                ylab = ylab,
                ...)
     else
@@ -423,6 +425,7 @@ xyplot.mcmc.list <-
                default.scales = default.scales,
                type = type,
                main = main,
+               xlab = xlab,
                ylab = ylab,
                ...)
 }
