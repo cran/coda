@@ -15,7 +15,7 @@
 
 
 
-thinned.indices <- function(object, n = nrow(object), start = 1, thin = 1)
+thinned.indices <- function(object, n = NROW(object), start = 1, thin = 1)
 {
     if (is.mcmc(object) &&
         (start * thin != 1) &&

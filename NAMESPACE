@@ -98,6 +98,7 @@ S3method(HPDinterval, mcmc)
 S3method("[", mcmc.list)
 S3method(as.matrix, mcmc.list)
 S3method(as.mcmc, mcmc.list)
+S3method(as.array, mcmc.list)
 S3method(end, mcmc.list)
 S3method(plot, mcmc.list)
 S3method(start, mcmc.list)
@@ -123,7 +124,9 @@ S3method(print, summary.mcmc)
 
 ## Imports
 importFrom(stats, start, end, frequency, time, window, as.ts)
-importFrom(lattice, xyplot, qqmath, densityplot, levelplot)
+importFrom(lattice, xyplot, qqmath, densityplot, levelplot, panel.abline,
+           panel.xyplot, trellis.par.get, do.breaks, panel.superpose,
+           prepanel.qqmathline, splom)
 importFrom(utils, head, tail)
 
 ## lattice methods

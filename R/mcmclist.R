@@ -172,7 +172,7 @@
   return(y)
 }
 
-"as.mcmc.mcmc.list" <- function (x) 
+"as.mcmc.mcmc.list" <- function (x, ...) 
 {
   if (nchain(x) == 1) 
     return(x[[1]])

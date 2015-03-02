@@ -18,10 +18,10 @@
     return(y)
 }
 
-"as.mcmc" <- function (x) 
+"as.mcmc" <- function (x, ...) 
   UseMethod("as.mcmc")
 
-"as.mcmc.default" <- function (x) 
+"as.mcmc.default" <- function (x, ...) 
   if (is.mcmc(x)) x else mcmc(x)
 
 "as.ts.mcmc" <- function (x, ...) 

@@ -31,11 +31,8 @@ function (...)
 {
   ## Set and display coda options
   single <- FALSE
-  copt <- if (exists(".Coda.Options", frame = 1)) {
-    if (is.R())
-      get(".Coda.Options", pos=1)
-    else
-      get(".Coda.Options")
+  copt <- if (exists("options", envir=coda.env, inherits=FALSE)) {
+      get("options", envir=coda.env, inherits=FALSE)
   }
   else {
     .Coda.Options.Default
@@ -77,10 +74,7 @@ function (...)
       else if (mode(copt[[v]]) == mode(args[[v]])) 
         copt[v] <- args[v]
     }
-    if (is.R())
-      assign(".Coda.Options", copt, pos=1)
-    else 
-      assign(".Coda.Options", copt)
+    assign("options", copt, envir=coda.env)
     invisible(oldvalue)
   }
 }
@@ -254,8 +248,7 @@ function (...)
        data.saved = TRUE
        )
 
-
-
+coda.env <- new.env()
 
 
 

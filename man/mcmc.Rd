@@ -8,7 +8,7 @@
 
 \usage{
 mcmc(data= NA, start = 1, end = numeric(0), thin = 1)
-as.mcmc(x)
+as.mcmc(x, \dots)
 is.mcmc(x)
 }
 
@@ -18,6 +18,7 @@ is.mcmc(x)
   \item{end}{the iteration number of the last observation}
   \item{thin}{the thinning interval between consecutive observations}
   \item{x}{An object that may be coerced to an mcmc object}
+  \item{\dots}{Further arguments to be passed to specific methods}
 }
 
 \description{

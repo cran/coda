@@ -1,7 +1,24 @@
+0.17-1 Martyn Plummer <plummerm@iarc.fr>
+
+	- Moved lattice package from Depends to Imports in DESCRIPTION
+	file.  This means that you must load the lattice package to use
+	any of the lattice methods provided for mcmc objects.
+
+	- Russell Almond is fully credited as co-author
+
+	- Moved AUTHORS file into inst/ sub-directory
+
+	- Fixed bug that stopped trellis graphics from working with vector
+	mcmc objects (thinned chains). Thanks to Chris Andrews.
+
+	- Added additional arguments (...) to as.mcmc()
+
+	- coda.options() no longer writes to the global environment
+
 0.16-1
 - Fixed main title bug in densplot
 - Substitute spectrum0.ar for spectrum0 internally
-- densplot parameters fixed when drawing multiple plots 
+- densplot parameters fixed when drawing multiple plots
 
 0.15-3
 - Correct x axis labelling in xyplot. Thanks to Pavel Krivitsky.
@@ -9,10 +26,10 @@
 0.15-2
 - Allow default plotting parameters to be overridden in densplot and traceplot.
 - Stop overplotting of user-supplied title in densplot.
-- Fix xyplot for univariate chains.  Thanks to Pavel Krivitsky.
+- Fix xyplot for univariate chains. Thanks to Pavel Krivitsky.
 
 0.15-1
-- Use Authors@R field in DESCRIPTION 
+- Use Authors@R field in DESCRIPTION
 - Fixe geweke.diag for long mcmc samples. Thanks to Philip Johnson
 
 0.14-7
