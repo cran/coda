@@ -38,7 +38,9 @@ function (x, allow.null = TRUE)
 function (x, value) 
 {
     if (is.mcmc(x)) {
-        dimnames(x)[[2]] <- value
+      if(length(dim(x)) < 2)
+        dim(x) <- c(length(x), 1L)
+      colnames(x) <- value
     }
     else if (is.mcmc.list(x)) 
         for (i in 1:nchain(x)) varnames(x[[i]]) <- value
