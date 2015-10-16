@@ -25,7 +25,5 @@
   number of iterations.
 }
   
-\author{
-  Arni Magnusson 
-}
+\author{Arni Magnusson}
 \keyword{hplot}

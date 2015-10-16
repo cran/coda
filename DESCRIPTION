@@ -1,6 +1,6 @@
 Package: coda
-Version: 0.17-1
-Date: 2015-03-02
+Version: 0.18-1
+Date: 2015-10-16
 Title: Output Analysis and Diagnostics for MCMC
 Authors@R: c(person("Martyn", "Plummer", role=c("aut","cre","trl"),
        	            email="plummerm@iarc.fr"),
@@ -9,7 +9,8 @@ Authors@R: c(person("Martyn", "Plummer", role=c("aut","cre","trl"),
              person("Karen", "Vines", role="aut"),
              person("Deepayan", "Sarkar", role="aut"),
 	     person("Douglas", "Bates", role="aut"),
-             person("Russell", "Almond", role="aut"))
+             person("Russell", "Almond", role="aut"),
+	     person("Arni", "Magnusson", role="aut"))
 Depends: R (>= 2.14.0)
 Imports: lattice
 Description: Provides functions for summarizing and plotting the
@@ -17,15 +18,16 @@ Description: Provides functions for summarizing and plotting the
 	well as diagnostic tests of convergence to the equilibrium
 	distribution of the Markov chain.
 License: GPL (>= 2)
-Packaged: 2015-03-03 17:21:11 UTC; martyn
+NeedsCompilation: no
+Packaged: 2015-10-16 14:52:42 UTC; martyn
 Author: Martyn Plummer [aut, cre, trl],
   Nicky Best [aut],
   Kate Cowles [aut],
   Karen Vines [aut],
   Deepayan Sarkar [aut],
   Douglas Bates [aut],
-  Russell Almond [aut]
+  Russell Almond [aut],
+  Arni Magnusson [aut]
 Maintainer: Martyn Plummer <plummerm@iarc.fr>
-NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2015-03-03 19:25:43
+Date/Publication: 2015-10-16 20:00:43

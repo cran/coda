@@ -12,7 +12,6 @@
     if (is.null(coda.dat)) {
       return(invisible())
     }
-    coda.options(data.saved = FALSE)
   }
   else if (pick == 2) {
     msg <- "\nEnter name of saved object (or type \"exit\" to quit)"
@@ -45,8 +44,6 @@
   if (is.matrix(coda.dat[[1]]) && is.null(varnames(coda.dat))) {
     varnames(coda.dat) <- varnames(coda.dat, allow.null = FALSE)
   }
-  on.exit(tidy.up(coda.dat))
-
   
   ## Check for variables that are linear functions of the
   ## iteration number
@@ -872,19 +869,6 @@ function (last.menu)
   names(chains) <- output.files
   for (i in 1:nfiles) chains[[i]] <- read.coda(output.files[i], index.file)
   return(mcmc.list(chains))
-}
-
-"tidy.up" <- function (data) 
-{
-  cat("\nQuitting codamenu ...\n")
-  if (!coda.options("data.saved")) {
-    ans <- read.yesno("Do you want to save the mcmc output", default=FALSE)
-    if (ans == TRUE) {
-      cat("Enter name you want to call this object:\n")
-      fname <- scan(what = character(), nmax = 1, strip.white = TRUE)
-      assign(fname, data, pos=1)
-    }
-  }
 }
 
 "codamenu.ps" <- function () 

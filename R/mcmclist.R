@@ -1,39 +1,61 @@
 "[.mcmc.list" <- function (x, i, j, drop = TRUE) 
 {
-  ## In S-PLUS the code is altered so that the user can
-  ## pick out particular parameters by calling mcmc.obj[,c("param1", "param2")]
+    ## In S-PLUS the code is altered so that the user can
+    ## pick out particular parameters by calling
+    ## mcmc.obj[,c("param1", "param2")]
   
-  ## Trying to squeeze too much functionality in here
-  ## x[p:q] will subset the list
-  ## x[p,], x[,q], x[p,q] will be recursively applied to
-  ## the elements of the list, even if they are vectors
-  if (nargs() < 3 + !missing(drop)) {
-    ## Subset the list
-    if (is.R()) {
-      y <- NextMethod("[")
+    ## Trying to squeeze too much functionality in here
+    ## x[p:q] will subset the list
+    ## x[p,], x[,q], x[p,q] will be recursively applied to
+    ## the elements of the list, even if they are vectors
+
+    if (nargs() < 3 + !missing(drop)) {
+        ## Subset the list
+        if (is.R()) {
+            y <- NextMethod("[")
+        }
+        else {
+            y <- as.matrix(x)[i,j]
+        }
     }
     else {
-      y <- as.matrix(x)[i,j]
+        ## Subset the elements of the list
+        y <- vector("list", length(x))
+        names(y) <- names(x)
+        for (k in 1:length(y)) {
+            y[[k]] <- if (missing(i) && missing(j)) {
+                    x[[k]]
+            }
+            else if (is.matrix(x[[k]])) {
+                if (missing(i)) {
+                    x[[k]][, j, drop = drop]
+                }
+                else if (missing(j)) {
+                    x[[k]][i, , drop = drop]
+                }
+                else {
+                    x[[k]][i, j, drop = drop]
+                }
+            }
+            else {
+                ### Coerce x[[k]] to matrix before subsetting
+                z <- as.matrix.mcmc(x[[k]])
+                if (missing(i)) {
+                    mcmc(z[, j, drop = TRUE], start(x), end(x), thin(x))
+                }
+                else if (missing(j)) {
+                    z[i, , drop = TRUE]
+                }
+                else {
+                    z[i, j, drop = TRUE]
+                }
+            }
+        }
     }
-  }
-  else {
-    ## Subset the elements of the list
-    y <- vector("list", length(x))
-    names(y) <- names(x)
-    for (k in 1:length(y)) {
-      drop1 <- drop | !is.matrix(x[[k]])
-      y[[k]] <- if (missing(i) && missing(j)) 
-        x[[k]]
-      else if (missing(i))
-        mcmc(as.matrix(x[[k]])[, j, drop = drop1], start(x), end(x), thin(x))
-      else if (missing(j)) 
-        as.matrix(x[[k]])[i, , drop = drop1]
-      else as.matrix(x[[k]])[i, j, drop = drop1]
+    if (is.list(y) && all(sapply(y, is.mcmc, simplify = TRUE))) {
+        y <- mcmc.list(y)
     }
-  }
-  if (is.list(y) && all(sapply(y, is.mcmc, simplify = TRUE))) 
-    y <- mcmc.list(y)
-  return(y)
+    return(y)
 }
 
 

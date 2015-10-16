@@ -1,3 +1,18 @@
+0.18-1 Martyn Plummer <plummer@iarc.fr>
+
+	- Arni Magnusson is fully credited as coauthor
+
+	- Fixed bug in "varnames<-", which failed when the mcmc object was
+	not a matrix. Thanks to Evangelos Evangelou and Pavel Krivitsky.
+
+	- NAMESPACE file now includes imports of functions from base packages.
+
+	- codamenu no longer gives option to save mcmc object on exit.
+
+0.17-2 Martyn Plummer <plummerm@iarc.fr>
+
+	- Avoid redundant copies when subsetting mcmc.list objects
+
 0.17-1 Martyn Plummer <plummerm@iarc.fr>
 
 	- Moved lattice package from Depends to Imports in DESCRIPTION

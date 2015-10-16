@@ -123,11 +123,18 @@ S3method(print, raftery.diag)
 S3method(print, summary.mcmc)
 
 ## Imports
-importFrom(stats, start, end, frequency, time, window, as.ts)
-importFrom(lattice, xyplot, qqmath, densityplot, levelplot, panel.abline,
-           panel.xyplot, trellis.par.get, do.breaks, panel.superpose,
-           prepanel.qqmathline, splom)
-importFrom(utils, head, tail)
+
+importFrom(grDevices, dev.cur, dev.interactive, dev.off, postscript,
+           topo.colors)
+importFrom(graphics, abline, axis, hist, legend, lines, matplot, par,
+           plot, polygon, text, title)
+importFrom(lattice, xyplot, qqmath, densityplot, levelplot,
+           panel.abline, panel.xyplot, trellis.par.get, do.breaks,
+           panel.superpose, prepanel.qqmathline, splom)
+importFrom(stats, Gamma, IQR, acf, aggregate, ar, as.formula, as.ts,
+           cor, density, end, fft, frequency, glm, lm, lowess, predict, qf,
+           qnorm, quantile, residuals, sd, start, time, ts, var, window)
+importFrom(utils, head, menu, read.table, tail)
 
 ## lattice methods
 

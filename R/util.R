@@ -244,8 +244,7 @@ function (...)
        user.layout = FALSE,
        gr.bin = 10,
        geweke.nbin = 20,
-       gr.max = 50,
-       data.saved = TRUE
+       gr.max = 50
        )
 
 coda.env <- new.env()
