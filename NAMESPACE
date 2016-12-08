@@ -123,11 +123,10 @@ S3method(print, raftery.diag)
 S3method(print, summary.mcmc)
 
 ## Imports
-
 importFrom(grDevices, dev.cur, dev.interactive, dev.off, postscript,
-           topo.colors)
+           topo.colors, nclass.Sturges)
 importFrom(graphics, abline, axis, hist, legend, lines, matplot, par,
-           plot, polygon, text, title)
+           plot, polygon, text, title, barplot)
 importFrom(lattice, xyplot, qqmath, densityplot, levelplot,
            panel.abline, panel.xyplot, trellis.par.get, do.breaks,
            panel.superpose, prepanel.qqmathline, splom)

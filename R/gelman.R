@@ -218,7 +218,8 @@
     shrink[i, , ] <- gelman.diag(window(x, end = last.iter[i]), 
                                  confidence = confidence,
                                  transform = transform,
-                                 autoburnin = autoburnin)$psrf
+                                 autoburnin = autoburnin,
+                                 multivariate = FALSE)$psrf
   }
   all.na <- apply(is.na(shrink[, , 1, drop = FALSE]), 2, all)
   if (any(all.na)) {

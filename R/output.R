@@ -104,9 +104,68 @@ function (x, col = topo.colors(10), ...)
     invisible()
 }
 
+"pretty.discrete" <- function(y, right)
+{
+    ## Used to created break points for hist() for discrete data.
+    ## Works around some limitations of pretty() for discrete data.
+    ## The acid test is that the histogram produced by densplot for
+    ## discrete data should be visually uniform if the underlying
+    ## discrete distribution is uniform.
+    
+    ybreaks <- pretty(y, nclass.Sturges(y))
+    yunique <- unique(y)
+    if (length(yunique) == 1) {
+        return(ybreaks)
+    }
+    
+    if (length(ybreaks) > length(yunique)) {
+        ## Pretty puts in too many breaks
+        ybreaks <- sort(yunique)
+    }
+
+    nb <- length(ybreaks)
+
+    if (right) {
+        if (max(y) < ybreaks[nb]) {
+            ## Last bin is too wide
+            ybreaks[nb] <- max(y)  
+        }
+        if (min(y) > ybreaks[1]) {
+            ## First bin is too wide
+            ybreaks[1] <- min(y) - 1
+        }
+        else if (min(y) == ybreaks[1]) {
+            ## The hist() function adds some fuzz to its break
+            ## points causing the first two categories to be
+            ## merged.  Work around this by adding extra
+            ## breakpoints on the left.
+            ybreaks <- c(ybreaks[1] - 1, ybreaks)
+        }
+    }
+    else {
+        if (min(y) > ybreaks[1]) {
+            ## First bin is too wide
+            ybreaks[1] <- min(y)
+        }
+        if (max(y) < ybreaks[nb]) {
+            ## Last bin is too wide
+            ybreaks[nb] <- max(y) + 1  
+        }
+        else if (max(y) == ybreaks[nb]) {
+            ## The hist() function adds some fuzz to its break
+            ## points causing the first two categories to be
+            ## merged.  Work around this by adding extra
+            ## breakpoints on the left.
+            ybreaks <- c(ybreaks[nb] + 1, ybreaks)
+        }
+    }
+    
+    ybreaks
+}
+
 "densplot" <-
 function (x, show.obs = TRUE, bwf, ylim, xlab, ylab = "", type = "l", main,
-          ...) 
+          right=TRUE, ...) 
 {
     xx <- as.matrix(x)
     for (i in 1:nvar(x)) {
@@ -127,10 +186,14 @@ function (x, show.obs = TRUE, bwf, ylim, xlab, ylab = "", type = "l", main,
             else paste("Density of", varnames(x)[i])
         }
         else main
-        
-        if (max(abs(y - floor(y))) == 0 || bw == 0) {
-            ## Draw histogram
 
+        if (max(abs(y - floor(y))) == 0 || bw == 0 || length(unique(y)) == 1)
+        {
+            ## Draw histogram for discrete data or constant data or if
+            ## bandwidth is zero.
+
+            ybreaks <- pretty.discrete(y, right)
+            
             ## Set default values for graphical parameters
             if (missing(xlab)) {
                 xlab <- ""
@@ -138,8 +201,10 @@ function (x, show.obs = TRUE, bwf, ylim, xlab, ylab = "", type = "l", main,
             if (missing(ylim)) {
                 ylim.par <- NULL 
             }
-            hist(y, prob = TRUE, xlab=xlab, ylab=ylab,
-                 ylim=ylim.par, main=main.par, ...)
+            yhist <- hist(y, breaks=ybreaks, right=right, plot=FALSE)
+            plot(yhist, xlab=xlab, ylab=ylab, ylim=ylim.par, main=main.par,
+                 xaxt="n", freq=FALSE, ...)
+            axis(side=1, at=ybreaks)
         }
         else {
             ## Draw density plot

@@ -23,9 +23,17 @@ is.mcmc(x)
 
 \description{
 
-   The function `mcmc' is used to create a Markov Chain Monte Carlo object.
-   The data are taken to be a vector, or a matrix with one column per
-   variable.
+   The function \code{mcmc} is used to create a Markov Chain Monte Carlo
+   object.  The input data are taken to be a vector, or a matrix with
+   one column per variable.
+
+   If the optional arguments \code{start}, \code{end}, and \code{thin}
+   are omitted then the chain is assumed to start with iteration 1 and
+   have thinning interval 1. If \code{data} represents a chain that
+   starts at a later iteration, the first iteration in the chain should
+   be given as the \code{start} argument. Likewise, if \code{data}
+   represents a chain that has already been thinned, the thinning
+   interval should be given as the \code{thin} argument.
 
    An mcmc object may be summarized by the \code{summary} function
    and visualized with the \code{plot} function.

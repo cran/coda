@@ -1,3 +1,15 @@
+0.19-1 Martyn Plummer <plummerm@iarc.fr>
+
+	- gelman.plot() now avoids superfluous calculation of multivariate
+	diagnostic. Thanks to Gert van Valkenhoef.
+
+	- Fixed various issues with the histogram produced by densplot()
+	for discrete-valued distributions. Thanks to Robert Goudie.
+
+	- Obsolete INDEX file removed
+
+	- Dimnames bug in geweke.plot fixed. Thanks to Jiri Moravec
+
 0.18-1 Martyn Plummer <plummer@iarc.fr>
 
 	- Arni Magnusson is fully credited as coauthor

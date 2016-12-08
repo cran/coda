@@ -49,7 +49,7 @@
   ystart <- seq(from = start(x), to = (start(x) + end(x))/2, length = nbins)
   if (is.R())
     gcd <- array(dim = c(length(ystart), nvar(x), nchain(x)), 
-               dimnames = c(ystart, varnames(x), chanames(x)))
+               dimnames = list(ystart, varnames(x), chanames(x)))
   else
     gcd <- array(dim = c(length(ystart), nvar(x), nchain(x)), 
                dimnames = list(ystart, varnames(x), chanames(x)))

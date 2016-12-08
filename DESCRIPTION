@@ -1,6 +1,6 @@
 Package: coda
-Version: 0.18-1
-Date: 2015-10-16
+Version: 0.19-1
+Date: 2016-12-07
 Title: Output Analysis and Diagnostics for MCMC
 Authors@R: c(person("Martyn", "Plummer", role=c("aut","cre","trl"),
        	            email="plummerm@iarc.fr"),
@@ -19,7 +19,7 @@ Description: Provides functions for summarizing and plotting the
 	distribution of the Markov chain.
 License: GPL (>= 2)
 NeedsCompilation: no
-Packaged: 2015-10-16 14:52:42 UTC; martyn
+Packaged: 2016-12-07 15:34:56 UTC; martyn
 Author: Martyn Plummer [aut, cre, trl],
   Nicky Best [aut],
   Kate Cowles [aut],
@@ -30,4 +30,4 @@ Author: Martyn Plummer [aut, cre, trl],
   Arni Magnusson [aut]
 Maintainer: Martyn Plummer <plummerm@iarc.fr>
 Repository: CRAN
-Date/Publication: 2015-10-16 20:00:43
+Date/Publication: 2016-12-08 10:25:11
