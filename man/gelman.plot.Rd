@@ -38,8 +38,10 @@ the number of iterations increases.
 The Markov chain is divided into bins according to the arguments
 \code{bin.width} and \code{max.bins}. Then the Gelman-Rubin shrink factor
 is repeatedly calculated. The first shrink factor is calculated with
-observations 1:50, the second with observations \eqn{1:(50+n)} where n is
-the bin width, the third contains samples \eqn{1:(50+2n)} and so on.
+observations 1:50, the second with observations \eqn{1:(50+bin.width)},
+the third contains samples \eqn{1:(50+2*bin.width)} and so on.
+If the chain has less than \eqn{50 + bin.width} iterations then
+\code{gelman.diag} will exit with an error.
 }
 
 \references{

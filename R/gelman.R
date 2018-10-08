@@ -203,9 +203,10 @@
             autoburnin = autoburnin) 
 {
   x <- as.mcmc.list(x)
-  if (niter(x) <= 50) 
-    stop("Less than 50 iterations in chain")
   nbin <- min(floor((niter(x) - 50)/thin(x)), max.bins)
+  if (nbin < 1) {
+      stop("Insufficient iterations to produce Gelman-Rubin plot")
+  }
   binw <- floor((niter(x) - 50)/nbin)
   last.iter <- c(seq(from = start(x) + 50 * thin(x), by = binw * 
                      thin(x), length = nbin), end(x))

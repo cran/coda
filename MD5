@@ -1,12 +1,12 @@
-f93beeb84925a019cbfa2f38abb14735 *CHANGELOG
-513f2231a06978c1f585257dc68dce26 *DESCRIPTION
+ed212ce59af4baf6d7e0ae327eb2869c *CHANGELOG
+b7bbade92b8ae966cc9c2ad864d22b3f *DESCRIPTION
 b0ab1efea562993f9f77ada2eeefd6d9 *NAMESPACE
 45f88adec7bcfab586a4deebba1cc02d *R/HPDinterval.R
 841853b3b96462cffe376cf9fad6abb9 *R/autocorrdiag.R
 02152920c66f540422f88e51c88f0428 *R/batchSE.R
 4e1a55cb0aed5bcaa0f2f9d474e2fdea *R/codamenu.R
 df4c85619867ba81878499f5059e875d *R/cumuplot.R
-678f462e907298fc9e2e66b3395dc291 *R/gelman.R
+6eb43e603e56d3e1036b851a79fe7e60 *R/gelman.R
 6ff93635a342cc91ae1e417da7c49485 *R/geweke.R
 6fb74d6977e5e3b5190eda35829cdc23 *R/heidel.R
 ae77a3ec34f086bd7ec8ea787baeeb1e *R/jags.R
@@ -20,7 +20,7 @@ d41d8cd98f00b204e9800998ecf8427e *R/thin.R
 553b1effc0816a68e0ad4dfd7847757f *R/trellisplots.R
 1e363c43c22c2a0e9658866463a0542d *R/util.R
 4d7d828d6d2b4fee5357d3a4dd108458 *README
-b38b3e053deb49b88462b8acfdfff9df *data/line.rda
+f848bd2a14e5e418ac970fc8e39d1514 *data/line.rda
 52066ed7a20504a282a091060a794d57 *inst/AUTHORS
 28e8ead6b87a0c883522b26f0e163d68 *inst/CITATION
 868ded8f4d10a67c7b31854bce6f3d63 *man/Cramer.Rd
@@ -39,7 +39,7 @@ d3b21ba8f4c82fd92adfb1d4380d4cc8 *man/crosscorr.Rd
 586e55b5b9734e6577b1ad18126f1aed *man/densplot.Rd
 2b5bbbb8d683384c9287a9c8e1f7a01f *man/effectiveSize.Rd
 c78c35ac982bcd74befe51f98ba641e4 *man/gelman.diag.Rd
-394ae6df9b067ecb6120067aba37728c *man/gelman.plot.Rd
+7ba296f967f09f88417e8910cd008963 *man/gelman.plot.Rd
 aa5ee817bb15d58b4fd40089432ba99b *man/geweke.diag.Rd
 efd11972209251ece16ec61d8326bdce *man/geweke.plot.Rd
 0c3865e05310e0a2ea9af0e4912ed036 *man/heidel.diag.Rd

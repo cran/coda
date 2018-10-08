@@ -1,3 +1,6 @@
+0.19-2 Martyn Plummer <martyn.plummer@gmail.com>
+	- Maintainer address update
+
 0.19-1 Martyn Plummer <plummerm@iarc.fr>
 
 	- gelman.plot() now avoids superfluous calculation of multivariate
