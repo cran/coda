@@ -1,5 +1,5 @@
-ed212ce59af4baf6d7e0ae327eb2869c *CHANGELOG
-b7bbade92b8ae966cc9c2ad864d22b3f *DESCRIPTION
+5c9ce78c127d9d744c75d54e2063cbe0 *CHANGELOG
+1741f6a3f3884b3ba7c4725f94c4bb1a *DESCRIPTION
 b0ab1efea562993f9f77ada2eeefd6d9 *NAMESPACE
 45f88adec7bcfab586a4deebba1cc02d *R/HPDinterval.R
 841853b3b96462cffe376cf9fad6abb9 *R/autocorrdiag.R
@@ -20,7 +20,7 @@ d41d8cd98f00b204e9800998ecf8427e *R/thin.R
 553b1effc0816a68e0ad4dfd7847757f *R/trellisplots.R
 1e363c43c22c2a0e9658866463a0542d *R/util.R
 4d7d828d6d2b4fee5357d3a4dd108458 *README
-f848bd2a14e5e418ac970fc8e39d1514 *data/line.rda
+b7a931790fd73a52fa8c791513540ed8 *data/line.rda
 52066ed7a20504a282a091060a794d57 *inst/AUTHORS
 28e8ead6b87a0c883522b26f0e163d68 *inst/CITATION
 868ded8f4d10a67c7b31854bce6f3d63 *man/Cramer.Rd
@@ -31,7 +31,7 @@ e3af15812b54d807e43283c5a6ca3839 *man/autocorr.Rd
 592996075418b4bc21fc2c8c0016f07b *man/autocorr.plot.Rd
 33d3d5b9225566ddfa188ea1bc2d4e8c *man/batchSE.Rd
 04f62bd5509ba44f8e3d5bd008d37b8d *man/bugs2jags.Rd
-e704de229cf312aa584094b126529e1a *man/coda.options.Rd
+0023199e085a06a4f108837df7256615 *man/coda.options.Rd
 04dd4994917068f5d36fbcff921deb7f *man/codamenu.Rd
 d3b21ba8f4c82fd92adfb1d4380d4cc8 *man/crosscorr.Rd
 80c2893a13683e442443b36764810498 *man/crosscorr.plot.Rd

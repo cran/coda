@@ -7,8 +7,6 @@
 \usage{
 coda.options(\dots)
 display.coda.options(stats = FALSE, plots = FALSE, diags = FALSE)
-.Coda.Options
-.Coda.Options.Default
 }
 \arguments{
   \item{stats}{logical flag: show summary statistic options?}
