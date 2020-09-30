@@ -36,7 +36,7 @@ cumuplot <- function(x, probs=c(0.025,0.5,0.975), ylab="", lty=c(2,1),
     if (!is.mcmc.list(x)) 
         x <- mcmc.list(as.mcmc(x))
 
-    Iterations <- time(x)
+    Iterations <- as.vector(time(x))
     for (i in 1:nchain(x)) {
         for (j in 1:nvar(x)) {
             Y <- cquantile(as.matrix(x[[i]])[,j], probs=probs)
