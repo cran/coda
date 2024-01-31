@@ -1,5 +1,5 @@
 "gelman.diag" <- function (x, confidence = 0.95, transform = FALSE,
-                           autoburnin=TRUE, multivariate=TRUE) 
+                           autoburnin=TRUE, multivariate=TRUE)
   ## Gelman and Rubin's diagnostic
   ## Gelman, A. and Rubin, D (1992). Inference from iterative simulation
   ## using multiple sequences.  Statistical Science, 7, 457-551.
@@ -11,17 +11,17 @@
 
 {
   x <- as.mcmc.list(x)
-  if (nchain(x) < 2) 
+  if (nchain(x) < 2)
     stop("You need at least two chains")
   ## RGA added an autoburnin parameter here, because if I have already
   ## trimmed burn in, I don't want to do it again.
-  if (autoburnin && start(x) < end(x)/2 ) 
+  if (autoburnin && start(x) < end(x)/2 )
     x <- window(x, start = end(x)/2 + 1)
   Niter <- niter(x)
   Nchain <- nchain(x)
   Nvar <- nvar(x)
   xnames <- varnames(x)
-  
+
   if(transform)
     x <- gelman.transform(x)
   ##
@@ -61,8 +61,8 @@
 
   s2 <- matrix(apply(S2, 3, diag), nrow=Nvar, ncol=Nchain)
   muhat <- apply(xbar,1,mean)
-  var.w <- apply(s2, 1, var)/Nchain              
-  var.b <- (2 * b^2)/(Nchain - 1)      
+  var.w <- apply(s2, 1, var)/Nchain
+  var.b <- (2 * b^2)/(Nchain - 1)
   cov.wb <- (Niter/Nchain) * diag(var(t(s2), t(xbar^2)) -
                               2 * muhat * var(t(s2), t(xbar)))
   ##
@@ -70,12 +70,12 @@
   ## center muhat, scale sqrt(V), and df.V degrees of freedom.
   ##
   V <- (Niter - 1) * w / Niter  + (1 + 1/Nchain) * b/ Niter
-  var.V <- ((Niter - 1)^2 * var.w + (1 + 1/Nchain)^2 * 
+  var.V <- ((Niter - 1)^2 * var.w + (1 + 1/Nchain)^2 *
             var.b + 2 * (Niter - 1) * (1 + 1/Nchain) * cov.wb)/Niter^2
   df.V <- (2 * V^2)/var.V
   ##
   ## Potential scale reduction factor (that would be achieved by
-  ## continuing simulations forever) is estimated by 
+  ## continuing simulations forever) is estimated by
   ##   R = sqrt(V/W) * df.adj
   ## where df.adj is a degrees of freedom adjustment for the width
   ## of the t-interval.
@@ -93,7 +93,7 @@
   R2.upper <- R2.fixed + qf((1 + confidence)/2, B.df, W.df) * R2.random
   psrf <- cbind(sqrt(df.adj * R2.estimate), sqrt(df.adj * R2.upper))
   dimnames(psrf) <- list(xnames, c("Point est.", "Upper C.I."))
-  
+
   out <- list(psrf = psrf, mpsrf=mpsrf)
   class(out) <- "gelman.diag"
   out
@@ -123,7 +123,7 @@
   else for (i in 1:nvar(x)) {
     z <- data.frame(lapply(x[, i], unclass))
     if (min(z) > 0) {
-      y <- if (max(z) < 1) 
+      y <- if (max(z) < 1)
         log(z/(1 - z))
       else log(z)
       for (j in 1:nchain(x)) x[[j]][, i] <- y[, j]
@@ -143,9 +143,9 @@
   return(mpsrf)
 }
 
-  
+
 "print.gelman.diag" <-
-  function (x, digits = 3, ...) 
+  function (x, digits = 3, ...)
 {
   cat("Potential scale reduction factors:\n\n")
   print.default(x$psrf, digits = digits, ...)
@@ -160,7 +160,7 @@
   function (x, bin.width = 10, max.bins = 50, confidence = 0.95,
             transform = FALSE, autoburnin = TRUE, auto.layout = TRUE, ask,
             col = 1:2, lty = 1:2, xlab = "last iteration in chain",
-            ylab = "shrink factor", type = "l", ...) 
+            ylab = "shrink factor", type = "l", ...)
 {
   if (missing(ask)) {
     ask <- if (is.R()) {
@@ -173,22 +173,22 @@
   x <- as.mcmc.list(x)
   oldpar <- NULL
   on.exit(par(oldpar))
-  if (auto.layout) 
+  if (auto.layout)
     oldpar <- par(mfrow = set.mfrow(Nchains = nchain(x), Nparms = nvar(x)))
-  y <- gelman.preplot(x, bin.width = bin.width, max.bins = max.bins, 
+  y <- gelman.preplot(x, bin.width = bin.width, max.bins = max.bins,
                       confidence = confidence, transform = transform,
                       autoburnin = autoburnin)
   all.na <- apply(is.na(y$shrink[, , 1, drop = FALSE]), 2, all)
-  if (!any(all.na)) 
+  if (!any(all.na))
     for (j in 1:nvar(x)) {
-      matplot(y$last.iter, y$shrink[, j, ], col = col, 
-              lty = lty, xlab = xlab, ylab = ylab, type = type, 
+      matplot(y$last.iter, y$shrink[, j, ], col = col,
+              lty = lty, xlab = xlab, ylab = ylab, type = type,
               ...)
       abline(h = 1)
       ymax <- max(c(1, y$shrink[, j, ]), na.rm = TRUE)
       leg <- dimnames(y$shrink)[[3]]
       xmax <- max(y$last.iter)
-      legend(xmax, ymax, legend = leg, lty = lty, bty = "n", 
+      legend(xmax, ymax, legend = leg, lty = lty, bty = "n",
              col = col, xjust = 1, yjust = 1)
       title(main = varnames(x)[j])
       if (j==1)
@@ -200,7 +200,7 @@
 "gelman.preplot" <-
   function (x, bin.width = bin.width, max.bins = max.bins,
             confidence = confidence, transform = transform,
-            autoburnin = autoburnin) 
+            autoburnin = autoburnin)
 {
   x <- as.mcmc.list(x)
   nbin <- min(floor((niter(x) - 50)/thin(x)), max.bins)
@@ -208,7 +208,7 @@
       stop("Insufficient iterations to produce Gelman-Rubin plot")
   }
   binw <- floor((niter(x) - 50)/nbin)
-  last.iter <- c(seq(from = start(x) + 50 * thin(x), by = binw * 
+  last.iter <- c(seq(from = start(x) + 50 * thin(x), by = binw *
                      thin(x), length = nbin), end(x))
   shrink <- array(dim = c(nbin + 1, nvar(x), 2))
   dimnames(shrink) <- list(last.iter, varnames(x),
@@ -216,7 +216,7 @@
                                              sep = ""))
                            )
   for (i in 1:(nbin + 1)) {
-    shrink[i, , ] <- gelman.diag(window(x, end = last.iter[i]), 
+    shrink[i, , ] <- gelman.diag(window(x, end = last.iter[i]),
                                  confidence = confidence,
                                  transform = transform,
                                  autoburnin = autoburnin,
@@ -232,7 +232,7 @@
   return(list(shrink = shrink, last.iter = last.iter))
 }
 
-if (!is.R()){
+if (FALSE){ # was is.R
 
 qr.solve <- function (a, b, tol = 1e-07) {
     if (!is.qr(a))

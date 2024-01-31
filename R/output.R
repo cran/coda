@@ -1,28 +1,28 @@
 "autocorr" <-
-function (x, lags = c(0, 1, 5, 10, 50), relative = TRUE) 
+function (x, lags = c(0, 1, 5, 10, 50), relative = TRUE)
 {
   ## RGA moved MCMC list processing first, else thinning gets
   ## applied twice.  Thanks to Denise Chang for finding this.
-  if (is.mcmc.list(x)) 
+  if (is.mcmc.list(x))
     return(lapply(x, autocorr, lags = lags, relative = relative))
   lag.max <- max(lags)
-  if (relative) 
+  if (relative)
     lags <- lags * thin(x)
-  else if (any(lags%%thin(x) != 0)) 
+  else if (any(lags%%thin(x) != 0))
     stop("Lags do not conform to thinning interval")
   lags <- lags[lags < niter(x) * thin(x)]
   x <- as.mcmc(x)
   y <- array(dim = c(length(lags), nvar(x), nvar(x)))
   dimnames(y) <- list(paste("Lag", lags), varnames(x), varnames(x))
   acf.out <- acf(as.ts.mcmc(x), lag.max = lag.max, plot = FALSE)$acf
-  y[, , ] <- if (is.array(acf.out)) 
+  y[, , ] <- if (is.array(acf.out))
     acf.out[lags%/%thin(x) + 1, , ]
   else acf.out[lags%/%thin(x) + 1]
   return(y)
 }
 
 "autocorr.plot" <-
-function (x, lag.max, auto.layout = TRUE, ask, ...) 
+function (x, lag.max, auto.layout = TRUE, ask, ...)
 {
     if (missing(ask)) {
       ask <- if (is.R()) {
@@ -34,17 +34,17 @@ function (x, lag.max, auto.layout = TRUE, ask, ...)
     }
     oldpar <- NULL
     on.exit(par(oldpar))
-    if (auto.layout) 
-        oldpar <- par(mfrow = set.mfrow(Nchains = nchain(x), 
+    if (auto.layout)
+        oldpar <- par(mfrow = set.mfrow(Nchains = nchain(x),
                       Nparms = nvar(x)))
-    if (!is.mcmc.list(x)) 
+    if (!is.mcmc.list(x))
         x <- mcmc.list(as.mcmc(x))
     for (i in 1:nchain(x)) {
-        xacf <- if (missing(lag.max)) 
+        xacf <- if (missing(lag.max))
             acf(as.ts.mcmc(x[[i]]), plot = FALSE)
         else acf(as.ts.mcmc(x[[i]]), lag.max = lag.max, plot = FALSE)
         for (j in 1:nvar(x)) {
-            plot(xacf$lag[, j, j], xacf$acf[, j, j], type = "h", 
+            plot(xacf$lag[, j, j], xacf$acf[, j, j], type = "h",
                  ylab = "Autocorrelation", xlab = "Lag", ylim = c(-1, 1), ...)
             title(paste(varnames(x)[j],
                         ifelse(is.null(chanames(x)), "", ":"),
@@ -57,45 +57,45 @@ function (x, lag.max, auto.layout = TRUE, ask, ...)
 }
 
 "crosscorr" <-
-function (x) 
+function (x)
 {
     cor(as.matrix(x))
 }
 
 "crosscorr.plot" <-
-function (x, col = topo.colors(10), ...) 
+function (x, col = topo.colors(10), ...)
 {
     Nvar <- nvar(x)
     pcorr <- crosscorr(x)
-    dens <- ((pcorr + 1) * length(col))%/%2 + (pcorr < 1) + (pcorr < 
+    dens <- ((pcorr + 1) * length(col))%/%2 + (pcorr < 1) + (pcorr <
         -1)
-    cutoffs <- format(seq(from = 1, to = -1, length = length(col) + 
+    cutoffs <- format(seq(from = 1, to = -1, length = length(col) +
         1), digits = 2)
-    leg <- paste("(", cutoffs[-1], ",", cutoffs[-length(cutoffs)], 
+    leg <- paste("(", cutoffs[-1], ",", cutoffs[-length(cutoffs)],
         "]", sep = "")
     oldpar <- NULL
     on.exit(par(oldpar))
     oldpar <- c(par(pty = "s", adj = 0.5), oldpar)
-    plot(0, 0, type = "n", xlim = c(0, Nvar), ylim = c(0, Nvar), 
+    plot(0, 0, type = "n", xlim = c(0, Nvar), ylim = c(0, Nvar),
         xlab = "", ylab = "", xaxt = "n", yaxt = "n", ...)
     if (!is.R()){ # In S-PLUS, specify that the y-axis labels should be right-justified
-      par(adj = 1) 
+      par(adj = 1)
     }
-    axis(1, at = 1:Nvar - 0.5, labels = abbreviate(varnames(x, 
+    axis(1, at = 1:Nvar - 0.5, labels = abbreviate(varnames(x,
         allow.null = FALSE), minlength = 7))
-    axis(2, at = 1:Nvar - 0.5, labels = abbreviate(varnames(x, 
+    axis(2, at = 1:Nvar - 0.5, labels = abbreviate(varnames(x,
         allow.null = FALSE), minlength = 7)[Nvar:1])
     for (cl in 1:Nvar) {
-        for (rw in 1:(Nvar - cl + 1)) polygon(y = c(cl - 1, cl - 
-            1, cl, cl, cl - 1), x = c(rw - 1, rw, rw, rw - 1, 
+        for (rw in 1:(Nvar - cl + 1)) polygon(y = c(cl - 1, cl -
+            1, cl, cl, cl - 1), x = c(rw - 1, rw, rw, rw - 1,
             rw - 1), col = col[dens[nrow(dens) - cl + 1, rw]])
     }
-    yval <- seq(from = Nvar/2, to = Nvar, length = length(col) + 
+    yval <- seq(from = Nvar/2, to = Nvar, length = length(col) +
         1)
     ydelta <- Nvar/(2 * (length(col) + 1))
     for (i in 1:length(col)) {
-        polygon(y = c(yval[i], yval[i + 1], yval[i + 1], yval[i], 
-            yval[i]), col = col[i], x = c(Nvar - ydelta, Nvar - 
+        polygon(y = c(yval[i], yval[i + 1], yval[i + 1], yval[i],
+            yval[i]), col = col[i], x = c(Nvar - ydelta, Nvar -
             ydelta, Nvar, Nvar, Nvar - ydelta))
     }
     text(Nvar - ydelta, Nvar, "1", adj = c(1, 1))
@@ -111,13 +111,13 @@ function (x, col = topo.colors(10), ...)
     ## The acid test is that the histogram produced by densplot for
     ## discrete data should be visually uniform if the underlying
     ## discrete distribution is uniform.
-    
+
     ybreaks <- pretty(y, nclass.Sturges(y))
     yunique <- unique(y)
     if (length(yunique) == 1) {
         return(ybreaks)
     }
-    
+
     if (length(ybreaks) > length(yunique)) {
         ## Pretty puts in too many breaks
         ybreaks <- sort(yunique)
@@ -128,7 +128,7 @@ function (x, col = topo.colors(10), ...)
     if (right) {
         if (max(y) < ybreaks[nb]) {
             ## Last bin is too wide
-            ybreaks[nb] <- max(y)  
+            ybreaks[nb] <- max(y)
         }
         if (min(y) > ybreaks[1]) {
             ## First bin is too wide
@@ -149,7 +149,7 @@ function (x, col = topo.colors(10), ...)
         }
         if (max(y) < ybreaks[nb]) {
             ## Last bin is too wide
-            ybreaks[nb] <- max(y) + 1  
+            ybreaks[nb] <- max(y) + 1
         }
         else if (max(y) == ybreaks[nb]) {
             ## The hist() function adds some fuzz to its break
@@ -159,18 +159,18 @@ function (x, col = topo.colors(10), ...)
             ybreaks <- c(ybreaks[nb] + 1, ybreaks)
         }
     }
-    
+
     ybreaks
 }
 
 "densplot" <-
 function (x, show.obs = TRUE, bwf, ylim, xlab, ylab = "", type = "l", main,
-          right=TRUE, ...) 
+          right=TRUE, ...)
 {
     xx <- as.matrix(x)
     for (i in 1:nvar(x)) {
         y <- xx[, i, drop = TRUE]
-        if (missing(bwf)) 
+        if (missing(bwf))
             bwf <- function(x) {
                 x <- x[!is.na(as.vector(x))]
                 return(1.06 * min(sd(x), IQR(x)/1.34) * length(x)^-0.2)
@@ -182,7 +182,7 @@ function (x, show.obs = TRUE, bwf, ylim, xlab, ylab = "", type = "l", main,
         ## plot.density
         main.par <- if (missing(main)) {
             ## Suppress default title given by plot.density
-            if (is.null(varnames(x))) "" 
+            if (is.null(varnames(x))) ""
             else paste("Density of", varnames(x)[i])
         }
         else main
@@ -193,13 +193,13 @@ function (x, show.obs = TRUE, bwf, ylim, xlab, ylab = "", type = "l", main,
             ## bandwidth is zero.
 
             ybreaks <- pretty.discrete(y, right)
-            
+
             ## Set default values for graphical parameters
             if (missing(xlab)) {
                 xlab <- ""
             }
             if (missing(ylim)) {
-                ylim.par <- NULL 
+                ylim.par <- NULL
             }
             yhist <- hist(y, breaks=ybreaks, right=right, plot=FALSE)
             plot(yhist, xlab=xlab, ylab=ylab, ylim=ylim.par, main=main.par,
@@ -246,11 +246,11 @@ function (x, show.obs = TRUE, bwf, ylim, xlab, ylab = "", type = "l", main,
             }
             else xlab
 
-            plot(dens, xlab=xlab.par, ylab = ylab, type = type, 
+            plot(dens, xlab=xlab.par, ylab = ylab, type = type,
                  ylim = ylim.par, main = main.par, ...)
 
             if (show.obs) {
-                lines(y[1:niter(x)], rep(max(dens$y)/100, niter(x)), 
+                lines(y[1:niter(x)], rep(max(dens$y)/100, niter(x)),
                       type = "h")
             }
         }
@@ -258,7 +258,7 @@ function (x, show.obs = TRUE, bwf, ylim, xlab, ylab = "", type = "l", main,
     return(invisible(x))
 }
 
-if (!is.R()){
+if (FALSE) {# was is.R
 
 "IQR"<-
 function(x, na.rm = FALSE)
@@ -266,28 +266,28 @@ diff(quantile(as.numeric(x), c(0.25, 0.75), na.rm = na.rm))
 
 }
 
-"read.jags" <- function (file = "jags.out", start, end, thin, quiet=FALSE) 
+"read.jags" <- function (file = "jags.out", start, end, thin, quiet=FALSE)
 {
   nc <- nchar(file)
-  if (nc > 3 && substring(file, nc - 3, nc) == ".out") 
+  if (nc > 3 && substring(file, nc - 3, nc) == ".out")
     root <- substring(file, 1, nc - 4)
   else root <- file
   index.file = paste(root, ".ind", sep="")
-  
+
   read.coda(file, index.file, start, end, thin, quiet)
 }
 
 "read.openbugs" <-
-function (stem = "", start, end, thin, quiet = FALSE) 
+function (stem = "", start, end, thin, quiet = FALSE)
 {
   index.file <- paste(stem, "CODAindex.txt", sep = "")
   if (!file.exists(index.file))
     stop("No index file found")
   index.date <- file.info(index.file)$ctime
-  
+
   nchain <- 0
   while (TRUE) {
-    output.file <- paste(stem, "CODAchain", nchain + 1, ".txt", 
+    output.file <- paste(stem, "CODAchain", nchain + 1, ".txt",
                          sep = "")
     if (file.exists(output.file)) {
       nchain <- nchain + 1
@@ -299,15 +299,15 @@ function (stem = "", start, end, thin, quiet = FALSE)
       }
     }
     else break
-    
+
   }
-  if (nchain == 0) 
+  if (nchain == 0)
     stop("No output files found")
 
   ans <- vector("list", nchain)
   for (i in 1:nchain) {
     output.file <- paste(stem, "CODAchain", i, ".txt", sep = "")
-    ans[[i]] <- read.coda(output.file, index.file, start, 
+    ans[[i]] <- read.coda(output.file, index.file, start,
                           end, thin, quiet)
   }
   return(mcmc.list(ans))
@@ -323,60 +323,60 @@ function (stem = "", start, end, thin, quiet = FALSE)
   else {
     temp <- scan(output.file, what = list(iter = 0, val = 0))
   }
-  ## Do one pass through the data to see if we can construct 
-  ## a regular time series easily 
-  ## 
+  ## Do one pass through the data to see if we can construct
+  ## a regular time series easily
+  ##
   start.vec <- end.vec <- thin.vec <- numeric(nrow(index))
   for (i in 1:length(vnames)) {
     iter.i <- temp$iter[index[i, "begin"]:index[i, "end"]]
     thin.i <- unique(diff(iter.i))
-    thin.vec[i] <- if (length(thin.i) == 1) 
+    thin.vec[i] <- if (length(thin.i) == 1)
       thin.i
     else NA
     start.vec[i] <- iter.i[1]
     end.vec[i] <- iter.i[length(iter.i)]
   }
-  if (any(is.na(start.vec)) || any(thin.vec != thin.vec[1]) || 
+  if (any(is.na(start.vec)) || any(thin.vec != thin.vec[1]) ||
       any((start.vec - start.vec[1])%%thin.vec[1] != 0)) {
-    ## 
-    ## Do it the brute force way 
-    ## 
+    ##
+    ## Do it the brute force way
+    ##
     iter <- sort(unique(temp$iter))
     old.thin <- unique(diff(iter))
-    if (length(old.thin) == 1) 
+    if (length(old.thin) == 1)
       is.regular <- TRUE
     else {
-      if (all(old.thin%%min(old.thin) == 0)) 
+      if (all(old.thin%%min(old.thin) == 0))
         old.thin <- min(old.thin)
       else old.thin <- 1
       is.regular <- FALSE
     }
   }
   else {
-    iter <- seq(from = min(start.vec), to = max(end.vec), 
+    iter <- seq(from = min(start.vec), to = max(end.vec),
                 by = thin.vec[1])
     old.thin <- thin.vec[1]
     is.regular <- TRUE
   }
-  if (missing(start)) 
+  if (missing(start))
     start <- min(start.vec)
   else if (start < min(start.vec)) {
     warning("start not changed")
     start <- min(start.vec)
   }
-  else if (start > max(end.vec)) 
+  else if (start > max(end.vec))
     stop("Start after end of data")
   else iter <- iter[iter >= start]
-  if (missing(end)) 
+  if (missing(end))
     end <- max(end.vec)
   else if (end > max(end.vec)) {
     warning("end not changed")
     end <- max(end.vec)
   }
-  else if (end < min(start.vec)) 
+  else if (end < min(start.vec))
     stop("End before start of data")
   else iter <- iter[iter <= end]
-  if (missing(thin)) 
+  if (missing(thin))
     thin <- old.thin
   else if (thin%%old.thin != 0) {
     thin <- old.thin
@@ -385,7 +385,7 @@ function (stem = "", start, end, thin, quiet = FALSE)
   else {
     new.iter <- iter[(iter - start)%%thin == 0]
     new.thin <- unique(diff(new.iter))
-    if (length(new.thin) != 1 || new.thin != thin) 
+    if (length(new.thin) != 1 || new.thin != thin)
       warning("thin not changed")
     else {
       iter <- new.iter
@@ -405,16 +405,16 @@ function (stem = "", start, end, thin, quiet = FALSE)
       use <- duplicated(c(iter.v, iter))[-(1:length(iter.v))]
     }
     else {
-      use.v <- (iter.v - start)%%thin == 0 & iter.v >= 
+      use.v <- (iter.v - start)%%thin == 0 & iter.v >=
         start & iter.v <= end
       use <- (iter.v[use.v] - start)%/%thin + 1
     }
-    if (length(use) > 0 && any(use.v)) 
+    if (length(use) > 0 && any(use.v))
       out[use, v] <- temp$val[inset[use.v]]
     if(!quiet)
       cat(length(use), "valid values\n")
   }
-  if (is.regular) 
+  if (is.regular)
     out <- mcmc(out, start = start, end = end, thin = thin)
   else warning("not returning an mcmc object")
   return(out)
@@ -422,47 +422,47 @@ function (stem = "", start, end, thin, quiet = FALSE)
 
 "traceplot" <-
 function (x, smooth = FALSE, col = 1:6, type = "l", xlab = "Iterations",
-          ylab = "", ...) 
+          ylab = "", ...)
 {
     x <- mcmc.list(x)
     args <- list(...)
     for (j in 1:nvar(x)) {
         xp <- as.vector(time(x))
-        yp <- if (nvar(x) > 1) 
+        yp <- if (nvar(x) > 1)
             x[, j, drop = TRUE]
         else x
         yp <- do.call("cbind", yp)
         matplot(xp, yp, xlab = xlab, ylab = ylab, type = type, col = col, ...)
-        if (!is.null(varnames(x)) && is.null(list(...)$main)) 
+        if (!is.null(varnames(x)) && is.null(list(...)$main))
             title(paste("Trace of", varnames(x)[j]))
         if (smooth) {
             scol <- rep(col, length = nchain(x))
-            for (k in 1:nchain(x)) lines(lowess(xp, yp[, k]), 
+            for (k in 1:nchain(x)) lines(lowess(xp, yp[, k]),
                                          col = scol[k])
         }
     }
 }
 
-"plot.mcmc" <- function (x, trace = TRUE, density = TRUE, smooth = FALSE, bwf, 
-                         auto.layout = TRUE, ask = dev.interactive(), ...) 
+"plot.mcmc" <- function (x, trace = TRUE, density = TRUE, smooth = FALSE, bwf,
+                         auto.layout = TRUE, ask = dev.interactive(), ...)
 {
   oldpar <- NULL
   on.exit(par(oldpar))
   if (auto.layout) {
-    mfrow <- set.mfrow(Nchains = nchain(x), Nparms = nvar(x), 
+    mfrow <- set.mfrow(Nchains = nchain(x), Nparms = nvar(x),
                        nplots = trace + density)
     oldpar <- par(mfrow = mfrow)
   }
   for (i in 1:nvar(x)) {
-    y <- mcmc(as.matrix(x)[, i, drop=FALSE], start(x), end(x), thin(x)) 
-    if (trace) 
+    y <- mcmc(as.matrix(x)[, i, drop=FALSE], start(x), end(x), thin(x))
+    if (trace)
       ## RGA fixed to propagate ... argument.
       traceplot(y, smooth = smooth, ...)
     if (density) {
-      if (missing(bwf)) 
+      if (missing(bwf))
         ## RGA fixed to propagate ... argument.
         densplot(y, ...)
-      else 
+      else
         densplot(y, bwf = bwf, ...)
     }
     if (i==1)
@@ -485,11 +485,11 @@ function (x, smooth = FALSE, col = 1:6, type = "l", xlab = "Iterations",
 }
 
 "summary.mcmc" <-
-  function (object, quantiles = c(0.025, 0.25, 0.5, 0.75, 0.975), ...) 
+  function (object, quantiles = c(0.025, 0.25, 0.5, 0.75, 0.975), ...)
 {
   x <- as.mcmc(object)
   statnames <- c("Mean", "SD", "Naive SE", "Time-series SE")
-  varstats <- matrix(nrow = nvar(x), ncol = length(statnames), 
+  varstats <- matrix(nrow = nvar(x), ncol = length(statnames),
                      dimnames = list(varnames(x), statnames))
   ## RGA replaced with safespec0
   #sp0 <- function(x) spectrum0(x)$spec
@@ -511,7 +511,7 @@ function (x, smooth = FALSE, col = 1:6, type = "l", xlab = "Iterations",
   varstats[, 4] <- sqrt(xtsvar/niter(x))
   varstats <- drop(varstats)
   varquant <- drop(varquant)
-  out <- list(statistics = varstats, quantiles = varquant, 
+  out <- list(statistics = varstats, quantiles = varquant,
               start = start(x), end = end(x), thin = thin(x), nchain = 1)
   if (is.R()) {
     class(out) <- "summary.mcmc"
@@ -523,12 +523,12 @@ function (x, smooth = FALSE, col = 1:6, type = "l", xlab = "Iterations",
 }
 
 "print.summary.mcmc" <-
-  function (x, digits = max(3, .Options$digits - 3), ...) 
+  function (x, digits = max(3, .Options$digits - 3), ...)
 {
   cat("\n", "Iterations = ", x$start, ":", x$end, "\n", sep = "")
   cat("Thinning interval =", x$thin, "\n")
   cat("Number of chains =", x$nchain, "\n")
-  cat("Sample size per chain =", (x$end - x$start)/x$thin + 
+  cat("Sample size per chain =", (x$end - x$start)/x$thin +
       1, "\n")
   cat("\n1. Empirical mean and standard deviation for each variable,")
   cat("\n   plus standard error of the mean:\n\n")
